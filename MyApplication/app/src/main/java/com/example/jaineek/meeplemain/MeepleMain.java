@@ -5,7 +5,7 @@ import android.os.Bundle;
 /**
  * @author Jaineek Parikh
  * @author Ananth Kuchibhotla
- * @author Rohan Upponi
+ * 
  */
 
 public class MeepleMain extends AppCompatActivity {
