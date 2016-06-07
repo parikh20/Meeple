@@ -4,10 +4,10 @@ import android.os.Bundle;
 
 /**
  * @author Jaineek Parikh
+ * @author Johnny Test
  * @author Ananth Kuchibhotla
- * change change change
+ * @author Rohan Upponi
  *
- * 
  */
 
 public class MeepleMain extends AppCompatActivity {
