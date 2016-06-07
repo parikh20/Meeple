@@ -13,7 +13,6 @@ import java.util.List;
 
 public class Account {
 
-    private static Context context;
     private String username;
     private String password;
     private String email;
@@ -22,12 +21,6 @@ public class Account {
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    // set the Account context to display Toasts on screen.
-    // this is called in MeepleMain onCreate to access MeepleMain activity context
-    public static void setContext(Context mainContext) {
-        context = mainContext;
     }
 
     /*GETTERS AND SETTERS*/
@@ -54,13 +47,8 @@ public class Account {
     }
 
     public void setEmail(String email) {
-        try {
-            assert email.contains("@"); //TODO: make a better email check
-            this.email = email;
-        } catch (AssertionError e) {
-            // makes popup message if invalid email is inputted
-            Toast.makeText(context, "Please enter a valid email", Toast.LENGTH_SHORT).show();
-        }
+        assert email.contains("@"); //TODO: make a better email check
+        this.email = email;
     }
 
     /*

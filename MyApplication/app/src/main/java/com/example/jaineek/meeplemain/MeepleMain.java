@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 /**
  * @author Jaineek Parikh
@@ -15,6 +16,5 @@ public class MeepleMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeple_main);
-        Account.setContext(MeepleMain.this);
     }
 }
