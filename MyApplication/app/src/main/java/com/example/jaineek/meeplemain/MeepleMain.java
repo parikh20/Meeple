@@ -15,5 +15,6 @@ public class MeepleMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeple_main);
+        Account.setContext(MeepleMain.this);
     }
 }
