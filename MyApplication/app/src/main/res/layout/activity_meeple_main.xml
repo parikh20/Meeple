@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="@string/new_name"
+            android:hint="@string/new_name"
             android:ems="10"
             android:id="@+id/editText_name" />
 
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textVisiblePassword"
-            android:text="@string/new_password"
+            android:hint="@string/new_password"
             android:ems="10"
             android:id="@+id/editText_password" />
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textVisiblePassword"
-            android:text="@string/new_confirm_password"
+            android:hint="@string/new_confirm_password"
             android:ems="10"
             android:id="@+id/editText_passwordConf" />
 
@@ -53,8 +53,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:text="@string/new_email_address"
+            android:hint="@string/new_email_address"
             android:ems="10"
             android:id="@+id/editText_email" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:ems="10"
+            android:id="@+id/register_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/have_account_message"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:ems="10"
+            android:id="@+id/register_login_button" />
     </LinearLayout>
+
+
+
+
 </LinearLayout>

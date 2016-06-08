@@ -3,15 +3,18 @@
     1. for newAccount activity: new_<attribute>
     2. for settings activity: settings_<attribute>
     -->
-    <string name="app_name">MeepleMain</string>
+    <string name="app_name">Meeple</string>
 
     <!-- newAccount activity -->
     <string name="new_invalid_email">Please enter a valid email</string>
-    <string name="new_account_message">Welcome to Meeple! Please complete the form below.</string>
+    <string name="new_account_message">Welcome to Meeple! If you don\'t have an account, please
+        register below.</string>
     <string name="new_name">Name</string>
     <string name="new_email_address">Email Address</string>
     <string name="new_password">Password</string>
     <string name="new_confirm_password">Confirm Password</string>
+    <string name="have_account_message">Already have an account? Login below!</string>
+    <string name="register">Register</string>
 
     <!-- settings activity -->
 
