@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +8,53 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jaineek.meeplemain.MeepleMain">
+    android:orientation="vertical"
+    tools:context="com.example.jaineek.meeplemain.MeepleMain"
+    android:weightSum="1">
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Switch Screens"
-        android:id="@+id/switchButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-</RelativeLayout>
+        android:text="@string/new_account_message"
+        android:textSize="@dimen/text_size_title"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/between_padding"
+        android:orientation="vertical" >
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/new_name"
+            android:ems="10"
+            android:id="@+id/editText_name" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textVisiblePassword"
+            android:text="@string/new_password"
+            android:ems="10"
+            android:id="@+id/editText_password" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textVisiblePassword"
+            android:text="@string/new_confirm_password"
+            android:ems="10"
+            android:id="@+id/editText_passwordConf" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="@string/new_email_address"
+            android:ems="10"
+            android:id="@+id/editText_email" />
+    </LinearLayout>
+</LinearLayout>
