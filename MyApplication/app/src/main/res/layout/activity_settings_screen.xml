@@ -7,13 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jaineek.meeplemain.MeepleMain">
+    tools:context="com.example.jaineek.meeplemain.SettingsScreen">
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Switch Screens"
-        android:id="@+id/switchButton"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="You have been switched"
+        android:id="@+id/switchConfirmation"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
