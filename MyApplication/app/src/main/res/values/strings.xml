@@ -1,16 +1,5 @@
 <resources>
-    <!-- Naming convention:
-    1. for newAccount activity: new_<attribute>
-    -->
     <string name="app_name">MeepleMain</string>
-
-    <!-- newAccount activity -->
-    <string name="new_invalid_email">Please enter a valid email</string>
-    <string name="new_account_message">Welcome to Meeple! Please complete the form below.</string>
-    <string name="new_name">Name</string>
-    <string name="new_email_address">Email Address</string>
-    <string name="new_password">Password</string>
-    <string name="new_confirm_password">Confirm Password</string>
-
-    <!-- other activities -->
+    <string name="invalid_email">Please enter a valid email</string>
+    <string name="switchButton">Switch</string>
 </resources>
