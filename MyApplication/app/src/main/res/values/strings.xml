@@ -6,6 +6,7 @@
     <string name="app_name">Meeple</string>
     <string name="register_title">Register</string>
     <string name="login">Login</string>
+    <string name="next">Next</string>
 
     <!-- newAccount activity -->
     <string name="new_invalid_email">Please enter a valid email</string>
@@ -13,6 +14,7 @@
         register below.</string>
     <string name="new_name">Name</string>
     <string name="new_email_address">Email Address</string>
+    <string name="new_confirm_email_address">Confirm Email Address</string>
     <string name="new_password">Password</string>
     <string name="new_confirm_password">Confirm Password</string>
     <string name="new_register">Register</string>
