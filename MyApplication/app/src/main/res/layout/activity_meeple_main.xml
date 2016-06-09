@@ -83,7 +83,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
+                android:text="@string/login_title"
                 android:ems="10"
                 android:id="@+id/register_login_button" />
         </LinearLayout>
