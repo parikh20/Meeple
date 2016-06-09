@@ -8,6 +8,6 @@
     <dimen name="text_size_normal">16dp</dimen>
 
     <dimen name="between_padding">20dp</dimen>
-    <dimen name="large_between_padding">40dp</dimen>
+    <dimen name="large_between_padding">45dp</dimen>
     <dimen name="small_between_padding">15dp</dimen>
 </resources>

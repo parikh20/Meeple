@@ -13,17 +13,26 @@ import java.util.List;
 
 public class Account {
 
+    private String name;
     private String username;
     private String password;
     private String email;
     private List<Integer> userPosts;   //TODO: consider using Stack instead
 
-    public Account(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public Account(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
     /*GETTERS AND SETTERS*/
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUsername() {
         return username;
