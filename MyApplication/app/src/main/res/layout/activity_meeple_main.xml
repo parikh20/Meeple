@@ -20,7 +20,7 @@
         android:textAlignment="center"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/between_padding"
         android:orientation="vertical" >
@@ -60,22 +60,34 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
+            android:text="@string/new_register"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/small_between_padding"
             android:ems="10"
-            android:id="@+id/register_button" />
+            android:id="@+id/new_register_button" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="@string/have_account_message"
-            android:textSize="@dimen/text_size_normal"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:ems="10"
-            android:id="@+id/register_login_button" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="@dimen/large_between_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="@string/have_account_message"
+                android:textSize="@dimen/text_size_normal"
+                android:textAlignment="center"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:ems="10"
+                android:id="@+id/register_login_button" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
