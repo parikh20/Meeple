@@ -3,6 +3,7 @@ package com.example.jaineek.meeplemain;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+//Johnny Test
 public class ActivitySettings extends AppCompatActivity {
 
     @Override
