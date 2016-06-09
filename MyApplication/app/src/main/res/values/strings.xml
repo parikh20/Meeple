@@ -15,7 +15,6 @@
     <string name="new_confirm_password">Confirm Password</string>
     <string name="new_register">Register</string>
     <!-- settings activity -->
-
     <!-- other activities -->
     <string name="login">Login</string>
     <string name="have_account_message">Already have an account? Login below!</string>
