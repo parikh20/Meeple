@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 /**
  * @author Jaineek Parikh
- * @author Johnny Test
  * @author Ananth Kuchibhotla
  * @author Rohan Upponi
  */
