@@ -68,14 +68,11 @@
                 android:text="@string/have_account_message"
                 android:textSize="@dimen/text_size_normal"
                 android:textAlignment="center"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_title"
-                android:ems="8"
-                android:id="@+id/register_login_button" />
+                android:clickable="true"
+                android:onClick="onClick" />
+
+
         </LinearLayout>
 
     </LinearLayout>
