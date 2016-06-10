@@ -43,7 +43,7 @@
             android:text="@string/dont_have_account_message"
             android:textSize="@dimen/text_size_normal"
             android:layout_marginTop="@dimen/small_between_padding"
-            android:onClick="onClick"
+            android:onClick="OnClick"
             android:clickable="true"
             android:id="@+id/dont_have_account_clickable" >
         </TextView>
