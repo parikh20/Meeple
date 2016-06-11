@@ -22,6 +22,10 @@
 
     <!-- settings activity -->
 
+    <string name="settings_title">Settings</string>
+    <string name="option_changepass">Change Password</string>
+    <string name="option_logout">Log Out</string>
+
     <!-- other activities -->
     <string name="login_title">Login</string>
     <string name="have_account_clickable">Already have an account? Login here!</string>
@@ -40,4 +44,5 @@
         completions."
     </string>
     <string name="dont_have_account_message">Don\'t have an account? Register here!</string>
+
 </resources>
