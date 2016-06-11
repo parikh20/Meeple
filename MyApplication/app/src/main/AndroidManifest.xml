@@ -25,7 +25,7 @@
 
         <activity
             android:name=".MeepleMain"
-            android:label="@string/new_register" >
+            android:label="@string/new_register">
         </activity>
         <activity
             android:name=".MeepleMain2"

@@ -24,7 +24,7 @@
 
     <!-- other activities -->
     <string name="login_title">Login</string>
-    <string name="have_account_message">Already have an account? Login below!</string>
+    <string name="have_account_clickable">Already have an account? Login here!</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

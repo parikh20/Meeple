@@ -22,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/between_padding"
+        android:paddingTop="@dimen/small_between_padding"
         android:orientation="vertical" >
 
         <EditText
@@ -49,33 +49,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="@dimen/between_padding">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/next"
-                android:layout_gravity="center"
-                android:drawableRight="@drawable/arrow_right"
-                android:ems="8"
-                android:id="@+id/next_button" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:text="@string/have_account_clickable"
                 android:textSize="@dimen/text_size_normal"
                 android:id="@+id/have_account_clickable"
-                android:layout_marginTop="@dimen/between_padding"
                 android:textAlignment="center"
+                android:layout_marginRight="@dimen/large_between_padding"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:onClick="onClick" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next"
+                android:textAlignment="center"
+                android:drawableRight="@drawable/arrow_right"
+                android:ems="8"
+                android:id="@+id/next_button" />
 
         </LinearLayout>
-
     </LinearLayout>
 
 
