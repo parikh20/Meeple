@@ -71,8 +71,7 @@
                 android:textAlignment="center"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:onClick="onClick"
-                android:id="@+id/to_login_text" />
+                android:onClick="onClick" />
 
         </LinearLayout>
     </LinearLayout>
