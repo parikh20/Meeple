@@ -23,8 +23,14 @@
     <!-- settings activity -->
 
     <string name="settings_title">Settings</string>
-    <string name="option_changepass">Change Password</string>
+    <string name="option_change_password">Change Password</string>
     <string name="option_logout">Log Out</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="option_change_username">Change Username</string>
+    <string name="option_change_email">Change Email</string>
+    <string name="change_email_desc">Change your email address</string>
+    <string name="change_username_desc">Change your username</string>
+    <string name="change_password_desc">Change your password</string>
 
     <!-- other activities -->
     <string name="login_title">Login</string>

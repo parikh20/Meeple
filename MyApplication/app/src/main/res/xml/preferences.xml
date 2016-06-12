@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/account_settings" >
+
+        <EditTextPreference
+            android:title="@string/option_change_email"
+            android:key="key_change_email"
+            android:summary="@string/change_email_desc" />
+
+        <EditTextPreference
+            android:title="@string/option_change_username"
+            android:key="key_change_username"
+            android:summary="@string/change_username_desc" />
+
+        <EditTextPreference
+            android:title="@string/option_change_password"
+            android:key="key_change_password"
+            android:summary="@string/change_password_desc" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
