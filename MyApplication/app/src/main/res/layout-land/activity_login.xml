@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="@string/new_name"
-            android:id="@+id/editText_login_name" />
+            android:hint="@string/new_username"
+            android:id="@+id/editText_login_username" />
 
         <EditText
             android:layout_width="match_parent"

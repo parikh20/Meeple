@@ -25,9 +25,6 @@
             android:name=".MeepleMain"
             android:label="@string/new_register"></activity>
         <activity
-            android:name=".MeepleMain2"
-            android:label="@string/new_register"></activity>
-        <activity
             android:name=".LoginActivity"
             android:label="@string/login_title">
             <intent-filter>

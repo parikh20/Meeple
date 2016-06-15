@@ -48,9 +48,7 @@ public class MeepleMain extends AppCompatActivity {
                     assert !mName.getText().toString().equals("");
                     assert !mEmailAddress.getText().toString().equals("");
                     assert !mConfirmEmailAddress.getText().toString().equals("");
-                    //creating intent to proceed to Register screen 2
-                    Intent changeToRegister2 = new Intent(v.getContext(), MeepleMain2.class);
-                    startActivity(changeToRegister2);
+
                 } catch (Exception e) {
                     //create a Toast to alert user of input problem
                     Toast.makeText(MeepleMain.this, e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -49,6 +49,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+
+    <string name="error_required">This field is required</string>
+    <string name="error_login_unsuccessful">Username or password is incorrect</string>
     <string name="dont_have_account_message">Don\'t have an account? Register here!</string>
 
 </resources>
