@@ -23,6 +23,12 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/between_padding"
         android:orientation="vertical" >
+        <EditText
+            android:id="@+id/register_username_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/new_username"/>
 
         <EditText
             android:id="@+id/register_email_editText"

@@ -1,5 +1,6 @@
 package com.example.jaineek.meeplemain;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -24,15 +25,18 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
 
-    // All Firebase member variables
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
     private TextView mDontHaveAccountClickable;
+    private TextView mForgotPasswordClickable;
     private Button mLoginButton;
+    private EditText mUsername;
     private EditText mEmailAddress;
     private EditText mPassword;
-    private TextView mForgotPasswordClickable;
+    private Context mContext;
+
+
+    // Declaring Firebase Variables
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,27 +66,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //creating an intent to change to register screen
-                Intent changeToRegister = new Intent(v.getContext(), MeepleMain.class);
-                startActivity(changeToRegister);
+                Intent changeToRegisterScreen = new Intent(v.getContext(), MeepleMain.class);
+                startActivity(changeToRegisterScreen);
+                finish();
             }
         });
 
-        //Initializing Buttons
-        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
-        mPassword = (EditText) findViewById(R.id.login_password_editText);
+
+
         mForgotPasswordClickable = (TextView) findViewById(R.id.login_forgot_password_clickable);
-
-
-        // Wiring Login button
-        mLoginButton = (Button) findViewById(R.id.login_button);
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Authenticate login credentials
-                authenticateUser();
-            }
-        });
-
 
         //Setting OnClickListener for Forgot Password Clickable
         mForgotPasswordClickable.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +83,22 @@ public class LoginActivity extends AppCompatActivity {
                 Intent toForgotPasswordActivity = new Intent(v.getContext(),
                         ForgotPasswordActivity.class);
                 startActivity(toForgotPasswordActivity);
+            }
+        });
+
+        //Initializing other variables
+        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+        mPassword = (EditText) findViewById(R.id.login_password_editText);
+
+        // Wiring Login button
+        mLoginButton = (Button) findViewById(R.id.login_button);
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Authenticate login credentials
+                mContext = v.getContext();
+                authenticateUser();
+
             }
         });
     }
@@ -116,8 +124,13 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 // Login successful!
-                                Intent changeToRegister = new Intent(LoginActivity.this, MeepleMain.class);
-                                startActivity(changeToRegister);
+                                Toast.makeText(mContext, "Username: " +
+                                        mAuth.getCurrentUser().getDisplayName(),
+                                        Toast.LENGTH_SHORT).show();
+                                //TODO: change this to real login
+//                                Intent changeToRegister = new Intent(LoginActivity.this,
+//                                          MeepleMain.class);
+//                                startActivity(changeToRegister);
                             }
                         }
                     });
@@ -125,11 +138,11 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Login tried with null entries");
             // If Email Address and Password are null entries
             if (TextUtils.isEmpty(email)) {
-            mEmailAddress.setError(getString(R.string.error_required));
+            mEmailAddress.setError(getString(R.string.error_field_required));
             }
 
             if (TextUtils.isEmpty(password)) {
-                mPassword.setError(getString(R.string.error_required));
+                mPassword.setError(getString(R.string.error_field_required));
             }
         }
     }

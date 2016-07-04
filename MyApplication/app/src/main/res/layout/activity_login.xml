@@ -40,6 +40,17 @@
              android:layout_height="wrap_content" />
 
          <TextView
+             android:id="@+id/login_forgot_password_clickable"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:text="@string/forgot_password"
+             android:textSize="@dimen/text_size_normal"
+             android:layout_marginTop="@dimen/small_between_padding"
+             android:onClick="OnClick"
+             android:clickable="true"/>
+
+         <TextView
              android:id="@+id/login_dont_have_account_clickable"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -50,15 +61,6 @@
              android:onClick="onClick"
              android:clickable="true" />
 
-         <TextView
-             android:id="@+id/login_forgot_password_clickable"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center"
-             android:text="@string/forgot_password"
-             android:textSize="@dimen/text_size_normal"
-             android:layout_marginTop="@dimen/small_between_padding"
-             android:onClick="OnClick"
-             android:clickable="true"/>
+
      </LinearLayout>
 </LinearLayout>
