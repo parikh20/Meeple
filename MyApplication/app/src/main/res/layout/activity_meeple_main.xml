@@ -28,7 +28,7 @@
             android:id="@+id/register_email_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:hint="@string/new_email_address" />
 
         <EditText
@@ -53,7 +53,7 @@
             android:ems="8"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/between_padding"
-            android:drawableRight="@drawable/arrow_right" />
+            android:drawableEnd="@drawable/arrow_right" />
 
         <TextView
             android:id="@+id/register_have_account_clickable"

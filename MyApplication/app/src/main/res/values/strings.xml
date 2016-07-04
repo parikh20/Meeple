@@ -38,7 +38,9 @@
     <string name="error_required">This field is required</string>
     <string name="error_login_unsuccessful">Username or password is incorrect</string>
     <string name="dont_have_account_message">Don\'t have an account? Register here!</string>
+    <string name="forgot_password">Forgot your password? Click here!</string>
 
-    <!-- other activities -->
+    <!-- Forgot Password Activity -->
+    <string name="send_email_forgot_password">Send Email</string>
 
 </resources>

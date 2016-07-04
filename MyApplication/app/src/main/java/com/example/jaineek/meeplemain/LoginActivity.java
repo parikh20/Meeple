@@ -26,13 +26,13 @@ public class LoginActivity extends AppCompatActivity {
 
     // All Firebase member variables
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private TextView mDontHaveAccountClickable;
     private Button mLoginButton;
     private EditText mEmailAddress;
     private EditText mPassword;
+    private TextView mForgotPasswordClickable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Initializing Buttons
         mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
         mPassword = (EditText) findViewById(R.id.login_password_editText);
+        mForgotPasswordClickable = (TextView) findViewById(R.id.login_forgot_password_clickable);
+
 
         // Wiring Login button
         mLoginButton = (Button) findViewById(R.id.login_button);
@@ -77,6 +80,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Authenticate login credentials
                 authenticateUser();
+            }
+        });
+
+
+        //Setting OnClickListener for Forgot Password Clickable
+        mForgotPasswordClickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toForgotPasswordActivity = new Intent(v.getContext(),
+                        ForgotPasswordActivity.class);
+                startActivity(toForgotPasswordActivity);
             }
         });
     }

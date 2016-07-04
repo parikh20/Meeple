@@ -14,7 +14,7 @@
         android:id="@+id/login_email_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:hint="@string/new_email_address" />
 
      <EditText
