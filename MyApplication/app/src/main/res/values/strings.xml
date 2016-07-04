@@ -21,7 +21,6 @@
     <string name="new_username">Username</string>
 
     <!-- settings activity -->
-
     <string name="settings_title">Settings</string>
     <string name="option_change_password">Change Password</string>
     <string name="option_logout">Log Out</string>
@@ -32,27 +31,14 @@
     <string name="change_username_desc">Change your username</string>
     <string name="change_password_desc">Change your password</string>
 
-    <!-- other activities -->
+    <!-- Strings related to login -->
     <string name="login_title">Login</string>
     <string name="have_account_clickable">Already have an account? Login here!</string>
-    <string name="title_activity_login">Sign in</string>
-
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-
-
+    <string name="title_activity_login">Login</string>
     <string name="error_required">This field is required</string>
     <string name="error_login_unsuccessful">Username or password is incorrect</string>
     <string name="dont_have_account_message">Don\'t have an account? Register here!</string>
+
+    <!-- other activities -->
 
 </resources>

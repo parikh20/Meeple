@@ -11,55 +11,61 @@
     tools:context="com.example.jaineek.meeplemain.MeepleMain"
     android:orientation="vertical">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/new_account_message"
-    android:textSize="@dimen/text_size_title"
-    android:textAlignment="center"/>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/between_padding"
-    android:orientation="vertical" >
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="@string/new_username"
-        android:id="@+id/editText_username" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textVisiblePassword"
-        android:hint="@string/new_password"
-        android:id="@+id/editText_password" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register_title"
-        android:ems="8"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/between_padding"
-        android:drawableRight="@drawable/arrow_right"
-        android:id="@+id/register_button"/>
-
     <TextView
         android:layout_width="wrap_content"
-        android:text="@string/have_account_clickable"
-        android:textSize="@dimen/text_size_normal"
-        android:id="@+id/have_account_clickable"
-        android:layout_marginTop="@dimen/between_padding"
-        android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_gravity="center"
-        android:onClick="onClick" />
+        android:text="@string/new_account_message"
+        android:textSize="@dimen/text_size_title"
+        android:textAlignment="center"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/between_padding"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/register_email_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/new_email_address" />
+
+        <EditText
+            android:id="@+id/register_password_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/new_password" />
+
+        <EditText
+            android:id="@+id/register_confirm_password_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/new_confirm_password" />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_title"
+            android:ems="8"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/between_padding"
+            android:drawableRight="@drawable/arrow_right" />
+
+        <TextView
+            android:id="@+id/register_have_account_clickable"
+            android:layout_width="wrap_content"
+            android:text="@string/have_account_clickable"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_marginTop="@dimen/between_padding"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:onClick="onClick" />
+        </LinearLayout>
 </LinearLayout>
 

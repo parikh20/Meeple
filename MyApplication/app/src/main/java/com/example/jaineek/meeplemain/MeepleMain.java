@@ -16,20 +16,20 @@ import android.widget.Toast;
 
 public class MeepleMain extends AppCompatActivity {
 
-    private TextView mLoginClick;   // m prefix indicates a member object
-    private Button mNextButton;
-    private EditText mName;
+    private TextView mHaveAccountClickable;
+    private Button mRegisterButton;
     private EditText mEmailAddress;
-    private EditText mConfirmEmailAddress;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeple_main);
 
-        mLoginClick = (TextView) findViewById(R.id.have_account_clickable);
+        mHaveAccountClickable = (TextView) findViewById(R.id.register_have_account_clickable);
         //setting onClickListener for have account clickable
-        mLoginClick.setOnClickListener(new View.OnClickListener() {
+        mHaveAccountClickable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //creating an intent to change back to Login screen
@@ -38,28 +38,27 @@ public class MeepleMain extends AppCompatActivity {
             }
         });
 
-        mNextButton = (Button) findViewById(R.id.next_button);
+        mRegisterButton = (Button) findViewById(R.id.register_button);
         //setting onClickListener for Next Button
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    // check that all fields were filled out
-                    assert !mName.getText().toString().equals("");
-                    assert !mEmailAddress.getText().toString().equals("");
-                    assert !mConfirmEmailAddress.getText().toString().equals("");
-
-                } catch (Exception e) {
-                    //create a Toast to alert user of input problem
-                    Toast.makeText(MeepleMain.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    // check that all fields were filled out
+//                    assert !mName.getText().toString().equals("");
+//                    assert !mEmailAddress.getText().toString().equals("");
+//                    assert !mConfirmPassword.getText().toString().equals("");
+//
+//                } catch (Exception e) {
+//                    //create a Toast to alert user of input problem
+//                    Toast.makeText(MeepleMain.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         /* DECLARING ALL INPUT EDITTEXT FIELDS */
-
-        mName = (EditText) findViewById(R.id.editText_name);
-        mEmailAddress = (EditText) findViewById(R.id.editText_email);
-        mConfirmEmailAddress = (EditText) findViewById(R.id.editText_confirm_email);
+        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+        mPassword = (EditText) findViewById(R.id.register_password_editText);
+        mConfirmPassword = (EditText) findViewById(R.id.register_confirm_password_editText);
     }
 }

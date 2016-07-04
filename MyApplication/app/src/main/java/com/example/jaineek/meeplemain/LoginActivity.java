@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,18 +20,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
 
-    // all Firebase member variables
+    // All Firebase member variables
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
-    // m prefix indicates a member object
-    private TextView mCreateAccountClick;
+    private TextView mDontHaveAccountClickable;
     private Button mLoginButton;
-    private EditText mUsername;
+    private EditText mEmailAddress;
     private EditText mPassword;
 
     @Override
@@ -38,126 +39,84 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mCreateAccountClick = (TextView) findViewById(R.id.dont_have_account_clickable);
-
-        //setting onClickListener for create new account clickable
-        mCreateAccountClick.setOnClickListener(new View.OnClickListener() {
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onClick(View v) {
-                //creating an intent to change to register screen 1
-                Intent changeToRegister1 = new Intent(v.getContext(), MeepleMain.class);
-                startActivity(changeToRegister1);
-            }
-        });
-
-        //declaring EditTexts member variables
-        mUsername = (EditText) findViewById(R.id.editText_login_username);
-
-        mPassword = (EditText) findViewById(R.id.editText_login_password);
-
-        //wiring login button
-        mLoginButton = (Button) findViewById(R.id.login_button);
-        mLoginButton.setOnClickListener(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        //Check auth on Activity start
-        if (mAuth.getCurrentUser() != null) {
-            onAuthSuccess(mAuth.getCurrentUser());
-        }
-    }
-
-    private void logIn() {
-        Log.d(TAG, "logIn");
-        //validates email and password
-        if (!validateForm()) {
-            return;
-        }
-
-//        showProgressDialogue();
-
-        String username = mUsername.getText().toString();
-        String password = mPassword.getText().toString();
-
-        mAuth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(TAG, "logIn successful");
-//                hideProgressDialogue();
-
-                if (task.isSuccessful()) {
-                    onAuthSuccess(task.getResult().getUser());
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
-                    Toast.makeText(LoginActivity.this, R.string.error_login_unsuccessful,
-                            Toast.LENGTH_SHORT).show();
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
+        };
+        mAuth.addAuthStateListener(mAuthListener);
+
+        mDontHaveAccountClickable = (TextView) findViewById(R.id.login_dont_have_account_clickable);
+
+        // Setting onClickListener for create new account clickable
+        mDontHaveAccountClickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //creating an intent to change to register screen
+                Intent changeToRegister = new Intent(v.getContext(), MeepleMain.class);
+                startActivity(changeToRegister);
+            }
+        });
+
+        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+        mPassword = (EditText) findViewById(R.id.login_password_editText);
+
+        // Wiring Login button
+        mLoginButton = (Button) findViewById(R.id.login_button);
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Authenticate login credentials
+                authenticateUser();
+            }
         });
     }
 
-    //executes on authentication success
-    private void onAuthSuccess(FirebaseUser user) {
-        String username = usernameFromEmail(user.getEmail());
+    public void authenticateUser() {
+        // Attempts to login user with entered Email Address and Password
+        String email = mEmailAddress.getText().toString();
+        String password = mPassword.getText().toString();
 
-        writeNewUser(user.getUid(), username, user.getEmail());
+        try {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
-        //TODO: start main activity
-        // startActivity(new Intent(LoginActivity.this, MainActivity.class);
-        finish();
-    }
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "signInWithEmail", task.getException());
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Login successful!
+                                Intent changeToRegister = new Intent(LoginActivity.this, MeepleMain.class);
+                                startActivity(changeToRegister);
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            Log.d(TAG, "Login tried with null entries");
+            // If Email Address and Password are null entries
+            if (TextUtils.isEmpty(email)) {
+            mEmailAddress.setError(getString(R.string.error_required));
+            }
 
-    private String usernameFromEmail(String email) {
-        if (email.contains("@")) {
-            return email.split("@")[0];
-        } else {
-            return email;
-        }
-    }
-
-    private boolean validateForm() {
-        boolean result = true;
-
-        //checks if username field is empty
-        if (!TextUtils.isEmpty(mUsername.getText().toString())) {
-            mUsername.setError("This field is required");
-            result = false;
-        } else {
-            mUsername.setError(null);
-        }
-
-        //checks if password field is empty
-        if (!TextUtils.isEmpty(mPassword.getText().toString())) {
-            mPassword.setError("This field is required");
-            result = false;
-        } else {
-            mPassword.setError(null);
-        }
-
-        return result;
-    }
-
-    private void writeNewUser(String userId, String name, String email) {
-        Account account = new Account(name, email);
-
-        mDatabase.child("users").child(userId).setValue(account);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.login_button:
-                logIn();
-                break;
-
-            case R.id.dont_have_account_clickable:
-                //TODO: intent into register page
-                startActivity(new Intent(LoginActivity.this, MeepleMain.class));
-                finish();
-                break;
+            if (TextUtils.isEmpty(password)) {
+                mPassword.setError(getString(R.string.error_required));
+            }
         }
     }
 }
