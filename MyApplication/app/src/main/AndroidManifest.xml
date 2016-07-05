@@ -16,7 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
         <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -24,20 +24,25 @@
 
         <activity
             android:name=".MeepleMain"
-            android:label="@string/new_register" />
+            android:label="@string/new_register"
+            android:configChanges="orientation|screenLayout" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/login_title">
+            android:label="@string/login_title"
+            android:configChanges="orientation|screenLayout" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="orientation|screenLayout"/>
         <activity
             android:name=".ForgotPasswordActivity"
-            android:label="Recover your Password"/>
+            android:label="Recover your Password"
+            android:configChanges="orientation|screenLayout"/>
     </application>
 
 </manifest>

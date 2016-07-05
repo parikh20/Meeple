@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1"
     tools:context="com.example.jaineek.meeplemain.LoginActivity" >
 
     <EditText
@@ -51,7 +52,7 @@
             android:clickable="true"/>
 
         <TextView
-            android:id="@+id/dont_have_account_clickable"
+            android:id="@+id/login_dont_have_account_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
