@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.phenotype.Configuration;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mDontHaveAccountClickable;
     private TextView mForgotPasswordClickable;
     private Button mLoginButton;
+    private SignInButton mGoogleSignInButton;
     private EditText mUsername;
     private EditText mEmailAddress;
     private EditText mPassword;
@@ -87,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         //Initializing other variables
         mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
         mPassword = (EditText) findViewById(R.id.login_password_editText);
@@ -99,6 +102,17 @@ public class LoginActivity extends AppCompatActivity {
                 // Authenticate login credentials
                 mContext = v.getContext();
                 authenticateUser();
+
+            }
+        });
+
+        mGoogleSignInButton = (SignInButton) findViewById(R.id.login_google_signin_button);
+        mGoogleSignInButton.setSize(SignInButton.SIZE_STANDARD);
+
+        //Setting OnClickListener for Google Signin Button
+        mGoogleSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

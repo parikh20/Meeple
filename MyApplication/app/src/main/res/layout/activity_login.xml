@@ -36,8 +36,15 @@
              android:layout_width="wrap_content"
              android:text="@string/login_title"
              android:layout_gravity="center"
-             android:ems="8"
+             android:ems="7"
              android:layout_height="wrap_content" />
+
+         <com.google.android.gms.common.SignInButton
+             android:id="@+id/login_google_signin_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="@dimen/small_between_padding" />
 
          <TextView
              android:id="@+id/login_forgot_password_clickable"

@@ -146,9 +146,7 @@ public class MeepleMain extends AppCompatActivity {
 
         // Create request to change profile
         UserProfileChangeRequest profileUpdates =
-                new UserProfileChangeRequest.Builder()
-                        .setDisplayName(newUsername)
-                        .build();
+                new UserProfileChangeRequest.Builder().setDisplayName(newUsername).build();
 
         // Change profile and check if successful
         user.updateProfile(profileUpdates).addOnCompleteListener(
