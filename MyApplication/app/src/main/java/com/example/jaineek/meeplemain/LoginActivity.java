@@ -116,6 +116,9 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
+                            String email = mEmailAddress.getText().toString();
+                            String password = mPassword.getText().toString();
+
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
@@ -126,15 +129,17 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // Login successful!
                                 Toast.makeText(mContext, "Username: " +
-                                        mAuth.getCurrentUser().getDisplayName(),
+                                        mAuth.getCurrentUser().getDisplayName() + " " +
+                                        mAuth.getCurrentUser().getEmail(),
                                         Toast.LENGTH_SHORT).show();
-                                //TODO: change this to real login
+                                // TODO: change this to real login
 //                                Intent changeToRegister = new Intent(LoginActivity.this,
 //                                          MeepleMain.class);
 //                                startActivity(changeToRegister);
                             }
                         }
                     });
+
         } catch (Exception e) {
             Log.d(TAG, "Login tried with null entries");
             // If Email Address and Password are null entries

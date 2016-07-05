@@ -29,7 +29,7 @@
          android:layout_height="wrap_content"
          android:orientation="vertical"
          android:gravity="center"
-         android:paddingTop="@dimen/between_padding" >
+         android:layout_marginTop="@dimen/between_padding" >
 
          <Button
              android:id="@+id/login_button"

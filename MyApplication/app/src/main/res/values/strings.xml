@@ -50,5 +50,6 @@
     <string name="error_invalid_email">Please enter a valid email.</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_login_unsuccessful">Username or password is incorrect</string>
+    <string name="error_password_too_short">The password must be at least 6 characters long!</string>
 
 </resources>

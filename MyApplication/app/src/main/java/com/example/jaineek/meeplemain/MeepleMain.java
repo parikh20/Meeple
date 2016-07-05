@@ -81,7 +81,8 @@ public class MeepleMain extends AppCompatActivity {
 
     // Reigster user if fields in form are correct
     public void registerUser() {
-        final String username = mUsername.getText().toString();
+
+        String username = mUsername.getText().toString();
         String email = mEmailAddress.getText().toString();
         String password = mPassword.getText().toString();
         String passwordConfirm = mConfirmPassword.getText().toString();
@@ -97,11 +98,20 @@ public class MeepleMain extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "registerUser:onComplete: successful");
 
+                            String username = mUsername.getText().toString();
+                            String email = mEmailAddress.getText().toString();
+                            String password = mPassword.getText().toString();
+
                             //If Register is successful, take user to LoginActivity
                             if (task.isSuccessful()) {
-                                // Get new user and set Username
+
+                                // Sign in so getCurrentUser works
+                                mAuth.signInWithEmailAndPassword(email, password);
+
+                                // Get new user, set Username, signOut
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUsername(user, username);
+                                mAuth.signOut();
 
                                 // Change to Login screen
                                 // TODO: create a private intent function to change activities
@@ -109,13 +119,26 @@ public class MeepleMain extends AppCompatActivity {
                                 startActivity(toLoginActivity);
                                 finish();
                             } else {
-                                // Error: account w/ this email already exists
-                                Toast.makeText(MeepleMain.this,
-                                        getString(R.string.error_email_already_exists),
-                                        Toast.LENGTH_SHORT).show();
+                                // Display proper registration error
+                                checkRegistrationError(email, password);
                             }
                         }
                     });
+        }
+    }
+
+    public void checkRegistrationError(String email, String password) {
+        // Error: Password too short
+        if (password.length() < 6) {
+            Toast.makeText(MeepleMain.this, getString(R.string
+                    .error_password_too_short), Toast.LENGTH_SHORT).show();
+        }
+        // Error: Account w/ this email already exists
+        else {
+
+            Toast.makeText(MeepleMain.this,
+                    getString(R.string.error_email_already_exists),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
