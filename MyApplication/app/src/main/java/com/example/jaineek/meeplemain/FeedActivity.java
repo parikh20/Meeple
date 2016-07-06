@@ -27,7 +27,7 @@ public class FeedActivity extends AppCompatActivity {
 
         // Set up Tabs
         mActionBar = getSupportActionBar();
-        ActionBar.Tab
+
 
         // Support fragments require getSupportFragmentManager
         FragmentManager fm = getSupportFragmentManager();
