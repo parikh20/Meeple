@@ -44,6 +44,9 @@ public class LoginActivity extends FragmentActivity implements
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
 
+    // TODO: DELETE THIS
+    private Button mTestButton;
+
     //Final static variables
     private static final int RC_SIGN_IN = 9001;
 
@@ -138,6 +141,15 @@ public class LoginActivity extends FragmentActivity implements
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        mTestButton = (Button) findViewById(R.id.test_button);
+        mTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

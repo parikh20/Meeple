@@ -17,15 +17,28 @@ public class FeedActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        // Find mViewPager
+        mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
 
         // Support fragments require getSupportFragmentManager
-        mPagerAdapter = new MeepleFragmentPagerAdapter(
-                getSupportFragmentManager());
+        FragmentManager fm = getSupportFragmentManager();
+
+        // Create all Fragments
+        LocalFeedFragment localFeedFragment = new LocalFeedFragment();
+        MapFragment mapFragment = new MapFragment();
+
+        // Add Fragments to fm in order: LocalFeed, Map,
+        fm.beginTransaction().add(R.id.viewPager_activity_feed, localFeedFragment)
+                .add(R.id.viewPager_activity_feed, mapFragment);
+
+        mPagerAdapter = new MeepleFragmentPagerAdapter(fm);
+
+        mViewPager.setAdapter(mPagerAdapter);
 
     }
 
     private class MeepleFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+        // TODO: CHANGE ALL OF THIS SHIT
 
         private FragmentManager fragmentManager;
 
@@ -37,13 +50,13 @@ public class FeedActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int i) {
             // Returns Fragment at position i in FragmentManager
-            return fragmentManager.getFragments().get(i);
+            return new MapFragment();
         }
 
         @Override
         public int getCount() {
             // Returns number of pages in viewPager
-            return fragmentManager.getFragments().size();
+            return 2;
         }
     }
 }

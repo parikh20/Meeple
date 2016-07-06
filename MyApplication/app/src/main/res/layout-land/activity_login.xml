@@ -74,5 +74,13 @@
             android:onClick="onClick"
             android:clickable="true" />
 
+        <Button
+            android:id="@+id/test_button"
+            android:layout_width="wrap_content"
+            android:text="@string/testing"
+            android:ems="7"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/between_padding"/>
+
     </LinearLayout>
 </LinearLayout>
