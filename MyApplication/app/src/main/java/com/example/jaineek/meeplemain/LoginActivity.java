@@ -86,7 +86,6 @@ public class LoginActivity extends AppCompatActivity implements
                 //creating an intent to change to register screen
                 Intent changeToRegisterScreen = new Intent(v.getContext(), MeepleMain.class);
                 startActivity(changeToRegisterScreen);
-                finish();
             }
         });
 
