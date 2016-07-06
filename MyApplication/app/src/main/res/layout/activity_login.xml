@@ -43,7 +43,7 @@
                  android:text="@string/login_title"
                  android:ems="7"
                  android:layout_height="wrap_content"
-                 android:layout_marginRight="@dimen/between_padding"/>
+                 android:layout_marginEnd="@dimen/between_padding"/>
 
              <com.google.android.gms.common.SignInButton
                  android:id="@+id/login_google_signin_button"
