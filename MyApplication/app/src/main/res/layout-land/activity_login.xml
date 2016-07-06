@@ -32,20 +32,25 @@
         android:gravity="center"
         android:paddingTop="@dimen/between_padding" >
 
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:text="@string/login_title"
-            android:layout_gravity="center"
-            android:ems="7"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/login_google_signin_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/small_between_padding" />
+            android:orientation="horizontal"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:text="@string/login_title"
+                android:ems="7"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/between_padding"/>
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/login_google_signin_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/login_forgot_password_clickable"
@@ -54,7 +59,7 @@
             android:layout_gravity="center"
             android:text="@string/forgot_password"
             android:textSize="@dimen/text_size_normal"
-            android:layout_marginTop="@dimen/small_between_padding"
+            android:layout_marginTop="@dimen/between_padding"
             android:onClick="OnClick"
             android:clickable="true"/>
 
