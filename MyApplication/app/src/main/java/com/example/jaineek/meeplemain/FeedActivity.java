@@ -1,5 +1,6 @@
 package com.example.jaineek.meeplemain;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,8 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +29,8 @@ public class FeedActivity extends AppCompatActivity {
     ActionBar mActionBar;
     List<MeepleFragment> mFragmentList;
     PagerTabStrip mPagerTabStrip;
+    final static String TAG = "FeedActivity";
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,5 +108,28 @@ public class FeedActivity extends AppCompatActivity {
 
         inflater.inflate(R.menu.actionbar, menu);
         return super.onCreateOptionsMenu(menu);
+}
+
+    public void logout() {
+        FirebaseAuth.getInstance().signOut();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                logout();
+                Log.d(TAG, "logout");
+                return true;
+            case R.id.settings:
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                Intent toSettingsActivity = new Intent(FeedActivity.this, SettingsActivity.class);
+                startActivity(toSettingsActivity);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
