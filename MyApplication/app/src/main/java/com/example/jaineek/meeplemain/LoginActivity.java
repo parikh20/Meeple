@@ -25,6 +25,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.GoogleAuthProvider;
+
+
 
 public class LoginActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -125,7 +129,9 @@ public class LoginActivity extends FragmentActivity implements GoogleApiClient.O
 
         //Requesting Google Sign in information
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().build();
+                .requestIdToken(getString(R.string.login_id_token))
+                .requestEmail()
+                .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -149,9 +155,7 @@ public class LoginActivity extends FragmentActivity implements GoogleApiClient.O
                             String email = mEmailAddress.getText().toString();
                             String password = mPassword.getText().toString();
 
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
+                            // If sign in fails, display a message to the user.
                             if (!task.isSuccessful()) {
                                 Log.w(TAG, "signInWithEmail", task.getException());
                                 Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -162,7 +166,7 @@ public class LoginActivity extends FragmentActivity implements GoogleApiClient.O
                                                 mAuth.getCurrentUser().getDisplayName() + " " +
                                                 mAuth.getCurrentUser().getEmail(),
                                         Toast.LENGTH_SHORT).show();
-                                // TODO: change this to real login
+                                // TODO: change this to feed
 //                                Intent changeToRegister = new Intent(LoginActivity.this,
 //                                          MeepleMain.class);
 //                                startActivity(changeToRegister);
@@ -193,9 +197,14 @@ public class LoginActivity extends FragmentActivity implements GoogleApiClient.O
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from Google sign in;
+        // Result returned from launching the Google Sign in Intent
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            }
         }
     }
 
@@ -204,6 +213,24 @@ public class LoginActivity extends FragmentActivity implements GoogleApiClient.O
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // The connection failed
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                        }
+                    }
+                });
     }
 
 }
