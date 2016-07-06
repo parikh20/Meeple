@@ -68,5 +68,6 @@
     <string name="test_map">Map Fragment</string>
     <string name="test_local_feed">Local Feed Fragment</string>
     <string name="test_swiping">Test Swiping</string>
+    <string name="three_dots">three dots</string>
 
 </resources>

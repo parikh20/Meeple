@@ -41,4 +41,5 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         // returns Title of fragment
         return title_local_feed_fragment;
     }
+
 }
