@@ -60,7 +60,7 @@
              android:textSize="@dimen/text_size_normal"
              android:layout_marginTop="@dimen/between_padding"
              android:onClick="OnClick"
-             android:clickable="true"/>
+             android:clickable="true" />
 
          <TextView
              android:id="@+id/login_dont_have_account_clickable"

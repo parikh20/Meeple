@@ -43,6 +43,8 @@
     <!-- Forgot Password Activity -->
     <string name="send_email_forgot_password">Send Email</string>
     <string name="toast_recovery_email">Recover Email Sent!</string>
+    <string name="forgot_password_send_confirmation_email"
+        >"Forgot your password? Send a confirmation email to change it!"</string>
 
 
     <!-- Errors -->

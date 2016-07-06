@@ -30,7 +30,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 
 
-public class LoginActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends FragmentActivity implements
+        GoogleApiClient.OnConnectionFailedListener {
 
     public static final String TAG = "LoginActivity";
 
