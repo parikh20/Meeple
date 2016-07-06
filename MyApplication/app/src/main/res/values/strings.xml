@@ -29,6 +29,18 @@
     <string name="forgot_password">Forgot your password? Click here!</string>
     <string name="have_google_account_clickable">Have a Google account? Login here!</string>
 
+    <!-- Forgot Password Activity -->
+    <string name="send_email_forgot_password">Send Email</string>
+    <string name="toast_recovery_email">Recover Email Sent!</string>
+    <string name="forgot_password_send_confirmation_email"
+        >"Forgot your password? Send a confirmation email to change it!"</string>
+
+    <!-- Local Feed Fragment -->
+    <string name="title_local_feed_fragment">Local Feed</string>
+
+    <!-- Local Feed Fragment -->
+    <string name="title_map_fragment">Your Location</string>
+
     <!-- Settings activity -->
     <string name="settings_title">Settings</string>
     <string name="option_change_password">Change Password</string>
@@ -40,11 +52,7 @@
     <string name="change_username_desc">Change your username</string>
     <string name="change_password_desc">Change your password</string>
 
-    <!-- Forgot Password Activity -->
-    <string name="send_email_forgot_password">Send Email</string>
-    <string name="toast_recovery_email">Recover Email Sent!</string>
-    <string name="forgot_password_send_confirmation_email"
-        >"Forgot your password? Send a confirmation email to change it!"</string>
+
 
 
     <!-- Errors -->

@@ -10,12 +10,17 @@ import android.view.ViewGroup;
  * Created by Krishnak97 on 7/5/2016.
  */
 
-public class LocalFeedFragment extends Fragment {
+public class LocalFeedFragment extends Fragment implements MeepleFragment{
+
+    public static final String TAG_LOCAL_FEED = "FRAGMENT_LOCAL_FEED";
+    public static String title_local_feed_fragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        title_local_feed_fragment = getString(
+                R.string.title_local_feed_fragment);
         // Save all instance information
 
     }
@@ -23,10 +28,17 @@ public class LocalFeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_local_feed, container, false);
+
 
         // Declare all mVariables
 
         return v;
+    }
+
+    public String getTitle() {
+        // returns Title of fragment
+        return title_local_feed_fragment;
     }
 }
