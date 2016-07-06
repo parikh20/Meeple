@@ -2,9 +2,8 @@ package com.example.jaineek.meeplemain;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,16 +13,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.phenotype.Configuration;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     public static final String TAG = "LoginActivity";
 
@@ -31,10 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mForgotPasswordClickable;
     private Button mLoginButton;
     private SignInButton mGoogleSignInButton;
-    private EditText mUsername;
     private EditText mEmailAddress;
     private EditText mPassword;
     private Context mContext;
+    private GoogleApiClient mGoogleApiClient;
+
+    //Final static variables
+    private static final int RC_SIGN_IN = 9001;
 
 
     // Declaring Firebase Variables
@@ -76,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         mForgotPasswordClickable = (TextView) findViewById(R.id.login_forgot_password_clickable);
 
         //Setting OnClickListener for Forgot Password Clickable
@@ -113,9 +118,20 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                signIn();
             }
         });
+
+
+        //Requesting Google Sign in information
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
     }
 
     public void authenticateUser() {
@@ -143,8 +159,8 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // Login successful!
                                 Toast.makeText(mContext, "Username: " +
-                                        mAuth.getCurrentUser().getDisplayName() + " " +
-                                        mAuth.getCurrentUser().getEmail(),
+                                                mAuth.getCurrentUser().getDisplayName() + " " +
+                                                mAuth.getCurrentUser().getEmail(),
                                         Toast.LENGTH_SHORT).show();
                                 // TODO: change this to real login
 //                                Intent changeToRegister = new Intent(LoginActivity.this,
@@ -158,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Login tried with null entries");
             // If Email Address and Password are null entries
             if (TextUtils.isEmpty(email)) {
-            mEmailAddress.setError(getString(R.string.error_field_required));
+                mEmailAddress.setError(getString(R.string.error_field_required));
             }
 
             if (TextUtils.isEmpty(password)) {
@@ -166,6 +182,28 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from Google sign in;
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+        }
+    }
+
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // The connection failed
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
 
 }
