@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,7 @@ public class FeedActivity extends AppCompatActivity {
     ViewPager mViewPager;
     ActionBar mActionBar;
     List<MeepleFragment> mFragmentList;
+    PagerTabStrip mPagerTabStrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
+        mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_tab_strip_toolbar);
 
         // Set up Tabs
         mActionBar = getSupportActionBar();
@@ -80,7 +84,15 @@ public class FeedActivity extends AppCompatActivity {
             // Returns number of pages in viewPager
             return mFragmentList.size();
         }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            // Returns Fragment title at position
+            MeepleFragment currentFragment = mFragmentList.get(position);
+            return currentFragment.getTitle();
+        }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

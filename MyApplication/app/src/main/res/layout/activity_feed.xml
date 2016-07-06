@@ -10,7 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.jaineek.meeplemain.FeedActivity">
+
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pager_tab_strip_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="@dimen/text_size_tabs"
+            android:padding="@dimen/tab_padding">
+        </android.support.v4.view.PagerTabStrip>
     </android.support.v4.view.ViewPager>
-
-
 </LinearLayout>
