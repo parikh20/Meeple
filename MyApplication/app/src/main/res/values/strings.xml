@@ -57,6 +57,8 @@
 
     <!-- Other -->
     <string name="login_id_token">785497003186-vmck9mce8a77qju1ilq1sci0cjeg9guu.apps.googleusercontent.com</string>
-    <string name="testing">TEST TEST TEST</string>
-    <string name="testing2">TEST TEST TEST 2</string>
+    <string name="test_map">Map Fragment</string>
+    <string name="test_local_feed">Local Feed Fragment</string>
+    <string name="test_swiping">Test Swiping</string>
+
 </resources>

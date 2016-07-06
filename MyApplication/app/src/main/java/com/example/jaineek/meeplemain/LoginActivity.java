@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 
 
-public class LoginActivity extends FragmentActivity implements
+public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     public static final String TAG = "LoginActivity";
