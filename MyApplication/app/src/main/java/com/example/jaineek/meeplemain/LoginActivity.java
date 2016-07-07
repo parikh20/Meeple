@@ -152,9 +152,6 @@ public class LoginActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     public void authenticateUser() {

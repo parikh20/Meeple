@@ -22,7 +22,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         title_local_feed_fragment = getString(
                 R.string.title_local_feed_fragment);
         // Save all instance information
-
     }
 
     @Override

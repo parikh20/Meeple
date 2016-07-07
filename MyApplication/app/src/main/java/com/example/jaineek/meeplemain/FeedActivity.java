@@ -98,6 +98,7 @@ public class FeedActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             // Returns Fragment title at position
             MeepleFragment currentFragment = mFragmentList.get(position);
+            setActionBarTitle(currentFragment.getTitle());
             return currentFragment.getTitle();
         }
     }
