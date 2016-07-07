@@ -25,11 +25,13 @@
         <activity
             android:name=".MeepleMain"
             android:configChanges="orientation|screenLayout"
-            android:label="@string/new_register" />
+            android:label="@string/new_register"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".LoginActivity"
             android:configChanges="orientation|screenLayout"
-            android:label="@string/login_title">
+            android:label="@string/login_title"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,12 +40,16 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:configChanges="orientation|screenLayout" />
+            android:configChanges="orientation|screenLayout"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ForgotPasswordActivity"
             android:configChanges="orientation|screenLayout"
-            android:label="Recover your Password" />
-        <activity android:name=".FeedActivity"></activity>
+            android:label="Recover your Password"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".FeedActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
