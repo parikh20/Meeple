@@ -5,20 +5,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        app:tabMode="scrollable" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager_activity_feed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.jaineek.meeplemain.FeedActivity">
 
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/pager_tab_strip_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="@dimen/text_size_tabs"
-            android:padding="@dimen/tab_padding"
-            app:tabMode="fixed">
-        </android.support.v4.view.PagerTabStrip>
     </android.support.v4.view.ViewPager>
 </LinearLayout>

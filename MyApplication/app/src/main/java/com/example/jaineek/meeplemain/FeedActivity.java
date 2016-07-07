@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -28,8 +29,10 @@ public class FeedActivity extends AppCompatActivity {
     ViewPager mViewPager;
     ActionBar mActionBar;
     List<MeepleFragment> mFragmentList;
-    PagerTabStrip mPagerTabStrip;
+    TabLayout mSlidingTabLayout;
+
     final static String TAG = "FeedActivity";
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -38,10 +41,6 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
-        mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_tab_strip_toolbar);
-
-        // Set up Tabs
-        mActionBar = getSupportActionBar();
 
 
         // Support fragments require getSupportFragmentManager
@@ -64,6 +63,11 @@ public class FeedActivity extends AppCompatActivity {
         mPagerAdapter = new MeepleFragmentPagerAdapter(fm);
 
         mViewPager.setAdapter(mPagerAdapter);
+
+        // Set up Tabs
+        mActionBar = getSupportActionBar();
+        mSlidingTabLayout = (TabLayout) findViewById(R.id.sliding_tab_layout);
+        mSlidingTabLayout.setupWithViewPager(mViewPager);   // must be set after setting Adapter
     }
 
     private void setActionBarTitle(String newTitle) {
