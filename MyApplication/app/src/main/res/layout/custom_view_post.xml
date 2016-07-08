@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:contentPaddingBottom="@dimen/card_view_vertical_margin"
+    card_view:contentPaddingLeft="@dimen/card_view_horizontal_margin"
+    card_view:contentPaddingRight="@dimen/card_view_horizontal_margin"
+    card_view:contentPaddingTop="@dimen/card_view_vertical_margin"
+    card_view:cardCornerRadius="@dimen/card_view_custom_radius"
+    card_view:cardElevation="@dimen/card_view_custom_elevation"
+    card_view:cardUseCompatPadding="true">
+
+    <!-- Elements to display post info -->
+
+    <TextView
+        android:id="@+id/post_message_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+
+</android.support.v7.widget.CardView>

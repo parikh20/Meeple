@@ -1,6 +1,4 @@
 package com.example.jaineek.meeplemain;
-import android.content.Context;
-import android.widget.Toast;
 
 import java.util.List;
 

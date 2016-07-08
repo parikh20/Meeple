@@ -175,15 +175,13 @@ public class LoginActivity extends AppCompatActivity implements
                                 Toast.makeText(LoginActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                // Login successful!
+                                // Login successful! Go to FeedActivity
                                 Toast.makeText(mContext, "Username: " +
                                                 mAuth.getCurrentUser().getDisplayName() + " " +
                                                 mAuth.getCurrentUser().getEmail(),
                                         Toast.LENGTH_SHORT).show();
-                                // TODO: change this to feed
-//                                Intent changeToRegister = new Intent(LoginActivity.this,
-//                                          MeepleMain.class);
-//                                startActivity(changeToRegister);
+
+                                loginToFeedActivity();
                             }
                         }
                     });
@@ -199,6 +197,15 @@ public class LoginActivity extends AppCompatActivity implements
                 mPassword.setError(getString(R.string.error_field_required));
             }
         }
+    }
+
+    private void loginToFeedActivity() {
+        // If successful login, go to FeedActivity
+        Intent changeToFeedActivity = new Intent(LoginActivity.this,
+                FeedActivity.class);
+        startActivity(changeToFeedActivity);
+        finish();
+
     }
 
     private void signIn() {
@@ -242,6 +249,9 @@ public class LoginActivity extends AppCompatActivity implements
                         // If sign in fails, display a message to the user
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
+                        } else {
+                            // Login successful! Go to FeedActivity
+                            loginToFeedActivity();
                         }
                     }
                 });
