@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/TabLayoutStyle">
+
+    <TextView
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        style="@style/TabViewStyle" />
+
+    <!-- Tab divider -->
+    <LinearLayout
+        android:layout_width="@dimen/tab_separator_width"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/tabColorGray"
+            android:layout_weight="1"
+            android:layout_height="@dimen/layout_weight_only" />
+
+        <View
+            android:id="@+id/tab_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_weight_only"
+            android:background="@color/tabDividerColorGray"
+            android:layout_weight="4"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_weight_only"
+            android:background="@color/tabColorGray"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <!-- Bottom Border
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_border_height"
+        android:background="@color/tabDividerColorGray"
+        android:layout_alignParentBottom="true" /> -->
+
+</RelativeLayout>

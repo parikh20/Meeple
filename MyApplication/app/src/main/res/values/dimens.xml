@@ -3,13 +3,20 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!-- text sizes to be consistent -->
-    <dimen name="text_size_title">20sp</dimen>
-    <dimen name="text_size_normal">16sp</dimen>
-    <dimen name="text_size_tabs">20sp</dimen>
-
-    <dimen name="tab_padding">4dp</dimen>
     <dimen name="between_padding">20dp</dimen>
     <dimen name="large_between_padding">45dp</dimen>
     <dimen name="small_between_padding">16dp</dimen>
+
+    <!-- text sizes to be consistent -->
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_tabs">14sp</dimen>
+
+    <dimen name="tab_padding">4dp</dimen>
+    <dimen name="tab_separator_width">1dp</dimen>
+    <dimen name="tab_border_height">1dp</dimen>
+    <dimen name="tab_indicator_height">4dp</dimen>
+
+    <dimen name="layout_weight_only">0dp</dimen>
+
 </resources>

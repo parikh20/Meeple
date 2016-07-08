@@ -8,5 +8,4 @@
         android:layout_height="wrap_content"
         android:text="@string/test_local_feed"
         android:textSize="30sp"/>
-
 </LinearLayout>

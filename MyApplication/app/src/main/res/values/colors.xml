@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorPrimaryLight">#b59ad7</color>
+
+    <color name="tabColorGray">#e0e0e0</color>
+    <color name="tabDividerColorGray">#bdbdbd</color>
+    <color name="tabTextColorGray">#616161</color>
+
+    <color name="black">#000000</color>
 </resources>
