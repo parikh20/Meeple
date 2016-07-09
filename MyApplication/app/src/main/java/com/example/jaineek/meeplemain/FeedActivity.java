@@ -31,8 +31,10 @@ public class FeedActivity extends AppCompatActivity {
     List<MeepleFragment> mFragmentList;
     TabLayout mTabLayout;
 
+    private int mCurrentPage;
     final static String TAG = "FeedActivity";
 
+    // Declaring Firebase variables
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -58,7 +60,7 @@ public class FeedActivity extends AppCompatActivity {
     private void setupTabsandTitles() {
         // Sets up Tabs with Custom Views
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tab_layout);
-        mTabLayout.setupWithViewPager(mViewPager);   // must be set after setting Adapter
+//        mTabLayout.setupWithViewPager(mViewPager);   // must be set after setting Adapter
         final LayoutInflater localInflater = LayoutInflater.from(this);
         mTabLayout.post(new Runnable() {
             // Needed, otherwise tab titles wont work
@@ -75,7 +77,6 @@ public class FeedActivity extends AppCompatActivity {
                     TextView tabTextView = (TextView) customTabLayout.findViewById(R.id.tab_title);
                     tabTextView.setText(tab.getText());
                     tab.setCustomView(customTabLayout);
-                    tab.select();
                 }
             }
         });
