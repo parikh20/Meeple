@@ -1,6 +1,8 @@
 package com.example.jaineek.meeplemain;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,16 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
-    MeepleFragmentPagerAdapter mPagerAdapter;
-    ViewPager mViewPager;
-    ActionBar mActionBar;
-    List<MeepleFragment> mFragmentList;
-    TabLayout mTabLayout;
 
-    private int mCurrentPage;
+    private ViewPager mViewPager;
+    private ActionBar mActionBar;
+    private List<MeepleFragment> mFragmentList;
+    private TabLayout mTabLayout;
+
     final static String TAG = "FeedActivity";
 
-    // Declaring Firebase variables
+    // Firebase variables
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -42,23 +43,21 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        // Create Fragment pages, mFragmentList and add to FragmentManager
+        // Create Fragment pages, mFragmentList, add to FragmentManager
         FragmentManager fm = getSupportFragmentManager();
         createAndAddFragments(fm);
 
-        // Set up ViewPager
+        // Set up ViewPager & Adapter
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
-        mPagerAdapter = new MeepleFragmentPagerAdapter(fm);
-        mViewPager.setAdapter(mPagerAdapter);
+        MeepleFragmentPagerAdapter pagerAdapter = new MeepleFragmentPagerAdapter(fm);
+        mViewPager.setAdapter(pagerAdapter);
 
-        // Set up Tabs
-        setupTabsandTitles();
-
-        mActionBar = getSupportActionBar();
+        setupTabsAndTitles();
     }
 
-    private void setupTabsandTitles() {
-        // Sets up Tabs with Custom Views
+    private void setupTabsAndTitles() {
+        // Sets up Tabs with Custom Pages and ViewPager
+
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tab_layout);
 //        mTabLayout.setupWithViewPager(mViewPager);   // must be set after setting Adapter
         final LayoutInflater localInflater = LayoutInflater.from(this);
@@ -81,7 +80,7 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
 
-
+        // TODO: change ActionBar title when tab is swiped to
     }
 
     private void createAndAddFragments(FragmentManager fm) {
@@ -105,11 +104,12 @@ public class FeedActivity extends AppCompatActivity {
 
     private void setActionBarTitle(String newTitle) {
         // Changes title of actionBar to newTitle
+        mActionBar = getSupportActionBar();
         mActionBar.setTitle(newTitle);
     }
 
-    private class MeepleFragmentPagerAdapter extends FragmentStatePagerAdapter
-            implements ViewPager.OnPageChangeListener{
+    private class MeepleFragmentPagerAdapter extends FragmentStatePagerAdapter {
+//            implements ViewPager.OnPageChangeListener{
 
         private FragmentManager fragmentManager;
 
@@ -139,23 +139,23 @@ public class FeedActivity extends AppCompatActivity {
             return currentFragment.getTitle();
         }
 
-        //ViewPager.onPageChangeListener methods
-        @Override
-        public void onPageSelected(int position) {
-            // Sets ActionBar title when Fragment page is selected
-            MeepleFragment currentFragment = mFragmentList.get(position);
-            setActionBarTitle(currentFragment.getTitle());
-        }
-
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            // Left blank
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            // Left blank
-        }
+//        //ViewPager.onPageChangeListener methods
+//        @Override
+//        public void onPageSelected(int position) {
+//            // Sets ActionBar title when Fragment page is selected
+//            MeepleFragment currentFragment = mFragmentList.get(position);
+//            setActionBarTitle(currentFragment.getTitle());
+//        }
+//
+//        @Override
+//        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            // Left blank
+//        }
+//
+//        @Override
+//        public void onPageScrollStateChanged(int state) {
+//            // Left blank
+//        }
     }
 
     @Override

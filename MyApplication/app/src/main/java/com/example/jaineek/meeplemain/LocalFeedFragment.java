@@ -1,6 +1,8 @@
 package com.example.jaineek.meeplemain;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +28,7 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
     public static String title_local_feed_fragment;
 
     private RecyclerView mLocalFeedRecyclerView;
+    private FloatingActionButton mNewPostFAB;
     private List<Post> mLocalPosts = new ArrayList<>();
 
     // Declaring Firebase variables
@@ -56,6 +59,9 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
 
         setUpRecyclerViewAndAdapter();
 
+        mNewPostFAB = (FloatingActionButton) v.findViewById(R.id.fab_new_post);
+        setUpFloatingActionButton();
+
         return v;
     }
 
@@ -69,6 +75,20 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         // Creates adapter w/ data. Sets up w/ RecyclerView
         LocalFeedAdapter localFeedAdapter = new LocalFeedAdapter(mLocalPosts);
         mLocalFeedRecyclerView.setAdapter(localFeedAdapter);
+    }
+
+    private void setUpFloatingActionButton() {
+        // Wires the NewPost floating action button
+
+        mNewPostFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // When clicked, start NewPostActivity
+                // TODO: create intent (both finish and not) function
+                Intent toNewPostActivity = new Intent(getActivity(), NewPostActivity.class);
+                startActivity(toNewPostActivity);
+            }
+        });
     }
 //
     private List<Post> findLocalPosts() {

@@ -14,6 +14,7 @@
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_tabs">14sp</dimen>
+    <dimen name="text_size_test">30sp</dimen>
 
     <!-- tabs -->
     <dimen name="tab_padding">12dp</dimen>
@@ -25,5 +26,8 @@
     <!-- CardView for Posts -->
     <dimen name="card_view_custom_elevation">3dp</dimen>
     <dimen name="card_view_custom_radius">1dp</dimen>
+
+    <!-- Floating Action Buttons -->
+    <dimen name="fab_layout_margin">20dp</dimen>
 
 </resources>

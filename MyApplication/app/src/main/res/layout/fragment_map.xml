@@ -7,5 +7,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/test_map"
-        android:textSize="30sp"/>
+        android:textSize="@dimen/text_size_test"/>
 </LinearLayout>
