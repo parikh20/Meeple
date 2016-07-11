@@ -82,7 +82,6 @@ public class MeepleMain extends AppCompatActivity {
     // Reigster user if fields in form are correct
     public void registerUser() {
 
-        String username = mUsername.getText().toString();
         String email = mEmailAddress.getText().toString();
         String password = mPassword.getText().toString();
         String passwordConfirm = mConfirmPassword.getText().toString();
@@ -131,11 +130,11 @@ public class MeepleMain extends AppCompatActivity {
         // Error: Password too short
         if (password.length() < 6) {
             Toast.makeText(MeepleMain.this, getString(R.string
-                    .error_password_too_short), Toast.LENGTH_SHORT).show();
+                    .error_password_too_short),
+                    Toast.LENGTH_SHORT).show();
         }
         // Error: Account w/ this email already exists
         else {
-
             Toast.makeText(MeepleMain.this,
                     getString(R.string.error_email_already_exists),
                     Toast.LENGTH_SHORT).show();

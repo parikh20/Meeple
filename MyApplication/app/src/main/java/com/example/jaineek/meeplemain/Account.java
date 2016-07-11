@@ -53,7 +53,6 @@ public class Account {
     }
 
     public void setEmail(String email) {
-        assert email.contains("@"); //TODO: make a better email check
         this.email = email;
     }
 

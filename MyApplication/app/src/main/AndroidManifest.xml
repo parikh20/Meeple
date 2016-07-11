@@ -9,7 +9,10 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +29,7 @@
             android:name=".MeepleMain"
             android:configChanges="orientation|screenLayout"
             android:label="@string/new_register"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".LoginActivity"
             android:configChanges="orientation|screenLayout"
@@ -41,15 +44,16 @@
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|screenLayout"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:configChanges="orientation|screenLayout"
-            android:label="Recover your Password"
-            android:theme="@style/AppTheme"/>
+            android:label="@string/recover_your_password"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FeedActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".NewPostActivity"></activity>
     </application>
 
 </manifest>
