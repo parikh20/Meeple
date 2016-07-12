@@ -1,4 +1,4 @@
-package com.example.jaineek.meeplemain;
+package com.example.jaineek.meeplemain.model;
 
 import android.location.Location;
 

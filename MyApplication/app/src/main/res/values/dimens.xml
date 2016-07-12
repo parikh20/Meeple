@@ -17,7 +17,7 @@
     <dimen name="text_size_test">30sp</dimen>
 
     <!-- tabs -->
-    <dimen name="tab_padding">12dp</dimen>
+    <dimen name="tab_padding">0dp</dimen>
     <dimen name="tab_separator_width">1dp</dimen>
     <dimen name="tab_border_height">1dp</dimen>
     <dimen name="tab_indicator_height">4dp</dimen>

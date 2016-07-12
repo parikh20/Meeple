@@ -37,7 +37,7 @@
 
     <!-- Local Feed Fragment -->
     <string name="title_local_feed_fragment">Local Feed</string>
-    <string name="title_map_fragment">Your Location</string>
+    <string name="title_map_fragment">My Location</string>
 
     <!-- New Feed Activity -->
     <string name="new_post_title">New Post</string>

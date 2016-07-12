@@ -1,11 +1,12 @@
-package com.example.jaineek.meeplemain;
+package com.example.jaineek.meeplemain.fragments;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.jaineek.meeplemain.R;
 
 /**
  * Created by Krishnak97 on 7/5/2016.
@@ -13,9 +14,9 @@ import android.view.ViewGroup;
 
 public class MapFragment extends Fragment implements MeepleFragment {
 
-    public static final String TAG_MAP = "FRAGMENT_MAP";
-    public static String title_map_fragment = "Your Location";
-    public static int drawable_icon_map_fragment = R.drawable.ic_location_on_white_48dp;
+    public static final String TAG = "FRAGMENT_MAP";
+    public static String title_map_fragment = "My Location";
+    public static int drawable_icon_id = R.drawable.ic_location_on_white_48dp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class MapFragment extends Fragment implements MeepleFragment {
         return v;
     }
 
+    /* MEEPLE FRAGMENT METHODS */
+
     @Override
     public String getTitle() {
         // Returns title of fragment
@@ -42,8 +45,13 @@ public class MapFragment extends Fragment implements MeepleFragment {
     }
 
     @Override
-    public Drawable getDrawableIcon() {
+    public String getFragmentTag() {
+        return TAG;
+    }
+
+    @Override
+    public int getDrawableIconId() {
         // Returns Drawable tab icon for this page
-        return getActivity().getDrawable(drawable_icon_map_fragment);
+        return drawable_icon_id;
     }
 }
