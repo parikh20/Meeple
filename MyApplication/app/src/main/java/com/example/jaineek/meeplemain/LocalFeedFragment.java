@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -25,7 +26,8 @@ import java.util.UUID;
 public class LocalFeedFragment extends Fragment implements MeepleFragment{
 
     public static final String TAG_LOCAL_FEED = "FRAGMENT_LOCAL_FEED";
-    public static String title_local_feed_fragment;
+    public static String title_local_feed_fragment = "Local Feed";
+    public static int drawable_icon_feed_fragment = R.drawable.ic_message_white_48dp;
 
     private RecyclerView mLocalFeedRecyclerView;
     private FloatingActionButton mNewPostFAB;
@@ -39,8 +41,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        title_local_feed_fragment = getString(
-                R.string.title_local_feed_fragment);
         // Save all instance information
     }
 
@@ -63,6 +63,18 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         setUpFloatingActionButton();
 
         return v;
+    }
+
+    @Override
+    public String getTitle() {
+        // returns Title of fragment
+        return title_local_feed_fragment;
+    }
+
+    @Override
+    public Drawable getDrawableIcon() {
+        // Returns Drawable tab icon for this page
+        return getActivity().getDrawable(drawable_icon_feed_fragment);
     }
 
     private void setUpRecyclerViewAndAdapter() {
@@ -104,12 +116,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         return testPosts;
     }
 
-
-    @Override
-    public String getTitle() {
-        // returns Title of fragment
-        return title_local_feed_fragment;
-    }
 
     private class PostViewHolder extends RecyclerView.ViewHolder {
         // ViewHolder for Posts in LocalFeedFragment's RecyclerView

@@ -10,18 +10,18 @@
     </style>
 
     <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabIndicatorColor">@color/tabDividerColor</item>
         <item name="tabIndicatorHeight">@dimen/tab_indicator_height</item>
-        <item name="tabBackground">@color/tabColorGray</item>
+        <item name="tabBackground">@color/tabColor</item>
         <item name="tabPaddingStart">@dimen/tab_padding</item>
         <item name="tabPaddingEnd">@dimen/tab_padding</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/tabTextColor</item>
     </style>
 
     <style name="TabViewStyle" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/colorPrimary</item>
-        <item name="tabBackground">@color/tabColorGray</item>
-        <item name="android:textColor">@color/tabTextColorGray</item>
+        <item name="tabIndicatorColor">@color/tabDividerColor</item>
+        <item name="tabBackground">@color/tabColor</item>
+        <item name="android:textColor">@color/tabTextColor</item>
         <item name="android:textSize">@dimen/text_size_tabs </item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>

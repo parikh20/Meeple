@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_layout_margin"
         android:clickable="true"
+        android:src="@drawable/ic_add_white_48dp"
         app:rippleColor="@color/colorPrimaryLight"
         app:fabSize="normal"
         app:layout_anchor="@id/local_feed_recyclerView"

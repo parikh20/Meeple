@@ -2,11 +2,12 @@ package com.example.jaineek.meeplemain;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,8 @@ public class FeedActivity extends AppCompatActivity {
     private List<MeepleFragment> mFragmentList;
     private TabLayout mTabLayout;
 
+    private Context mContext;
+
     final static String TAG = "FeedActivity";
 
     // Firebase variables
@@ -43,6 +47,8 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        mContext = FeedActivity.this;
+
         // Create Fragment pages, mFragmentList, add to FragmentManager
         FragmentManager fm = getSupportFragmentManager();
         createAndAddFragments(fm);
@@ -51,8 +57,34 @@ public class FeedActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
         MeepleFragmentPagerAdapter pagerAdapter = new MeepleFragmentPagerAdapter(fm);
         mViewPager.setAdapter(pagerAdapter);
+        setupViewPagerListener();
 
         setupTabsAndTitles();
+    }
+
+    private void setupViewPagerListener() {
+        // Sets up listener for ViewPager to change ActionBar title
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
+                // Left blank
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // Changes ActionBar title to Fragment title at position
+                setActionBarTitle(mFragmentList.get(position).getTitle());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        // Setup first page title
+        setActionBarTitle(mFragmentList.get(0).getTitle());
     }
 
     private void setupTabsAndTitles() {
@@ -73,14 +105,29 @@ public class FeedActivity extends AppCompatActivity {
                     RelativeLayout customTabLayout =  (RelativeLayout) localInflater
                             .inflate(R.layout.custom_view_tab, mTabLayout, false);
 
-                    TextView tabTextView = (TextView) customTabLayout.findViewById(R.id.tab_title);
-                    tabTextView.setText(tab.getText());
-                    tab.setCustomView(customTabLayout);
+                    // If last tab, no divider to the right
+                    // TODO: delete divider if it looks bad
+                    if (i == mTabLayout.getTabCount() - 1) {
+                        View divider = customTabLayout.findViewById(R.id.tab_divider);
+                        divider.setBackgroundColor(ContextCompat.getColor(mContext,
+                                R.color.tabColor));
+                    }
+
+//                    TextView tabTextView = (TextView) customTabLayout.findViewById(R.id.tab_title);
+//                    tabTextView.setText(tab.getText());
+
+                    // Set icon for tab number i
+                    tab.setIcon(getTabDrawable(i));
                 }
+
             }
         });
+    }
 
-        // TODO: change ActionBar title when tab is swiped to
+    private Drawable getTabDrawable(int tabNumber) {
+        // Returns the Drawable icon for tab at tabNumber
+        MeepleFragment fragment = mFragmentList.get(tabNumber);
+        return fragment.getDrawableIcon();
     }
 
     private void createAndAddFragments(FragmentManager fm) {
@@ -132,29 +179,12 @@ public class FeedActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            // Returns Fragment title at position
-            MeepleFragment currentFragment = mFragmentList.get(position);
-            return currentFragment.getTitle();
-        }
-
-//        //ViewPager.onPageChangeListener methods
+        // Uncomment if you want text titles for tabs
 //        @Override
-//        public void onPageSelected(int position) {
-//            // Sets ActionBar title when Fragment page is selected
+//        public CharSequence getPageTitle(int position) {
+//            // Returns Fragment title at position
 //            MeepleFragment currentFragment = mFragmentList.get(position);
-//            setActionBarTitle(currentFragment.getTitle());
-//        }
-//
-//        @Override
-//        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//            // Left blank
-//        }
-//
-//        @Override
-//        public void onPageScrollStateChanged(int state) {
-//            // Left blank
+//            return currentFragment.getTitle();
 //        }
     }
 

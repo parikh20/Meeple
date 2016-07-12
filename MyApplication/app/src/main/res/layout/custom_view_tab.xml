@@ -21,7 +21,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:background="@color/tabColorGray"
+            android:background="@color/tabColor"
             android:layout_weight="1"
             android:layout_height="@dimen/layout_weight_only" />
 
@@ -29,13 +29,13 @@
             android:id="@+id/tab_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_weight_only"
-            android:background="@color/tabDividerColorGray"
+            android:background="@color/tabDividerColor"
             android:layout_weight="4"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_weight_only"
-            android:background="@color/tabColorGray"
+            android:background="@color/tabColor"
             android:layout_weight="1"/>
     </LinearLayout>
 
