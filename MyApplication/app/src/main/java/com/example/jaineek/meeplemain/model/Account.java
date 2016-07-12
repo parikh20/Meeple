@@ -1,4 +1,4 @@
-package com.example.jaineek.meeplemain;
+package com.example.jaineek.meeplemain.model;
 
 import java.util.List;
 

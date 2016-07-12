@@ -1,7 +1,6 @@
-package com.example.jaineek.meeplemain;
+package com.example.jaineek.meeplemain.fragments;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -10,14 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.example.jaineek.meeplemain.NewPostActivity;
+import com.example.jaineek.meeplemain.R;
+import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
+import com.example.jaineek.meeplemain.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Krishnak97 on 7/5/2016.
@@ -25,9 +26,11 @@ import java.util.UUID;
 
 public class LocalFeedFragment extends Fragment implements MeepleFragment{
 
-    public static final String TAG_LOCAL_FEED = "FRAGMENT_LOCAL_FEED";
+
+
+    public static final String TAG = "FRAGMENT_LOCAL_FEED";
     public static String title_local_feed_fragment = "Local Feed";
-    public static int drawable_icon_feed_fragment = R.drawable.ic_message_white_48dp;
+    public static int drawable_icon_id = R.drawable.ic_home_white_48dp;
 
     private RecyclerView mLocalFeedRecyclerView;
     private FloatingActionButton mNewPostFAB;
@@ -50,10 +53,8 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
 
         View v = inflater.inflate(R.layout.fragment_local_feed, container, false);
 
-//        // Declare all mVariables
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-
         mLocalFeedRecyclerView = (RecyclerView) v.findViewById(R.id.local_feed_recyclerView);
         mLocalPosts = findLocalPosts();
 
@@ -65,18 +66,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         return v;
     }
 
-    @Override
-    public String getTitle() {
-        // returns Title of fragment
-        return title_local_feed_fragment;
-    }
-
-    @Override
-    public Drawable getDrawableIcon() {
-        // Returns Drawable tab icon for this page
-        return getActivity().getDrawable(drawable_icon_feed_fragment);
-    }
-
     private void setUpRecyclerViewAndAdapter() {
         // Sets up RecyclerView, LocalPostAdapter with data and LayoutManager
 
@@ -85,7 +74,7 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
         mLocalFeedRecyclerView.setLayoutManager(layoutManager);
 
         // Creates adapter w/ data. Sets up w/ RecyclerView
-        LocalFeedAdapter localFeedAdapter = new LocalFeedAdapter(mLocalPosts);
+        PostRecyclerAdapter localFeedAdapter = new PostRecyclerAdapter(mLocalPosts, getActivity());
         mLocalFeedRecyclerView.setAdapter(localFeedAdapter);
     }
 
@@ -96,85 +85,42 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
             @Override
             public void onClick(View view) {
                 // When clicked, start NewPostActivity
-                // TODO: create intent (both finish and not) function
                 Intent toNewPostActivity = new Intent(getActivity(), NewPostActivity.class);
                 startActivity(toNewPostActivity);
             }
         });
     }
-//
+
     private List<Post> findLocalPosts() {
         // Returns List<Post> close to user locaton
         // TODO: implement actual GPS tracking
         List<Post> testPosts = new ArrayList<>();
         for(int i = 0; i < 30; i++) {
             Post post = new Post();
-            post.setPostMessage("Post " + i);
+            post.setPostMessage("Local Post " + i);
             testPosts.add(post);
         }
 
         return testPosts;
     }
 
+    /* MEEPLE FRAGMENT METHODS */
 
-    private class PostViewHolder extends RecyclerView.ViewHolder {
-        // ViewHolder for Posts in LocalFeedFragment's RecyclerView
-
-        // TODO: add more member variables
-        private Post mPost;
-        private TextView mPostMessage;
-
-        public PostViewHolder(View itemView) {
-            super(itemView);
-            // ViewHolder now holds custom Post view (itemView)
-
-            // Find Views within itemView
-            // TODO: actually assign member variables
-
-            mPostMessage =(TextView) itemView.findViewById(R.id.post_message_textView);
-
-        }
-
-        public void bindViewsWithPost(Post post) {
-            // Update member variables with info from Post
-            // TODO: actually do this
-            mPost = post;
-            mPostMessage.setText(mPost.getPostMessage());
-
-        }
+    @Override
+    public String getTitle() {
+        // returns Title of fragment
+        return title_local_feed_fragment;
     }
-//
-    private class LocalFeedAdapter extends RecyclerView.Adapter<PostViewHolder> {
-        // Adapter for RecyclerView and PostHolder
-        List<Post> mLocalPostList;
 
-        public LocalFeedAdapter(List<Post> localPostList) {
-            // Constructor sets the list of Local Posts for RecyclerView
-            mLocalPostList = localPostList;
-        }
+    @Override
+    public int getDrawableIconId() {
+        // Returns Drawable tab icon for this page
+        // TODO: make compatible
+        return drawable_icon_id;
+    }
 
-        @Override
-        public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            // Called when new PostViewHolder is created
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-
-            // Custom ViewHolder element with displayable info
-            View customPostView = layoutInflater.inflate(R.layout.custom_view_post, parent, false);
-
-            return new PostViewHolder(customPostView);
-        }
-
-        @Override
-        public void onBindViewHolder(PostViewHolder viewHolder, int position) {
-            // Binds viewHolder's attributes to data
-            Post postToBeBound = mLocalPostList.get(position);
-            viewHolder.bindViewsWithPost(postToBeBound);
-        }
-
-        @Override
-        public int getItemCount() {
-            // Returns num of local posts in data
-            return mLocalPostList.size();
-        }
+    @Override
+    public String getFragmentTag() {
+        return TAG;
     }
 }

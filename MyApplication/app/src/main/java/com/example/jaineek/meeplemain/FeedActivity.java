@@ -3,11 +3,12 @@ package com.example.jaineek.meeplemain;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +18,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
+import com.example.jaineek.meeplemain.fragments.MapFragment;
+import com.example.jaineek.meeplemain.fragments.MeepleFragment;
+import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -57,6 +60,7 @@ public class FeedActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
         MeepleFragmentPagerAdapter pagerAdapter = new MeepleFragmentPagerAdapter(fm);
         mViewPager.setAdapter(pagerAdapter);
+
         setupViewPagerListener();
 
         setupTabsAndTitles();
@@ -107,46 +111,60 @@ public class FeedActivity extends AppCompatActivity {
 
                     // If last tab, no divider to the right
                     // TODO: delete divider if it looks bad
-                    if (i == mTabLayout.getTabCount() - 1) {
-                        View divider = customTabLayout.findViewById(R.id.tab_divider);
-                        divider.setBackgroundColor(ContextCompat.getColor(mContext,
-                                R.color.tabColor));
-                    }
-
-//                    TextView tabTextView = (TextView) customTabLayout.findViewById(R.id.tab_title);
-//                    tabTextView.setText(tab.getText());
+//                    if (i == mTabLayout.getTabCount() - 1) {
+//                        View divider = customTabLayout.findViewById(R.id.tab_divider);
+//                        divider.setBackgroundColor(ContextCompat.getColor(mContext,
+//                                R.color.tabColor));
+//                    }
 
                     // Set icon for tab number i
-                    tab.setIcon(getTabDrawable(i));
-                }
+                    int SDK_VERSION_FOR_ICONS = Build.VERSION_CODES.LOLLIPOP;
 
+                    if (Build.VERSION.SDK_INT >= SDK_VERSION_FOR_ICONS) {
+                        // Use tab icons if user has Lollipop or higher
+                        Drawable icon = getDrawable(getTabDrawableId(i));
+                        tab.setIcon(icon);
+                    } else {
+                        // Just use text titles
+                        TextView tabTextView = (TextView) customTabLayout
+                                .findViewById(R.id.tab_title);
+                        tabTextView.setText(tab.getText());
+                    }
+                }
             }
         });
     }
 
-    private Drawable getTabDrawable(int tabNumber) {
-        // Returns the Drawable icon for tab at tabNumber
+    private int getTabDrawableId(int tabNumber) {
+        // Returns the Drawable icon ID for tab at tabNumber
         MeepleFragment fragment = mFragmentList.get(tabNumber);
-        return fragment.getDrawableIcon();
+        return fragment.getDrawableIconId();
     }
 
     private void createAndAddFragments(FragmentManager fm) {
         // Creates Fragment pages, mFragmentList and adds to FragmentManager
 
-        LocalFeedFragment localFeedFragment = new LocalFeedFragment();
-        MapFragment mapFragment = new MapFragment();
+//        LocalFeedFragment localFeedFragment = new LocalFeedFragment();
+//        MapFragment mapFragment = new MapFragment();
+//        MyPostsFragment myPostsFragment = new MyPostsFragment();
 
-        // Add Fragments to List in order: LocalFeed, Map,
+        // Add Fragments to List in order: LocalFeed, Map, MyPosts
         mFragmentList = new ArrayList<>();
-        mFragmentList.add(localFeedFragment);
-        mFragmentList.add(mapFragment);
+        mFragmentList.add(new LocalFeedFragment());
+        mFragmentList.add(new MapFragment());
+        mFragmentList.add(new MyPostsFragment());
 
         // Add to FragmentManager
-        fm.beginTransaction()
-                .add(R.id.viewPager_activity_feed, localFeedFragment,
-                        LocalFeedFragment.TAG_LOCAL_FEED)
-                .add(R.id.viewPager_activity_feed,
-                        mapFragment, MapFragment.TAG_MAP);
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        for (MeepleFragment fragment : mFragmentList) {
+            fragmentTransaction.add(R.id.viewPager_activity_feed, (Fragment) fragment,
+                    fragment.getFragmentTag());
+        }
+//        fm.beginTransaction()
+//                .add(R.id.viewPager_activity_feed, localFeedFragment,
+//                        LocalFeedFragment.TAG)
+//                .add(R.id.viewPager_activity_feed,
+//                        mapFragment, MapFragment.TAG);
     }
 
     private void setActionBarTitle(String newTitle) {
@@ -179,7 +197,6 @@ public class FeedActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        // Uncomment if you want text titles for tabs
 //        @Override
 //        public CharSequence getPageTitle(int position) {
 //            // Returns Fragment title at position

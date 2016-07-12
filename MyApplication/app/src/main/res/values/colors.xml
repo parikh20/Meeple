@@ -6,7 +6,8 @@
     <color name="colorPrimaryLight">#b59ad7</color>
 
     <color name="tabColor">@color/colorPrimary</color>
-    <color name="tabDividerColor">@color/colorAccent</color>
+    <color name="tabDividerColor">@color/colorPrimary</color>
+    <color name="tabIndicatorColor">@color/colorAccent</color>
     <color name="tabTextColor">@color/colorAccent</color>
 
     <color name="black">#000000</color>
