@@ -1,5 +1,7 @@
 package com.example.jaineek.meeplemain;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -37,9 +39,24 @@ public class SettingsActivity extends PreferenceActivity {
         editTextEmail = (EditTextPreference) findPreference("key_change_email");
         editTextEmail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                email = newValue.toString();
-                mUser.updateEmail(email);
+            public boolean onPreferenceChange(Preference preference, final Object newValue) {
+                //Setting Alert Dialogue for confirmation
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //change email if user clicks ok
+                                email = newValue.toString();
+                                mUser.updateEmail(email);                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
                 return false;
             }
         });
@@ -49,10 +66,26 @@ public class SettingsActivity extends PreferenceActivity {
         editTextPassword = (EditTextPreference) findPreference("key_change_password");
         editTextPassword.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                password = newValue.toString();
-                mUser.updatePassword(password);
-                return false;
+            public boolean onPreferenceChange(Preference preference, final Object newValue) {
+                //Set alert dialogue for confirmation
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle("Confirm password change")
+                        .setMessage("Are you sure you want to change your password?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Change password if user clicks ok
+                                password = newValue.toString();
+                                mUser.updatePassword(password);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                        return false;
             }
         });
 
@@ -60,13 +93,29 @@ public class SettingsActivity extends PreferenceActivity {
         editTextUsername = (EditTextPreference) findPreference("key_change_username");
         editTextUsername.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                username = newValue.toString();
-                UserProfileChangeRequest profileUpdates =
-                        new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+            public boolean onPreferenceChange(Preference preference, final Object newValue) {
+                //Set alert dialogue for confirmation
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Change username if user clicks ok
+                                username = newValue.toString();
+                                UserProfileChangeRequest profileUpdates =
+                                        new UserProfileChangeRequest.Builder().setDisplayName(username).build();
 
-                // Change profile
-                mUser.updateProfile(profileUpdates);
+                                // Change profile
+                                mUser.updateProfile(profileUpdates);                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
                 return false;
             }
         });

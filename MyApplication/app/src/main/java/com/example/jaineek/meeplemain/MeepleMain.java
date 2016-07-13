@@ -96,9 +96,9 @@ public class MeepleMain extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d(TAG, "registerUser:onComplete: successful");
 
-                            String username = mUsername.getText().toString();
                             String email = mEmailAddress.getText().toString();
                             String password = mPassword.getText().toString();
+                            String username = mUsername.getText().toString();
 
                             //If Register is successful, take user to LoginActivity
                             if (task.isSuccessful()) {
@@ -146,6 +146,7 @@ public class MeepleMain extends AppCompatActivity {
         // Check that passwords are equal
         if (!mPassword.getText().toString().equals(mConfirmPassword.getText().toString())) {
             passed = false;
+            mConfirmPassword.setError("The passwords do not match!");
         }
         return passed;
     }
