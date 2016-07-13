@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import java.util.ArrayList;
 
 /**
  * @author Jaineek Parikh
@@ -84,13 +87,9 @@ public class MeepleMain extends AppCompatActivity {
 
         String email = mEmailAddress.getText().toString();
         String password = mPassword.getText().toString();
-        String passwordConfirm = mConfirmPassword.getText().toString();
 
-        // Confirm that both password fields contain the same string
-        if  (!password.equals(passwordConfirm)) {
-            mConfirmPassword.setError(getString(R.string.error_passwords_do_not_match));
-        // Else, Firebase creates user and adds to database
-        } else {
+        // Check that all the fields pass requirements
+        if  (registrationFormPassed()) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -124,6 +123,31 @@ public class MeepleMain extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    public boolean registrationFormPassed() {
+        /* Checks all fields of registration form for errors.
+            Returns true if all ok.*/
+        boolean passed = true;
+
+        ArrayList<EditText> viewsToCheck = new ArrayList<>();
+        viewsToCheck.add(mPassword);
+        viewsToCheck.add(mUsername);
+        viewsToCheck.add(mConfirmPassword);
+        viewsToCheck.add(mEmailAddress);
+
+        for (EditText form : viewsToCheck) {
+            if (TextUtils.isEmpty(form.getText().toString())) {
+                // If field is empty, throw error
+                form.setError(getString(R.string.error_field_required));
+                passed = false;
+            }
+        }
+        // Check that passwords are equal
+        if (!mPassword.getText().toString().equals(mConfirmPassword.getText().toString())) {
+            passed = false;
+        }
+        return passed;
     }
 
     public void checkRegistrationError(String email, String password) {
