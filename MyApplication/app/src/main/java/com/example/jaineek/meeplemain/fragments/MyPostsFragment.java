@@ -121,5 +121,4 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
     public String getFragmentTag() {
         return TAG;
     }
-
 }

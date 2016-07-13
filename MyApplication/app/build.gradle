@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // Fixes build Out of Memory error
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {

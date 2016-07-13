@@ -4,21 +4,23 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SettingsActivity extends PreferenceActivity {
-    FirebaseAuth mAuth;
-    FirebaseUser mUser;
-    EditTextPreference editTextEmail;
-    EditTextPreference editTextPassword;
-    EditTextPreference editTextUsername;
-    String email;
-    String password;
-    String username;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
+    private EditTextPreference editTextEmail;
+    private EditTextPreference editTextPassword;
+    private EditTextPreference editTextUsername;
+
+    private String email;
+    private String password;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

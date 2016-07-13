@@ -1,11 +1,5 @@
 package com.example.jaineek.meeplemain.fragments;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.jaineek.meeplemain.R;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -18,8 +12,8 @@ public class MyMapFragment extends MapFragment implements MeepleFragment {
     // Container fragment and handler for GoogleMap SupportMapFragment
 
     public static final String TAG = "FRAGMENT_MAP";
-    public static String title_map_fragment = "My Location";
-    public static int drawable_icon_id = R.drawable.ic_location_on_white_48dp;
+    private static String title_map_fragment = "My Location";
+    private static int drawable_icon_id = R.drawable.ic_location_on_white_48dp;
 
     private SupportMapFragment mSupportMapFragment;
 

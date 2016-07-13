@@ -28,14 +28,13 @@ import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.MapFragment;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FeedActivity extends AppCompatActivity implements OnMapReadyCallback{
 

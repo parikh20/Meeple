@@ -1,7 +1,5 @@
 package com.example.jaineek.meeplemain.fragments;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by Krishnak97 on 7/6/2016.
  */
