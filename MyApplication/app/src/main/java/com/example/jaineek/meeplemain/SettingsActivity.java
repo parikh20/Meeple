@@ -38,7 +38,7 @@ public class SettingsActivity extends PreferenceActivity {
         editTextEmail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                email = editTextEmail.getText();
+                email = newValue.toString();
                 mUser.updateEmail(email);
                 return false;
             }
@@ -50,7 +50,7 @@ public class SettingsActivity extends PreferenceActivity {
         editTextPassword.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                password = editTextPassword.getText();
+                password = newValue.toString();
                 mUser.updatePassword(password);
                 return false;
             }
@@ -61,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity {
         editTextUsername.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                username = editTextUsername.getText();
+                username = newValue.toString();
                 UserProfileChangeRequest profileUpdates =
                         new UserProfileChangeRequest.Builder().setDisplayName(username).build();
 
