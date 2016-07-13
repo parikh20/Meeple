@@ -69,5 +69,6 @@
     <string name="test_swiping">Test Swiping</string>
     <string name="three_dots">three dots</string>
     <string name="Logout">Logout</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

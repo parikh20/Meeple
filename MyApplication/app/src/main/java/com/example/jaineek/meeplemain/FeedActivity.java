@@ -23,22 +23,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
-import com.example.jaineek.meeplemain.fragments.MapFragment;
+import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private ViewPager mViewPager;
     private ActionBar mActionBar;
     private List<MeepleFragment> mFragmentList;
     private TabLayout mTabLayout;
-
     private Context mContext;
+
+    private GoogleMap mGoogleMap;
 
     final static String TAG = "FeedActivity";
 
@@ -144,27 +151,36 @@ public class FeedActivity extends AppCompatActivity {
     private void createAndAddFragments(FragmentManager fm) {
         // Creates Fragment pages, mFragmentList and adds to FragmentManager
 
-//        LocalFeedFragment localFeedFragment = new LocalFeedFragment();
-//        MapFragment mapFragment = new MapFragment();
-//        MyPostsFragment myPostsFragment = new MyPostsFragment();
-
-        // Add Fragments to List in order: LocalFeed, Map, MyPosts
+        // Add Fragments to List in order: LocalFeed, MyPosts, Map
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new LocalFeedFragment());
-        mFragmentList.add(new MapFragment());
         mFragmentList.add(new MyPostsFragment());
+
+        MyMapFragment myMapFragment = new MyMapFragment();
+        setMapFragmentToAdd(myMapFragment);
+        mFragmentList.add(myMapFragment);
 
         // Add to FragmentManager
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         for (MeepleFragment fragment : mFragmentList) {
-            fragmentTransaction.add(R.id.viewPager_activity_feed, (Fragment) fragment,
-                    fragment.getFragmentTag());
+
+            // Special case if fragment is MyMapFragment
+            if (fragment.getFragmentTag().equals(myMapFragment.getFragmentTag())) {
+                fragmentTransaction.add(R.id.viewPager_activity_feed,
+                        myMapFragment.getSupportMapFragment(),
+                        fragment.getFragmentTag());
+            } else {
+                fragmentTransaction.add(R.id.viewPager_activity_feed, (Fragment) fragment,
+                        fragment.getFragmentTag());
+            }
         }
-//        fm.beginTransaction()
-//                .add(R.id.viewPager_activity_feed, localFeedFragment,
-//                        LocalFeedFragment.TAG)
-//                .add(R.id.viewPager_activity_feed,
-//                        mapFragment, MapFragment.TAG);
+    }
+
+    private void setMapFragmentToAdd(MyMapFragment myMapFragment) {
+        // Sets up container MyMapFragment for inner SupportMapFragment
+        SupportMapFragment mySupportMapFragment =
+                SupportMapFragment.newInstance(getGoogleMapOptions());
+        myMapFragment.setSupportMapFragment(mySupportMapFragment);
     }
 
     private void setActionBarTitle(String newTitle) {
@@ -188,7 +204,13 @@ public class FeedActivity extends AppCompatActivity {
         public Fragment getItem(int i) {
             // Returns Fragment at position i in FragmentManager
             MeepleFragment currentFragment = mFragmentList.get(i);
-            return (Fragment) currentFragment;
+
+            // Special case if fragment is MyMapFragment
+            if (currentFragment.getFragmentTag().equals(MyMapFragment.TAG)) {
+                return ((MyMapFragment) currentFragment).getSupportMapFragment();
+            } else {
+                return (Fragment) currentFragment;
+            }
         }
 
         @Override
@@ -238,4 +260,21 @@ public class FeedActivity extends AppCompatActivity {
         }
     }
 
+
+    /* GOOGLE MAPS METHODS */
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mGoogleMap = map;
+    }
+
+    private GoogleMapOptions getGoogleMapOptions() {
+        // Setup inital options for MapFragment and return it
+        GoogleMapOptions options = new GoogleMapOptions();
+        options.mapType(GoogleMap.MAP_TYPE_NORMAL)
+                .compassEnabled(false)
+                .rotateGesturesEnabled(false);
+
+        return options;
+    }
 }
