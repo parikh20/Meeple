@@ -1,6 +1,8 @@
 package com.example.jaineek.meeplemain;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -252,6 +254,25 @@ public class LoginActivity extends AppCompatActivity implements
                         }
                     }
                 });
+    }
+    private void setUsernameAlertDialog() {
+        if (mAuth.getCurrentUser().getDisplayName() == null) {
+            new AlertDialog.Builder(LoginActivity.this)
+                    .setTitle("You don't have a username!")
+                    .setMessage("You don't have a username! Set one now!")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 
 }
