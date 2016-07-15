@@ -8,11 +8,16 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import java.util.Set;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -23,19 +28,26 @@ public class SettingsActivity extends PreferenceActivity {
     private EditTextPreference editTextPassword;
     private EditTextPreference editTextUsername;
     private CheckBoxPreference checkboxPreferenceTheme;
+    private SharedPreferences sharedPreferences;
+
 
     private String email;
     private String password;
     private String username;
+    private String theme = "key_change_theme";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (sharedPreferences.getBoolean(theme, false)) {
+            setTheme(R.style.DarkTheme);
+        }
         super.onCreate(savedInstanceState);
 
         //Using preferences.xml in xml resource folder to draw activity
         addPreferencesFromResource(R.xml.preferences);
-
-
 
 
         //Firebase references
@@ -55,7 +67,8 @@ public class SettingsActivity extends PreferenceActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 //change email if user clicks ok
                                 email = newValue.toString();
-                                mUser.updateEmail(email);                            }
+                                mUser.updateEmail(email);
+                            }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -64,7 +77,7 @@ public class SettingsActivity extends PreferenceActivity {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-                return false;
+                return true;
             }
         });
 
@@ -92,7 +105,7 @@ public class SettingsActivity extends PreferenceActivity {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-                        return false;
+                return true;
             }
         });
 
@@ -113,7 +126,8 @@ public class SettingsActivity extends PreferenceActivity {
                                         new UserProfileChangeRequest.Builder().setDisplayName(username).build();
 
                                 // Change profile
-                                mUser.updateProfile(profileUpdates);                            }
+                                mUser.updateProfile(profileUpdates);
+                            }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -122,23 +136,26 @@ public class SettingsActivity extends PreferenceActivity {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-                return false;
+                return true;
             }
         });
 
+
         //Change shared preferences switch boolean
-        checkboxPreferenceTheme = (CheckBoxPreference) findPreference("key_switch_theme");
+        checkboxPreferenceTheme = (CheckBoxPreference) findPreference(theme);
         checkboxPreferenceTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-
-                return false;
+                if (o instanceof Boolean) {
+                    Toast.makeText(SettingsActivity.this, o.toString(), Toast.LENGTH_SHORT).show();
+                    editor.putBoolean(theme, (Boolean)o);
+                    editor.apply();
+                    recreate();
+                }
+                return true;
             }
         });
 
-
     }
-
-
-
 }
+

@@ -31,6 +31,8 @@
         <item name="android:colorBackground">@android:color/darker_gray</item>
     </style>
 
-    <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar" />
+    <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 
 </resources>

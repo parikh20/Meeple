@@ -21,8 +21,9 @@
 
         <CheckBoxPreference
             android:title="Thame"
-            android:key="key_switch_theme"
-            android:summary="Swatch ur thame" />
+            android:key="key_change_theme"
+            android:summary="Swatch ur thame"
+            android:defaultValue="false"/>
     </PreferenceCategory>
 
 

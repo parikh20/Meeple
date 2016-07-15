@@ -2,6 +2,7 @@ package com.example.jaineek.meeplemain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -51,6 +52,7 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
     private List<MeepleFragment> mFragmentList;
     private TabLayout mTabLayout;
     private Context mContext;
+    private SharedPreferences sharedPreferences;
 
     private GoogleMap mGoogleMap;
     private GoogleApiClient mGoogleApiClient;
@@ -269,7 +271,6 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             case R.id.settings:
                 // Go to Settings Activity
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 Intent toSettingsActivity = new Intent(FeedActivity.this, SettingsActivity.class);
                 startActivity(toSettingsActivity);
                 return true;
