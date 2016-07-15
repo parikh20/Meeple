@@ -7,8 +7,10 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -31,7 +33,10 @@ import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -44,7 +49,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private ViewPager mViewPager;
     private ActionBar mActionBar;
@@ -53,10 +59,17 @@ public class FeedActivity extends AppCompatActivity {
     private Context mContext;
     private SharedPreferences sharedPreferences;
 
-    final static String TAG = "FeedActivity";
+    public static final String TAG = "FeedActivity";
+
+    // Tags for all Intent extras
+    public static final String KEY_EXTRA_LOCATION = "com.example.jaineek.meeple.extra_tag_location";
 
     // Firebase variables
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    // Location variables
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +83,15 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         mContext = FeedActivity.this;
+
+        // Used for location services
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(FeedActivity.this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
 
         // Create Fragment pages, mFragmentList, add to FragmentManager
         FragmentManager fm = getSupportFragmentManager();
@@ -239,39 +261,50 @@ public class FeedActivity extends AppCompatActivity {
         }
     }
 
-
     /* GOOGLE MAPS METHODS */
 
-//    @Override
-//    protected void onStart() {
-//        // Connect to location services
-//        super.onStart();
-//        mGoogleApiClient.connect();
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        // Disconnect to location services
-//        super.onStop();
-//        mGoogleApiClient.disconnect();
-//    }
-//
-//    @Override
-//    public void onConnected(Bundle connectionHint) {
-//        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//        if (lastLocation != null) {
-//            // Use the last location in some way
-//            mLastLocation = lastLocation;
-//        }
-//    }
-//
-//    @Override
-//    public void onConnectionSuspended(int connectionStuff) {
-//        // Left blank
-//    }
-//
-//    @Override
-//    public void onConnectionFailed(ConnectionResult connectionStuff) {
-//        // Left blank
-//    }
+    public Location getmLastLocation() {
+        // Returns the last known location of the user
+        return mLastLocation;
+    }
+
+    @Override
+    protected void onStart() {
+        // Connect to location services
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        // Disconnect to location services
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        try {
+            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (lastLocation != null) {
+                // Use the last location in some way
+                mLastLocation = lastLocation;
+            }
+        } catch (SecurityException e) {
+            // Indicate that location services are not allowed at this time
+            Toast.makeText(FeedActivity.this, getString(R.string.error_location_not_supported),
+                    Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int connectionStuff) {
+        // Left blank
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionStuff) {
+        // Left blank
+    }
 }

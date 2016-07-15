@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain.fragments;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
 import com.example.jaineek.meeplemain.model.Post;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,9 +29,7 @@ import java.util.List;
  * Created by Krishnak97 on 7/5/2016.
  */
 
-public class LocalFeedFragment extends Fragment implements MeepleFragment{
-
-
+public class LocalFeedFragment extends Fragment implements MeepleFragment {
 
     public static final String TAG = "FRAGMENT_LOCAL_FEED";
     public static String title_local_feed_fragment = "My Feed";
@@ -40,6 +43,8 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_local_feed, container, false);
+
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -86,6 +92,9 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
             public void onClick(View view) {
                 // When clicked, start NewPostActivity
                 Intent toNewPostActivity = new Intent(getActivity(), NewPostActivity.class);
+                Location location = ((FeedActivity) getActivity()).getmLastLocation();
+                // Send user's location to New Post activity
+                toNewPostActivity.putExtra(FeedActivity.KEY_EXTRA_LOCATION, location);
                 startActivity(toNewPostActivity);
             }
         });
@@ -123,4 +132,5 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment{
     public String getFragmentTag() {
         return TAG;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.example.jaineek.meeplemain;
 
+import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,12 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
+
 
 public class NewPostActivity extends AppCompatActivity {
     // Create a new post
 
     private EditText mTestEditText;
     private Button mTestButton;
+    private Location mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,16 @@ public class NewPostActivity extends AppCompatActivity {
 
         mTestEditText = (EditText) findViewById(R.id.test_newPost_editText);
         mTestButton = (Button) findViewById(R.id.test_newPost_button);
+
+        // Get user's location from calling Intent
+        Intent startedIntent = getIntent();
+        mLocation = startedIntent.getParcelableExtra(FeedActivity.KEY_EXTRA_LOCATION);
+        if (mLocation != null) {
+            String location = "Latitude: " + Double.toString(mLocation.getLatitude()) +
+                    " Longitude: " +  Double.toString(mLocation.getLongitude());
+            Toast.makeText(NewPostActivity.this, location,
+                    Toast.LENGTH_LONG).show();
+        }
 
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
