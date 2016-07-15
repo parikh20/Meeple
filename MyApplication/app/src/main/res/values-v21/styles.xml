@@ -10,4 +10,12 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
+
+    <style name="DarkAppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorForeground">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
+
+
 </resources>

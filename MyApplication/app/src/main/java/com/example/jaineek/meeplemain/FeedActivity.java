@@ -60,6 +60,11 @@ public class FeedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+            setTheme(R.style.DarkAppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 

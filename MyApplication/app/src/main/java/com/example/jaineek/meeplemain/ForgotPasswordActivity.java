@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +22,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button mSendEmail;
     private Context mContext;
     private static final String TAG = "ForgotPasswordActivity";
+    private SharedPreferences sharedPreferences;
 
     //Firebase variables
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+            setTheme(R.style.DarkAppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 

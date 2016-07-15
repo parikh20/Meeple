@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements
     private EditText mPassword;
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
+    private SharedPreferences sharedPreferences;
 
     // TODO: DELETE THIS
     private Button mTestButton;
@@ -59,6 +61,11 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+            setTheme(R.style.DarkAppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

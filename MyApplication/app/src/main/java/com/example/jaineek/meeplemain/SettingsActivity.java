@@ -41,8 +41,8 @@ public class SettingsActivity extends PreferenceActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if (sharedPreferences.getBoolean(theme, false)) {
-            setTheme(R.style.DarkTheme);
+        if (sharedPreferences.getBoolean(theme, true)) {
+            setTheme(R.style.DarkAppTheme);
         }
         super.onCreate(savedInstanceState);
 

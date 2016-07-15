@@ -1,5 +1,6 @@
 package com.example.jaineek.meeplemain;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,12 +40,18 @@ public class MeepleMain extends AppCompatActivity {
     private EditText mConfirmPassword;
     private EditText mUsername;
     private android.content.Context mContext;
+    private SharedPreferences sharedPreferences;
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+
+        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+            setTheme(R.style.DarkAppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeple_main);
 
