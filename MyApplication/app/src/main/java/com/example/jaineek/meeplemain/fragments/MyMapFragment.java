@@ -1,47 +1,40 @@
 package com.example.jaineek.meeplemain.fragments;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.jaineek.meeplemain.R;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 
 /**
  * Created by Krishnak97 on 7/5/2016.
  */
 
-public class MyMapFragment extends MapFragment implements MeepleFragment {
+public class MyMapFragment extends Fragment implements MeepleFragment {
     // Container fragment and handler for GoogleMap SupportMapFragment
 
     public static final String TAG = "FRAGMENT_MAP";
     private static String title_map_fragment = "My Location";
     private static int drawable_icon_id = R.drawable.ic_location_on_white_48dp;
 
-    private SupportMapFragment mSupportMapFragment;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        // Save all instance information
-//
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        View v = inflater.inflate(R.layout.fragment_map, container, false);
-//
-//        // Declare all mVariables
-//
-//        return v;
-//    }
-
-    public void setSupportMapFragment(SupportMapFragment supportMapFragment) {
-        mSupportMapFragment = supportMapFragment;
+        // Save all instance information
     }
 
-    public SupportMapFragment getSupportMapFragment() {
-        return mSupportMapFragment;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_map, container, false);
+
+        // Declare all mVariables
+
+        return v;
     }
 
     /* MEEPLE FRAGMENT METHODS */

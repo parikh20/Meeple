@@ -44,8 +44,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class FeedActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private ActionBar mActionBar;
@@ -53,10 +52,6 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TabLayout mTabLayout;
     private Context mContext;
     private SharedPreferences sharedPreferences;
-
-    private GoogleMap mGoogleMap;
-    private GoogleApiClient mGoogleApiClient;
-    private static Location mLastLocation;
 
     final static String TAG = "FeedActivity";
 
@@ -69,15 +64,6 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_feed);
 
         mContext = FeedActivity.this;
-
-        // Setup Location Services
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
 
         // Create Fragment pages, mFragmentList, add to FragmentManager
         FragmentManager fm = getSupportFragmentManager();
@@ -110,7 +96,7 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                // Left blank
             }
         });
 
@@ -136,14 +122,6 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
                     RelativeLayout customTabLayout =  (RelativeLayout) localInflater
                             .inflate(R.layout.custom_view_tab, mTabLayout, false);
 
-                    // If last tab, no divider to the right
-                    // TODO: delete divider if it looks bad
-//                    if (i == mTabLayout.getTabCount() - 1) {
-//                        View divider = customTabLayout.findViewById(R.id.tab_divider);
-//                        divider.setBackgroundColor(ContextCompat.getColor(mContext,
-//                                R.color.tabColor));
-//                    }
-
                     // Set icon for tab number i
                     int SDK_VERSION_FOR_ICONS = Build.VERSION_CODES.LOLLIPOP;
 
@@ -162,12 +140,6 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    private int getTabDrawableId(int tabNumber) {
-        // Returns the Drawable icon ID for tab at tabNumber
-        MeepleFragment fragment = mFragmentList.get(tabNumber);
-        return fragment.getDrawableIconId();
-    }
-
     private void createAndAddFragments(FragmentManager fm) {
         // Creates Fragment pages, mFragmentList and adds to FragmentManager
 
@@ -175,32 +147,20 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new LocalFeedFragment());
         mFragmentList.add(new MyPostsFragment());
-
-        MyMapFragment myMapFragment = new MyMapFragment();
-        setMapFragmentToAdd(myMapFragment);
-        mFragmentList.add(myMapFragment);
+        mFragmentList.add(new MyMapFragment());
 
         // Add to FragmentManager
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         for (MeepleFragment fragment : mFragmentList) {
-
-            // Special case if fragment is MyMapFragment
-            if (fragment.getFragmentTag().equals(myMapFragment.getFragmentTag())) {
-                fragmentTransaction.add(R.id.viewPager_activity_feed,
-                        myMapFragment.getSupportMapFragment(),
+            fragmentTransaction.add(R.id.viewPager_activity_feed, (Fragment) fragment,
                         fragment.getFragmentTag());
-            } else {
-                fragmentTransaction.add(R.id.viewPager_activity_feed, (Fragment) fragment,
-                        fragment.getFragmentTag());
-            }
         }
     }
 
-    private void setMapFragmentToAdd(MyMapFragment myMapFragment) {
-        // Sets up container MyMapFragment for inner SupportMapFragment
-        SupportMapFragment mySupportMapFragment =
-                SupportMapFragment.newInstance(getGoogleMapOptions());
-        myMapFragment.setSupportMapFragment(mySupportMapFragment);
+    private int getTabDrawableId(int tabNumber) {
+        // Returns the Drawable icon ID for tab at tabNumber
+        MeepleFragment fragment = mFragmentList.get(tabNumber);
+        return fragment.getDrawableIconId();
     }
 
     private void setActionBarTitle(String newTitle) {
@@ -224,13 +184,7 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
         public Fragment getItem(int i) {
             // Returns Fragment at position i in FragmentManager
             MeepleFragment currentFragment = mFragmentList.get(i);
-
-            // Special case if fragment is MyMapFragment
-            if (currentFragment.getFragmentTag().equals(MyMapFragment.TAG)) {
-                return ((MyMapFragment) currentFragment).getSupportMapFragment();
-            } else {
-                return (Fragment) currentFragment;
-            }
+            return (Fragment) currentFragment;
         }
 
         @Override
@@ -282,72 +236,36 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     /* GOOGLE MAPS METHODS */
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        mGoogleMap = map;
-        setupGoogleMap();
-    }
-
-    private GoogleMapOptions getGoogleMapOptions() {
-        // Setup inital options for MapFragment and return it
-        GoogleMapOptions options = new GoogleMapOptions();
-        options.mapType(GoogleMap.MAP_TYPE_NORMAL)
-                .compassEnabled(false)
-                .rotateGesturesEnabled(false);
-
-        // hi
-
-        return options;
-    }
-
-    private void setupGoogleMap() {
-        // Setup initial conditions for GoogleMap
-        if (ContextCompat.checkSelfPermission(FeedActivity.this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mGoogleMap.setMyLocationEnabled(true);
-
-        } else {
-            // Show rationale and request permission.
-            Toast.makeText(mContext, getString(R.string.error_location_not_supported),
-                    Toast.LENGTH_SHORT);
-        }
-    }
-
-    public static Location getLastLocation() {
-        return mLastLocation;
-    }
-
-    @Override
-    protected void onStart() {
-        // Connect to location services
-        super.onStart();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onStop() {
-        // Disconnect to location services
-        super.onStop();
-        mGoogleApiClient.disconnect();
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (lastLocation != null) {
-            // Use the last location in some way
-            mLastLocation = lastLocation;
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int connectionStuff) {
-        // Left blank
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionStuff) {
-        // Left blank
-    }
+//    @Override
+//    protected void onStart() {
+//        // Connect to location services
+//        super.onStart();
+//        mGoogleApiClient.connect();
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        // Disconnect to location services
+//        super.onStop();
+//        mGoogleApiClient.disconnect();
+//    }
+//
+//    @Override
+//    public void onConnected(Bundle connectionHint) {
+//        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//        if (lastLocation != null) {
+//            // Use the last location in some way
+//            mLastLocation = lastLocation;
+//        }
+//    }
+//
+//    @Override
+//    public void onConnectionSuspended(int connectionStuff) {
+//        // Left blank
+//    }
+//
+//    @Override
+//    public void onConnectionFailed(ConnectionResult connectionStuff) {
+//        // Left blank
+//    }
 }
