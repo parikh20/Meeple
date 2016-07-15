@@ -2,13 +2,16 @@ package com.example.jaineek.meeplemain;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,17 +29,22 @@ import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
 import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class FeedActivity extends AppCompatActivity implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private ViewPager mViewPager;
     private ActionBar mActionBar;
@@ -45,6 +53,8 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Context mContext;
 
     private GoogleMap mGoogleMap;
+    private GoogleApiClient mGoogleApiClient;
+    private static Location mLastLocation;
 
     final static String TAG = "FeedActivity";
 
@@ -57,6 +67,15 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_feed);
 
         mContext = FeedActivity.this;
+
+        // Setup Location Services
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
 
         // Create Fragment pages, mFragmentList, add to FragmentManager
         FragmentManager fm = getSupportFragmentManager();
@@ -265,6 +284,7 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap map) {
         mGoogleMap = map;
+        setupGoogleMap();
     }
 
     private GoogleMapOptions getGoogleMapOptions() {
@@ -275,5 +295,56 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .rotateGesturesEnabled(false);
 
         return options;
+    }
+
+    private void setupGoogleMap() {
+        // Setup initial conditions for GoogleMap
+        if (ContextCompat.checkSelfPermission(FeedActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mGoogleMap.setMyLocationEnabled(true);
+
+        } else {
+            // Show rationale and request permission.
+            Toast.makeText(mContext, getString(R.string.error_location_not_supported),
+                    Toast.LENGTH_SHORT);
+        }
+    }
+
+    public static Location getLastLocation() {
+        return mLastLocation;
+    }
+
+    @Override
+    protected void onStart() {
+        // Connect to location services
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        // Disconnect to location services
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (lastLocation != null) {
+            // Use the last location in some way
+            mLastLocation = lastLocation;
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int connectionStuff) {
+        // Left blank
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionStuff) {
+        // Left blank
     }
 }

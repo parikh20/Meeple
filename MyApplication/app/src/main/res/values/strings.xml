@@ -61,6 +61,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_login_unsuccessful">Username or password is incorrect</string>
     <string name="error_password_too_short">The password must be at least 6 characters long!</string>
+    <string name="error_location_not_supported">Your device does not support location services at this time</string>
 
     <!-- Other -->
     <string name="login_id_token">785497003186-vmck9mce8a77qju1ilq1sci0cjeg9guu.apps.googleusercontent.com</string>
