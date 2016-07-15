@@ -8,16 +8,11 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-
-import java.util.Set;
 
 public class SettingsActivity extends PreferenceActivity {
 
@@ -28,7 +23,7 @@ public class SettingsActivity extends PreferenceActivity {
     private EditTextPreference editTextPassword;
     private EditTextPreference editTextUsername;
     private CheckBoxPreference checkboxPreferenceTheme;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
 
     private String email;
@@ -38,10 +33,10 @@ public class SettingsActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mSharedPreferences.edit();
 
-        if (sharedPreferences.getBoolean(theme, true)) {
+        if (mSharedPreferences.getBoolean(theme, true)) {
             setTheme(R.style.DarkAppTheme);
         }
         super.onCreate(savedInstanceState);

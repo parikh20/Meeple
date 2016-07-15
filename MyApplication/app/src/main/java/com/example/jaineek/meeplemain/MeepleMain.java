@@ -40,16 +40,16 @@ public class MeepleMain extends AppCompatActivity {
     private EditText mConfirmPassword;
     private EditText mUsername;
     private android.content.Context mContext;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
 
-        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+        if (mSharedPreferences.getBoolean("key_change_theme", true)) {
             setTheme(R.style.DarkAppTheme);
         }
         super.onCreate(savedInstanceState);
