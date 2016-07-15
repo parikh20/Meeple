@@ -294,6 +294,8 @@ public class FeedActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .compassEnabled(false)
                 .rotateGesturesEnabled(false);
 
+        // hi
+
         return options;
     }
 
