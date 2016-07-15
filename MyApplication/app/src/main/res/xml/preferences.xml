@@ -18,6 +18,11 @@
             android:title="@string/option_change_password"
             android:key="key_change_password"
             android:summary="@string/change_password_desc" />
+
+        <CheckBoxPreference
+            android:title="Thame"
+            android:key="key_switch_theme"
+            android:summary="Swatch ur thame" />
     </PreferenceCategory>
 
 

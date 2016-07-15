@@ -2,10 +2,13 @@ package com.example.jaineek.meeplemain;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.preference.SwitchPreference;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +22,7 @@ public class SettingsActivity extends PreferenceActivity {
     private EditTextPreference editTextEmail;
     private EditTextPreference editTextPassword;
     private EditTextPreference editTextUsername;
+    private CheckBoxPreference checkboxPreferenceTheme;
 
     private String email;
     private String password;
@@ -30,6 +34,9 @@ public class SettingsActivity extends PreferenceActivity {
 
         //Using preferences.xml in xml resource folder to draw activity
         addPreferencesFromResource(R.xml.preferences);
+
+
+
 
         //Firebase references
         mAuth = FirebaseAuth.getInstance();
@@ -118,6 +125,18 @@ public class SettingsActivity extends PreferenceActivity {
                 return false;
             }
         });
+
+        //Change shared preferences switch boolean
+        checkboxPreferenceTheme = (CheckBoxPreference) findPreference("key_switch_theme");
+        checkboxPreferenceTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+
+                return false;
+            }
+        });
+
+
     }
 
 

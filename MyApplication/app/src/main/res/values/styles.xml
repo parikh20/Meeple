@@ -27,4 +27,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="DarkAppTheme" parent="AppTheme" >
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar" />
+
 </resources>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "785497003186",
+    "firebase_url": "https://meetngreet-7908d.firebaseio.com",
+    "project_id": "meetngreet-7908d",
+    "storage_bucket": "meetngreet-7908d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785497003186:android:346ab2c1899a3eb0",
+        "android_client_info": {
+          "package_name": "com.example.jaineek.meeplemain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785497003186-d1p1brqop0u9rvash58hdg7cn1ger1ut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jaineek.meeplemain",
+            "certificate_hash": "A384D233E1266B4AB5CD259CB24C885266FCA15A"
+          }
+        },
+        {
+          "client_id": "785497003186-vmck9mce8a77qju1ilq1sci0cjeg9guu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2lcrad3x3ahSFnz8UwSUUi1LMLE83qrY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785497003186-vmck9mce8a77qju1ilq1sci0cjeg9guu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
