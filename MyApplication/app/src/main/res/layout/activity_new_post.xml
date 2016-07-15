@@ -5,12 +5,20 @@
     android:id="@+id/activity_new_post"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jaineek.meeplemain.NewPostActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/test_newPost_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_test"/>
+
+    <Button
+        android:id="@+id/test_newPost_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_post_title"
-        android:textSize="@dimen/text_size_test"/>
+        android:layout_gravity="center" />
 
 </LinearLayout>

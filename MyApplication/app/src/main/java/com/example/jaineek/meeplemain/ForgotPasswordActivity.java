@@ -22,16 +22,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button mSendEmail;
     private Context mContext;
     private static final String TAG = "ForgotPasswordActivity";
-    private SharedPreferences mSharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     //Firebase variables
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
-
-        if (mSharedPreferences.getBoolean("key_change_theme", true)) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        // Check for dark theme
+        if (sharedPreferences.getBoolean("key_change_theme", true)) {
             setTheme(R.style.DarkAppTheme);
         }
         super.onCreate(savedInstanceState);

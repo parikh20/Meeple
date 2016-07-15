@@ -27,8 +27,8 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
     private static String title_map_fragment = "My Location";
     private static int drawable_icon_id = R.drawable.ic_location_on_white_48dp;
 
-    MapView mMapView;
-    GoogleMap mMap;
+    private MapView mMapView;
+    private GoogleMap mMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,7 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
 
     @Override
     public void onMapReady(GoogleMap map) {
+        // Once map is ready, perform setup
         mMap = map;
         // Enables MyLocation button on map
         if (ContextCompat.checkSelfPermission(getActivity(),
@@ -82,6 +83,7 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
             // Check if Lcoation services are enabled
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
         } else {
              // Notify the user that ACCESS LOCATION permission is disabled
             Toast.makeText(getActivity(), getString(R.string.error_location_not_supported),
