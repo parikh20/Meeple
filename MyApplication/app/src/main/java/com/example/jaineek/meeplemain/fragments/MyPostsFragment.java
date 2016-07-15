@@ -113,7 +113,6 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
     @Override
     public int getDrawableIconId() {
         // Returns Drawable tab icon for this page
-        // TODO: make compatible
         return drawable_icon_id;
     }
 

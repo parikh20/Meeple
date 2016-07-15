@@ -76,19 +76,17 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
     public void onMapReady(GoogleMap map) {
         mMap = map;
         // Enables MyLocation button on map
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            // Check if Lcoation services are enabled
+//        if (ContextCompat.checkSelfPermission(getActivity(),
+//                android.Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            // Check if Lcoation services are enabled
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        } else {
-            // Notify the user that ACCESS LOCATION permission is disabled
-            Toast.makeText(getActivity(), getString(R.string.error_location_not_supported),
-                    Toast.LENGTH_LONG).show();
-
-        }
-
+//        } else {
+//             // Notify the user that ACCESS LOCATION permission is disabled
+//            Toast.makeText(getActivity(), getString(R.string.error_location_not_supported),
+//                    Toast.LENGTH_LONG).show();
+//        }
     }
 
     /* LIFECYCLE METHODS  -
