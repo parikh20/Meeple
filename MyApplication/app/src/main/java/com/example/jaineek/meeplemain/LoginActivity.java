@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements
     private EditText mPassword;
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
     // TODO: DELETE THIS
     private Button mTestButton;
@@ -61,10 +61,12 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
         // Check for dark theme
-        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+        if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
+        } else {
+            setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -280,6 +282,12 @@ public class LoginActivity extends AppCompatActivity implements
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 
 }

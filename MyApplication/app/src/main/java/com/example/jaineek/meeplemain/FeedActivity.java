@@ -3,18 +3,14 @@ package com.example.jaineek.meeplemain;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,17 +29,9 @@ import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -57,7 +45,7 @@ public class FeedActivity extends AppCompatActivity implements
     private List<MeepleFragment> mFragmentList;
     private TabLayout mTabLayout;
     private Context mContext;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
     public static final String TAG = "FeedActivity";
 
@@ -74,10 +62,12 @@ public class FeedActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Check for dark theme
-        sharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
 
-        if (sharedPreferences.getBoolean("key_change_theme", true)) {
+        if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
+        } else {
+            setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
@@ -306,5 +296,11 @@ public class FeedActivity extends AppCompatActivity implements
     @Override
     public void onConnectionFailed(ConnectionResult connectionStuff) {
         // Left blank
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 }

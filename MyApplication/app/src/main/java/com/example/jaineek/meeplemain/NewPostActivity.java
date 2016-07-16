@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,9 +20,16 @@ public class NewPostActivity extends AppCompatActivity {
     private EditText mTestEditText;
     private Button mTestButton;
     private Location mLocation;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (mSharedPreferences.getBoolean("key_change_theme", false)) {
+            setTheme(R.style.DarkAppTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
@@ -53,5 +61,11 @@ public class NewPostActivity extends AppCompatActivity {
 
 
         /* ALL TEST STUFF -- CHANGE */
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 }
