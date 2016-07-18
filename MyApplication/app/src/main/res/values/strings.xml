@@ -44,9 +44,10 @@
     <string name="post">Post</string>
     <string name="new_post_header">Write a new post here!</string>
     <string name="new_post_title">New Post</string>
+    <string name="new_post_event_title">Event Title</string>
     <string name="new_post_date">Date and Time</string>
-    <string name="new_post_location">Location</string>
-    <string name="new_post_description">Description</string>
+    <string name="new_post_location">Event Location</string>
+    <string name="new_post_description">Event Description</string>
 
     <!-- Settings activity -->
     <string name="settings_title">Settings</string>

@@ -5,58 +5,62 @@
     android:id="@+id/activity_new_post"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.jaineek.meeplemain.NewPostActivity">
+    tools:context="com.example.jaineek.meeplemain.NewPostActivity"
+    android:weightSum="1">
 
-    <TextView
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:clickable="true"
+        android:src="@drawable/android_guy_gray"
+        android:paddingTop="@dimen/small_between_padding"
+        android:paddingBottom="@dimen/small_between_padding"
+        style="?android:listSeparatorTextViewStyle"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_title"
-        android:text="@string/new_post_header"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/between_padding"/>
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/test_newPost_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_normal"
-        android:hint="@string/new_post_title" />
+        <EditText
+            android:id="@+id/test_newPost_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_post_event_title" />
 
-    <EditText
-        android:id="@+id/new_post_location_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_normal"
-        android:hint="@string/new_post_location" />
+        <EditText
+            android:id="@+id/new_post_location_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_post_location" />
 
-    <EditText
-        android:id="@+id/new_post_date_editText"
-        android:inputType="datetime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_normal"
-        android:hint="@string/new_post_date" />
+        <EditText
+            android:id="@+id/new_post_date_editText"
+            android:inputType="datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_post_date" />
 
-    <EditText
-        android:id="@+id/new_post_description_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_normal"
-        android:hint="@string/new_post_description" />
+        <EditText
+            android:id="@+id/new_post_description_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_post_description" />
 
-    <Button
-        android:id="@+id/test_newPost_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/post"
-        android:layout_gravity="center"
-        android:ems="7"
-        android:drawableRight="@drawable/arrow_right"
-        android:layout_marginTop="@dimen/between_padding"/>
-
+        <Button
+            android:id="@+id/test_newPost_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post"
+            android:layout_gravity="center"
+            android:ems="7"
+            android:drawableRight="@drawable/arrow_right"
+            android:layout_marginTop="@dimen/between_padding"/>
+    </LinearLayout>
 </LinearLayout>

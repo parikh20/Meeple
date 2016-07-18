@@ -81,6 +81,5 @@
              android:layout_height="wrap_content"
              android:layout_marginEnd="@dimen/between_padding"/>
 
-
      </LinearLayout>
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class NewPostActivity extends AppCompatActivity {
