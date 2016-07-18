@@ -39,8 +39,14 @@
     <string name="title_local_feed_fragment">Local Feed</string>
     <string name="title_map_fragment">My Location</string>
 
-    <!-- New Feed Activity -->
+    <!-- New Post stuff -->
+    <string name="new_post_going">Going</string>
+    <string name="post">Post</string>
+    <string name="new_post_header">Write a new post here!</string>
     <string name="new_post_title">New Post</string>
+    <string name="new_post_date">Date and Time</string>
+    <string name="new_post_location">Location</string>
+    <string name="new_post_description">Description</string>
 
     <!-- Settings activity -->
     <string name="settings_title">Settings</string>

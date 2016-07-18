@@ -225,7 +225,7 @@ public class FeedActivity extends AppCompatActivity implements
 
         inflater.inflate(R.menu.actionbar, menu);
         return super.onCreateOptionsMenu(menu);
-}
+    }
 
     public void logout() {
         FirebaseAuth.getInstance().signOut();
@@ -285,7 +285,6 @@ public class FeedActivity extends AppCompatActivity implements
             Toast.makeText(FeedActivity.this, getString(R.string.error_location_not_supported),
                     Toast.LENGTH_LONG).show();
         }
-
     }
 
     @Override

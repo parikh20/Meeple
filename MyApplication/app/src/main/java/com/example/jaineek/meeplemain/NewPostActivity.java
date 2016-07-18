@@ -24,6 +24,7 @@ public class NewPostActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
 
         if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
