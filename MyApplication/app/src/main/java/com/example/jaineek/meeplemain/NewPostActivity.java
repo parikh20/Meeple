@@ -80,9 +80,8 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkFormPassed()) {
-                    // Left blank
+                    // Left blank: create a post and push to the database
                 }
-
             }
         });
     }
@@ -188,10 +187,10 @@ public class NewPostActivity extends AppCompatActivity {
         viewsToCheck.add(mEventDateField);
         viewsToCheck.add(mEventLocation);
         viewsToCheck.add(mEventDescription);
-
+        viewsToCheck.add(mEventDateField);
 
         for (EditText form : viewsToCheck) {
-            if (TextUtils.isEmpty(form.getText().toString())) {
+            if (TextUtils.isEmpty(form.getText())) {
                 // If field is empty, throw error
                 form.setError(getString(R.string.error_field_required));
                 passed = false;
