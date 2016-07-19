@@ -40,8 +40,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

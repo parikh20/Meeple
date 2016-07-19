@@ -19,6 +19,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.jaineek.meeplemain.model.Post;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -96,7 +98,16 @@ public class NewPostActivity extends AppCompatActivity {
                 if (checkFormPassed()) {
                     // Create a post and push to the database
                     Post newPost = createNewPost();
-                    mDatabaseReference.child("posts").push().setValue(newPost);}
+                    String postKey = mDatabaseReference.child("posts").push().getKey();
+                    mDatabaseReference.child("posts").child(postKey).setValue(newPost);
+
+                    // Add to GeoFire ref
+                    GeoFire geoFire = new GeoFire(mDatabaseReference);
+                    GeoLocation postGeoLocation = new GeoLocation(
+                            newPost.location.getLatitude(), newPost.location.getLongitude());
+                    // Create GeoLocation (lat, lon) from post location
+                    geoFire.setLocation(postKey, postGeoLocation);
+                }
             }
         });
     }

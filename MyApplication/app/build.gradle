@@ -44,6 +44,7 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:9.2.1'
     compile 'com.google.android.gms:play-services-auth:9.2.1'
     compile 'com.google.android.gms:play-services:9.2.1'
+    compile 'com.firebase:geofire-android:2.0.0'
     testCompile 'junit:junit:4.12'
 }
 
