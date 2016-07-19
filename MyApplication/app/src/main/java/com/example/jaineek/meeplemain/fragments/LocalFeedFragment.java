@@ -16,9 +16,6 @@ import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
 import com.example.jaineek.meeplemain.model.Post;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

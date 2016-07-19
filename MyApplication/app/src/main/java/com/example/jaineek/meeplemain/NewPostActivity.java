@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.example.jaineek.meeplemain.model.Post;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +45,9 @@ public class NewPostActivity extends AppCompatActivity {
     private Button mPostButton;
     private Location mLocation;
     private SharedPreferences mSharedPreferences;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,10 @@ public class NewPostActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference();
 
         mPostButton = (Button) findViewById(R.id.new_post_button);
         mEventTitle = (EditText) findViewById(R.id.new_post_event_title_editText);
@@ -80,8 +94,9 @@ public class NewPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkFormPassed()) {
-                    // Left blank: create a post and push to the database
-                }
+                    // Create a post and push to the database
+                    Post newPost = createNewPost();
+                    mDatabaseReference.child("posts").push().setValue(newPost);}
             }
         });
     }
@@ -197,6 +212,17 @@ public class NewPostActivity extends AppCompatActivity {
             }
         }
         return passed;
+    }
+
+    public Post createNewPost() {
+        String eventTitle = mEventTitle.getText().toString();
+        String eventDesc = mEventDescription.getText().toString();
+        String userUID = mAuth.getCurrentUser().getUid();
+        Location current = new Location("reverseGeocoded");
+        current.setLatitude(69);
+        current.setLongitude(69);
+        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, current);
+        return post;
     }
 
     @Override
