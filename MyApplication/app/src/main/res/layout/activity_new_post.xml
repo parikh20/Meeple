@@ -11,6 +11,7 @@
 
 
     <ImageView
+        android:id="@+id/new_post_imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.75"
@@ -29,23 +30,26 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/test_newPost_editText"
+            android:id="@+id/new_post_event_title_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_post_event_title" />
 
         <EditText
-            android:id="@+id/new_post_location_textView"
+            android:id="@+id/new_post_date_editText"
+            android:inputType="datetime"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_post_date" />
+
+        <EditText
+            android:id="@+id/new_post_location_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_post_location" />
 
-        <EditText
-            android:id="@+id/new_post_date_editText"
-            android:inputType="datetime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/new_post_date" />
+
 
         <EditText
             android:id="@+id/new_post_description_editText"
@@ -54,7 +58,7 @@
             android:hint="@string/new_post_description" />
 
         <Button
-            android:id="@+id/test_newPost_button"
+            android:id="@+id/new_post_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/post"

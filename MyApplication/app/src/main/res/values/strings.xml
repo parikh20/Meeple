@@ -48,6 +48,9 @@
     <string name="new_post_date">Date and Time</string>
     <string name="new_post_location">Event Location</string>
     <string name="new_post_description">Event Description</string>
+    <string name="date_picker_title">Select the Date:</string>
+    <string name="time_picker_title">Select the Time:</string>
+    <string name="confirm_date_and_time_title">Is this correct?</string>
 
     <!-- Settings activity -->
     <string name="settings_title">Settings</string>
