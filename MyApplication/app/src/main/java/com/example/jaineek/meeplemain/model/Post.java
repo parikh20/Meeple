@@ -20,7 +20,7 @@ public class Post {
     public MeepleLocation eventLocation;
     public Date eventDate;
 
-    private String postMessage;
+//    private String postMessage;
 
     public Post() {
         //Do nothing
@@ -33,14 +33,14 @@ public class Post {
         this.eventLocation = eventLocation;
     }
 
-    public void setPostMessage(String newPostMessage) {
-        // Sets message of post
-        postMessage = newPostMessage;
-    }
-
-    public String getPostMessage() {
-        // Gets message of post
-        return postMessage;
-    }
+//    public void setPostMessage(String newPostMessage) {
+//        // Sets message of post
+//        postMessage = newPostMessage;
+//    }
+//
+//    public String getPostMessage() {
+//        // Gets message of post
+//        return postMessage;
+//    }
 
 }

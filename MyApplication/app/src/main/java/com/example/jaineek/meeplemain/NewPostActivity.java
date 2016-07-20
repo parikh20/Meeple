@@ -46,7 +46,6 @@ public class NewPostActivity extends AppCompatActivity {
 
     private EditText mEventTitle;
     private EditText mEventDescription;
-    private EditText mEventLocation;
     private EditText mEventDateField;
 
     private Date mEventDate;
@@ -54,7 +53,7 @@ public class NewPostActivity extends AppCompatActivity {
     private SimpleDateFormat mSimpleDateFormat;
 
     private Button mPostButton;
-    private Location mLocation;
+    private MeepleLocation mLocation;
     private SharedPreferences mSharedPreferences;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -76,26 +75,7 @@ public class NewPostActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
-        //TEST STUFF
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.i("New Post Activity", "Place: " + place.getName());
-
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("New Post Activity", "An error occurred: " + status);
-            }
-        });
-
-
+        // Layout fields
         mPostButton = (Button) findViewById(R.id.new_post_button);
         mEventTitle = (EditText) findViewById(R.id.new_post_event_title_editText);
         mEventDateField = (EditText) findViewById(R.id.new_post_date_editText);
@@ -103,24 +83,26 @@ public class NewPostActivity extends AppCompatActivity {
 
         mEventDate = new Date();    // Current date and time
         mSimpleDateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy  hh:mm aaa");
-        // Init with current date
-        mEventDateField.setText(mSimpleDateFormat.format(mEventDate));
+        mEventDateField.setText(mSimpleDateFormat.format(mEventDate));  // Init with current date
 
         // Get user's location from calling Intent
         Intent startedIntent = getIntent();
         Location lastLocation = startedIntent.getParcelableExtra(FeedActivity.KEY_EXTRA_LOCATION);
         mLocation = new MeepleLocation(lastLocation);
-        if (mLocation != null) {
-            String location = "Latitude: " + Double.toString(mLocation.getLatitude()) +
-                    " Longitude: " +  Double.toString(mLocation.getLongitude());
-            Toast.makeText(NewPostActivity.this, location,
-                    Toast.LENGTH_LONG).show();
-//            mEventLocation.setText(mLocation.toString());
-//            TODO: set text of mEventLocation and remove Toast
-        }
 
         setupDateAndTimeDialogues();
 
+        //Autocomplete location suggestions
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        setupPlaceAutocompleteFragment(autocompleteFragment);
+
+        setupmPostButton();
+    }
+
+    private void setupmPostButton() {
+        // Setup listener for post button. Create new post and push to database
         mPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +124,24 @@ public class NewPostActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+            }
+        });
+    }
+
+    private void setupPlaceAutocompleteFragment(PlaceAutocompleteFragment autocompleteFragment) {
+        // Sets listener for Autocomplete fragment location suggestions
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // Set info about the selected place, set mLocation
+                Log.i("New Post Activity", "Place: " + place.getName());
+                mLocation = new MeepleLocation(place);
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("New Post Activity", "An error occurred: " + status);
             }
         });
     }
@@ -170,7 +170,6 @@ public class NewPostActivity extends AppCompatActivity {
                                 calendar.set(Calendar.DAY_OF_MONTH, d);
 
                                 // Show TimePicker
-
                                 TimePickerDialog timePickerDialog = getTimePickerDialog(calendar,
                                         datePicker);
                                 timePickerDialog.setTitle(getString(R.string.time_picker_title));
@@ -260,6 +259,7 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     public Post createNewPost() {
+        // Creates Post with activity fields
         String eventTitle = mEventTitle.getText().toString();
         String eventDesc = mEventDescription.getText().toString();
         String userUID = mAuth.getCurrentUser().getUid();

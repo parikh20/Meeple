@@ -122,7 +122,7 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         List<Post> testPosts = new ArrayList<>();
         for(int i = 0; i < 30; i++) {
             Post post = new Post();
-            post.setPostMessage("Local Post " + i);
+            post.eventDesc = "Local Post " + i;
             testPosts.add(post);
         }
 

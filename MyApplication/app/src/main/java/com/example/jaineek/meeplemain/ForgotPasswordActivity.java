@@ -24,7 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPasswordActivity";
     private SharedPreferences mSharedPreferences;
 
-    //Firebase variables
+    // Firebase variables
     private FirebaseAuth mAuth;
 
     @Override

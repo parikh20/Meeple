@@ -100,10 +100,9 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
         List<Post> testPosts = new ArrayList<>();
         for(int i = 0; i < 30; i++) {
             Post post = new Post();
-            post.setPostMessage("My Post " + i);
+            post.eventDesc = "My Post " + i;
             testPosts.add(post);
         }
-
         return testPosts;
     }
 

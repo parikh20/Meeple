@@ -9,12 +9,14 @@
     <dimen name="between_padding">20dp</dimen>
     <dimen name="large_between_padding">45dp</dimen>
     <dimen name="small_between_padding">16dp</dimen>
+    <dimen name="very_small_between_padding">9dp</dimen>
 
     <!-- text sizes to be consistent -->
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_tabs">14sp</dimen>
     <dimen name="text_size_test">30sp</dimen>
+    <dimen name="text_size_post_message">18sp</dimen>
 
     <!-- tabs -->
     <dimen name="tab_padding">0dp</dimen>

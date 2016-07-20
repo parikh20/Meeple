@@ -2,6 +2,9 @@ package com.example.jaineek.meeplemain.model;
 
 import android.location.Location;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Krishnak97 on 7/19/2016.
  */
@@ -12,19 +15,39 @@ public class MeepleLocation extends Location {
     public double latitude;
     public double longitude;
 
+    public String address;
+
+    public String name;
+
     public MeepleLocation() {
         // Default empty constructor for FireBase
         super("");
     }
 
+    // TODO: remove this shit
     public MeepleLocation(String provider) {
         super(provider);
     }
 
     public MeepleLocation(Location l) {
+        // Constructor for user location
         super(l);
-        latitude = l.getLatitude();
-        longitude = l.getLongitude();
+        setLatitude(l.getLatitude());
+        setLongitude(l.getLongitude());
+        setName("User Location");
+        // address is null
+    }
+
+    public MeepleLocation(Place place) {
+        super("");
+        // Constructor for autocomplete Place
+
+        LatLng latLng = place.getLatLng();
+        setLatitude(latLng.latitude);
+        setLongitude(latLng.longitude);
+        setName(place.getName().toString());
+        setAddress(place.getAddress().toString());
+        setName(place.getName().toString());
     }
 
     /* GETTERS AND SETTERS */
@@ -49,9 +72,32 @@ public class MeepleLocation extends Location {
         longitude = lon;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return "Lat: " + getLatitude() +
-                " Lon: " + getLongitude();
+        // Display's address of event
+        if (address == null) {
+            return name + ": " + getLatitude() + ", " + getLongitude();
+        } else if (address.toLowerCase().contains(name.toLowerCase())) {
+            // Check for redundancy in address
+            return address;
+        } else {
+            return name + ":  " + address;
+        }
     }
 }
