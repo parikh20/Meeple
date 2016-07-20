@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.model.Post;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Krishnak97 on 7/12/2016.
  */
@@ -16,7 +18,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     // TODO: add more member variables
     private Post mPost;
-    private TextView mPostMessage;
+    private TextView mPostTitle;
+    private TextView mPostDate;
+    private TextView mPostLocation;
+    private TextView mPostDescription;
+
+    private SimpleDateFormat mSimpleDateFormat;
 
     public PostViewHolder(View itemView) {
         super(itemView);
@@ -25,15 +32,28 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         // Find Views within itemView
         // TODO: actually assign member variables
 
-        mPostMessage =(TextView) itemView.findViewById(R.id.post_message_textView);
+        mPostDescription =(TextView) itemView.findViewById(R.id.new_post_description_textView);
+        mPostTitle =(TextView) itemView.findViewById(R.id.new_post_title_textView);
+        mPostLocation = (TextView) itemView.findViewById(R.id.new_post_location_textView);
+        mPostDate = (TextView) itemView.findViewById(R.id.new_post_date_textView);
 
+        mSimpleDateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy  hh:mm aaa");
     }
 
     public void bindViewsWithPost(Post post) {
         // Update member variables with info from Post
         // TODO: actually do this
         mPost = post;
-        mPostMessage.setText(mPost.getPostMessage());
 
+        mPostTitle.setText(mPost.eventTitle);
+        if (mPost.eventDate != null) {
+            mPostDate.setText(mSimpleDateFormat.format(mPost.eventDate));
+        }
+        if (mPost.eventLocation != null) {
+            mPostLocation.setText(mPost.eventLocation.toString());
+        }
+        if (mPostDescription != null) {
+            mPostDescription.setText(mPost.getPostMessage());
+        }
     }
 }

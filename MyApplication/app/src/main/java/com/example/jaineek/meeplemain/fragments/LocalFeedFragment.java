@@ -14,10 +14,15 @@ import android.view.ViewGroup;
 import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
+import com.example.jaineek.meeplemain.adapters_and_holders.FirebaseRecyclerAdapter;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
+import com.example.jaineek.meeplemain.adapters_and_holders.PostViewHolder;
 import com.example.jaineek.meeplemain.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +38,15 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
     public static int drawable_icon_id = R.drawable.ic_home_white_48dp;
 
     private RecyclerView mLocalFeedRecyclerView;
+    private FirebaseRecyclerAdapter<Post, PostViewHolder> mAdapter;
     private FloatingActionButton mNewPostFAB;
     private List<Post> mLocalPosts = new ArrayList<>();
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private DatabaseReference mDatabaseReference;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,7 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
 
         View v = inflater.inflate(R.layout.fragment_local_feed, container, false);
 
-
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mLocalFeedRecyclerView = (RecyclerView) v.findViewById(R.id.local_feed_recyclerView);
@@ -74,9 +82,22 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mLocalFeedRecyclerView.setLayoutManager(layoutManager);
 
-        // Creates adapter w/ data. Sets up w/ RecyclerView
-        PostRecyclerAdapter localFeedAdapter = new PostRecyclerAdapter(mLocalPosts, getActivity());
-        mLocalFeedRecyclerView.setAdapter(localFeedAdapter);
+        mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(
+                Post.class, R.layout.custom_view_post, PostViewHolder.class,
+                mDatabaseReference.child("posts")) {
+            @Override
+            protected void populateViewHolder(PostViewHolder postViewHolder, Post post,
+                                              int position) {
+                // Populate views from custom views
+                postViewHolder.bindViewsWithPost(post);
+            }
+        };
+
+//        // Creates adapter w/ data. Sets up w/ RecyclerView
+//        PostRecyclerAdapter localFeedAdapter = new PostRecyclerAdapter(mLocalPosts, getActivity());
+//        mLocalFeedRecyclerView.setAdapter(localFeedAdapter);
+
+        mLocalFeedRecyclerView.setAdapter(mAdapter);
     }
 
     private void setUpFloatingActionButton() {

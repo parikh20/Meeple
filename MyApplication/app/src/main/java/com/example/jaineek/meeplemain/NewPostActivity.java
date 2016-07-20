@@ -18,11 +18,15 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.jaineek.meeplemain.model.MeepleLocation;
 import com.example.jaineek.meeplemain.model.Post;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -45,7 +49,7 @@ public class NewPostActivity extends AppCompatActivity {
     private SimpleDateFormat mSimpleDateFormat;
 
     private Button mPostButton;
-    private Location mLocation;
+    private MeepleLocation mLocation;
     private SharedPreferences mSharedPreferences;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -80,7 +84,8 @@ public class NewPostActivity extends AppCompatActivity {
 
         // Get user's location from calling Intent
         Intent startedIntent = getIntent();
-        mLocation = startedIntent.getParcelableExtra(FeedActivity.KEY_EXTRA_LOCATION);
+        Location lastLocation = startedIntent.getParcelableExtra(FeedActivity.KEY_EXTRA_LOCATION);
+        mLocation = new MeepleLocation(lastLocation);
         if (mLocation != null) {
             String location = "Latitude: " + Double.toString(mLocation.getLatitude()) +
                     " Longitude: " +  Double.toString(mLocation.getLongitude());
@@ -102,14 +107,27 @@ public class NewPostActivity extends AppCompatActivity {
                     mDatabaseReference.child("posts").child(postKey).setValue(newPost);
 
                     // Add to GeoFire ref
-                    GeoFire geoFire = new GeoFire(mDatabaseReference);
+                    GeoFire geoFire = new GeoFire(mDatabaseReference.child("geoFire"));
                     GeoLocation postGeoLocation = new GeoLocation(
-                            newPost.location.getLatitude(), newPost.location.getLongitude());
+                            newPost.eventLocation.getLatitude(), newPost.eventLocation.getLongitude());
                     // Create GeoLocation (lat, lon) from post location
                     geoFire.setLocation(postKey, postGeoLocation);
+
+                    //Go back to LocalFeed
+                    Intent intent = new Intent(NewPostActivity.this, FeedActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
+    }
+
+    private Post createNewPost() {
+        String eventTitle = mEventTitle.getText().toString();
+        String eventDesc = mEventDescription.getText().toString();
+        String userUID = mAuth.getCurrentUser().getUid();
+        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, mLocation);
+        return post;
     }
 
     private void setupDateAndTimeDialogues() {
@@ -225,16 +243,7 @@ public class NewPostActivity extends AppCompatActivity {
         return passed;
     }
 
-    public Post createNewPost() {
-        String eventTitle = mEventTitle.getText().toString();
-        String eventDesc = mEventDescription.getText().toString();
-        String userUID = mAuth.getCurrentUser().getUid();
-        Location current = new Location("reverseGeocoded");
-        current.setLatitude(69);
-        current.setLongitude(69);
-        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, current);
-        return post;
-    }
+
 
     @Override
     protected void onRestart() {

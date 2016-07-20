@@ -17,19 +17,21 @@ public class Post {
     public String userUID;
     public String eventTitle;
     public String eventDesc;
-    public Location location;
-    public Date mEventDate;
+    public MeepleLocation eventLocation;
+    public Date eventDate;
+
     private String postMessage;
 
     public Post() {
         //Do nothing
     }
-    public Post(String userUID, String eventTitle, String eventDesc, Date mEventDate, Location location) {
+    public Post(String userUID, String eventTitle, String eventDesc, Date eventDate,
+                MeepleLocation eventLocation) {
         this.userUID = userUID;
         this.eventTitle = eventTitle;
         this.eventDesc = eventDesc;
-        this.mEventDate = mEventDate;
-        this.location = location;
+        this.eventDate  = eventDate;
+        this.eventLocation = eventLocation;
     }
 
     public void setPostMessage(String newPostMessage) {

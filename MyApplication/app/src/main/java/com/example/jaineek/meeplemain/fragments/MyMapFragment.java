@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain.fragments;
 
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -9,11 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.Manifest;
 import com.example.jaineek.meeplemain.R;
+import com.example.jaineek.meeplemain.model.Post;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Krishnak97 on 7/5/2016.
@@ -27,8 +41,13 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
     private static String title_map_fragment = "My Location";
     private static int drawable_icon_id = R.drawable.ic_location_on_white_48dp;
 
+
     private MapView mMapView;
     private GoogleMap mMap;
+    private Location mLastLocation;
+
+    private DatabaseReference mDatabaseReference;
+    private int queryRadius;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,10 +65,13 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
         mMapView = (MapView) v.findViewById(R.id.google_mapView);
         mMapView.onCreate(savedInstanceState);  // Must be forwarded
 
+        mLastLocation = ((FeedActivity) getActivity()).getmLastLocation();
+
         // Set onMapCallBack
         mMapView.getMapAsync(this);
         return v;
     }
+
 
     /* MEEPLE FRAGMENT METHODS */
 

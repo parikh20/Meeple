@@ -28,11 +28,16 @@ import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
 import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -51,15 +56,24 @@ public class FeedActivity extends AppCompatActivity implements
 
     public static final String TAG = "FeedActivity";
 
+
+
     // Tags for all Intent extras
     public static final String KEY_EXTRA_LOCATION = "com.example.jaineek.meeple.extra_tag_location";
 
     // Firebase variables
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private DatabaseReference mDatabaseReference;
+
+    // GeoFire variables
+    private static int DEFAULT_RADIUS = 1000; // Default query radius in km
+    private GeoFire geoFire;
+    private int queryRadius;
 
     // Location variables
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,20 +90,17 @@ public class FeedActivity extends AppCompatActivity implements
 
         mContext = FeedActivity.this;
 
-        // Used for location services
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(FeedActivity.this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
+        /* LOCATIONS AND GEOFIRE*/
+
+        setupGoogleLocationServices();
+//        setupGeoFireAndQuery();
+
+        /* FRAGMENTS AND TABS */
 
         // Create Fragment pages, mFragmentList, add to FragmentManager
         FragmentManager fm = getSupportFragmentManager();
         createAndAddFragments(fm);
 
-        // Set up ViewPager & Adapter
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
         MeepleFragmentPagerAdapter pagerAdapter = new MeepleFragmentPagerAdapter(fm);
         mViewPager.setAdapter(pagerAdapter);
@@ -253,7 +264,68 @@ public class FeedActivity extends AppCompatActivity implements
         }
     }
 
+    /* GEOFIRE METHODS */
+    private void setupGeoFireAndQuery() {
+        // Declares GeoFire variables and sets up GeoQuery
+        queryRadius = DEFAULT_RADIUS;
+        // Get reference to Posts node, GeoFire object
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        GeoFire geoFire = new GeoFire(mDatabaseReference);
+
+        // GeoLocation from regular location
+        GeoLocation queryCenter = new GeoLocation(mLastLocation.getLatitude(),
+                mLastLocation.getLongitude());
+
+        GeoQuery geoQuery = geoFire.queryAtLocation(queryCenter, queryRadius);
+        setupGeoQueryListener(geoQuery);
+    }
+
+    private void setupGeoQueryListener(GeoQuery geoQuery) {
+        // Add event listener to manage Map
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                // Draw on map
+                System.out.println("found post: " + key);
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+                // Remove from map
+
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                // Move on map
+
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
+    }
+
+
     /* GOOGLE MAPS METHODS */
+
+    private void setupGoogleLocationServices() {
+        // Used for location services
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(FeedActivity.this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+    }
 
     public Location getmLastLocation() {
         // Returns the last known location of the user
