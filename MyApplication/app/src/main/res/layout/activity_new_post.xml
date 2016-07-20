@@ -50,12 +50,6 @@
             android:hint="@string/new_post_date" />
 
         <EditText
-            android:id="@+id/new_post_location_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/new_post_location" />
-
-        <EditText
             android:id="@+id/new_post_description_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

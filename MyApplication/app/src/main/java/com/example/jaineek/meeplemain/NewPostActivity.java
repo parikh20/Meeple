@@ -85,6 +85,7 @@ public class NewPostActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i("New Post Activity", "Place: " + place.getName());
+
             }
 
             @Override
@@ -99,7 +100,6 @@ public class NewPostActivity extends AppCompatActivity {
         mEventTitle = (EditText) findViewById(R.id.new_post_event_title_editText);
         mEventDateField = (EditText) findViewById(R.id.new_post_date_editText);
         mEventDescription = (EditText) findViewById(R.id.new_post_description_editText);
-        mEventLocation = (EditText) findViewById(R.id.new_post_location_editText);
 
         mEventDate = new Date();    // Current date and time
         mSimpleDateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy  hh:mm aaa");
@@ -246,7 +246,6 @@ public class NewPostActivity extends AppCompatActivity {
         ArrayList<EditText> viewsToCheck = new ArrayList<>();
         viewsToCheck.add(mEventTitle);
         viewsToCheck.add(mEventDateField);
-        viewsToCheck.add(mEventLocation);
         viewsToCheck.add(mEventDescription);
         viewsToCheck.add(mEventDateField);
 
@@ -265,9 +264,6 @@ public class NewPostActivity extends AppCompatActivity {
         String eventDesc = mEventDescription.getText().toString();
         String userUID = mAuth.getCurrentUser().getUid();
 
-        Location current = new Location("reverseGeocoded");
-        current.setLatitude(69);
-        current.setLongitude(69);
         Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, (MeepleLocation) mLocation);
         return post;
     }

@@ -52,7 +52,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         if (mPost.eventLocation != null) {
             mPostLocation.setText(mPost.eventLocation.toString());
         }
-        if (mPostDescription != null) {
+        if (mPost.eventDesc != null) {
             mPostDescription.setText(mPost.getPostMessage());
         }
     }
