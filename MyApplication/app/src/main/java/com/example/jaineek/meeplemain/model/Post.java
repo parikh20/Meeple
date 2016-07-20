@@ -25,8 +25,7 @@ public class Post {
     public Post() {
         //Do nothing
     }
-    public Post(String userUID, String eventTitle, String eventDesc, Date eventDate,
-                MeepleLocation eventLocation) {
+    public Post(String userUID, String eventTitle, String eventDesc, Date eventDate, MeepleLocation eventLocation) {
         this.userUID = userUID;
         this.eventTitle = eventTitle;
         this.eventDesc = eventDesc;

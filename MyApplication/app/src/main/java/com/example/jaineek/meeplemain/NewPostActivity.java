@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,6 +25,10 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +54,7 @@ public class NewPostActivity extends AppCompatActivity {
     private SimpleDateFormat mSimpleDateFormat;
 
     private Button mPostButton;
-    private MeepleLocation mLocation;
+    private Location mLocation;
     private SharedPreferences mSharedPreferences;
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -70,6 +75,25 @@ public class NewPostActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
+
+        //TEST STUFF
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i("New Post Activity", "Place: " + place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("New Post Activity", "An error occurred: " + status);
+            }
+        });
+
 
         mPostButton = (Button) findViewById(R.id.new_post_button);
         mEventTitle = (EditText) findViewById(R.id.new_post_event_title_editText);
@@ -122,13 +146,6 @@ public class NewPostActivity extends AppCompatActivity {
         });
     }
 
-    private Post createNewPost() {
-        String eventTitle = mEventTitle.getText().toString();
-        String eventDesc = mEventDescription.getText().toString();
-        String userUID = mAuth.getCurrentUser().getUid();
-        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, mLocation);
-        return post;
-    }
 
     private void setupDateAndTimeDialogues() {
         // Sets up DatePicker and TimePicker for mEventDate
@@ -243,7 +260,17 @@ public class NewPostActivity extends AppCompatActivity {
         return passed;
     }
 
+    public Post createNewPost() {
+        String eventTitle = mEventTitle.getText().toString();
+        String eventDesc = mEventDescription.getText().toString();
+        String userUID = mAuth.getCurrentUser().getUid();
 
+        Location current = new Location("reverseGeocoded");
+        current.setLatitude(69);
+        current.setLongitude(69);
+        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, (MeepleLocation) mLocation);
+        return post;
+    }
 
     @Override
     protected void onRestart() {
