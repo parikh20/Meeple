@@ -14,6 +14,7 @@
         <item name="android:textColorSecondaryInverse">@color/black</item>
         <item name="android:textColorTertiary">@color/black</item>
         <item name="editTextColor">@color/black</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
     </style>
 
 
@@ -23,6 +24,24 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimary">?attr/colorButtonNormal</item>
+    </style>
+
+    <style name="TabLayoutStyleDark" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabIndicatorHeight">@dimen/tab_indicator_height</item>
+        <item name="tabBackground">?attr/colorButtonNormal</item>
+        <item name="tabPaddingStart">@dimen/tab_padding</item>
+        <item name="tabPaddingEnd">@dimen/tab_padding</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TabViewStyleDark" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabBackground">@color/tabColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size_tabs </item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 

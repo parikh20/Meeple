@@ -55,12 +55,14 @@ public class FeedActivity extends AppCompatActivity implements
     private SharedPreferences mSharedPreferences;
 
     public static final String TAG = "FeedActivity";
+    private boolean isDarkTheme = false;
 
 
 
     // Tags for all Intent extras
     public static final String KEY_EXTRA_LOCATION = "com.example.jaineek.meeple.extra_tag_location";
-
+    public static final String PATH_TO_POSTS = "posts";
+    public static final String PATH_TO_GEOFIRE = "geoFire";
     // Firebase variables
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference mDatabaseReference;
@@ -82,6 +84,7 @@ public class FeedActivity extends AppCompatActivity implements
 
         if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
+            isDarkTheme = true;
         } else {
             setTheme(R.style.AppTheme);
         }
@@ -107,7 +110,7 @@ public class FeedActivity extends AppCompatActivity implements
 
         setupViewPagerListener();
 
-        setupTabsAndTitles();
+        setupTabsAndTitles(isDarkTheme);
     }
 
     private void setupViewPagerListener() {
@@ -135,7 +138,7 @@ public class FeedActivity extends AppCompatActivity implements
         setActionBarTitle(mFragmentList.get(0).getTitle());
     }
 
-    private void setupTabsAndTitles() {
+    private void setupTabsAndTitles(final boolean isDarkTheme) {
         // Sets up Tabs with Custom Pages and ViewPager
 
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tab_layout);
@@ -150,8 +153,6 @@ public class FeedActivity extends AppCompatActivity implements
                 // Set custom View for each Tab
                 for (int i = 0; i < mTabLayout.getTabCount(); i++) {
                     TabLayout.Tab tab = mTabLayout.getTabAt(i);
-                    RelativeLayout customTabLayout =  (RelativeLayout) localInflater
-                            .inflate(R.layout.custom_view_tab, mTabLayout, false);
 
                     // Set icon for tab number i
                     int SDK_VERSION_FOR_ICONS = Build.VERSION_CODES.LOLLIPOP;
@@ -162,6 +163,8 @@ public class FeedActivity extends AppCompatActivity implements
                         tab.setIcon(icon);
                     } else {
                         // Just use text titles
+                        RelativeLayout customTabLayout =  (RelativeLayout) localInflater
+                                .inflate(R.layout.custom_view_tab, mTabLayout, false);
                         TextView tabTextView = (TextView) customTabLayout
                                 .findViewById(R.id.tab_title);
                         tabTextView.setText(tab.getText());
@@ -242,7 +245,10 @@ public class FeedActivity extends AppCompatActivity implements
 
     public void logout() {
         FirebaseAuth.getInstance().signOut();
-        // TODO: make intent for LoginActivity
+        // Go back to LoginActivity
+        Intent goToLoginActivity = new Intent(FeedActivity.this, LoginActivity.class);
+        startActivity(goToLoginActivity);
+        finish();
     }
 
     @Override
@@ -324,6 +330,19 @@ public class FeedActivity extends AppCompatActivity implements
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+
+            // Set the last location
+            try {
+                Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+//                if (lastLocation != null) {
+//                    // Use the last location in some way
+                    mLastLocation = lastLocation;
+//                }
+            } catch (SecurityException e) {
+                // Indicate that location services are not allowed at this time
+                Toast.makeText(FeedActivity.this, getString(R.string.error_location_not_supported),
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 

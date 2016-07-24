@@ -100,6 +100,15 @@ public class NewPostActivity extends AppCompatActivity {
 
         setupmPostButton();
     }
+    public Post createNewPost() {
+        // Creates Post with activity fields
+        String eventTitle = mEventTitle.getText().toString();
+        String eventDesc = mEventDescription.getText().toString();
+        String userUID = mAuth.getCurrentUser().getUid();
+
+        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, (MeepleLocation) mLocation);
+        return post;
+    }
 
     private void setupmPostButton() {
         // Setup listener for post button. Create new post and push to database
@@ -256,16 +265,6 @@ public class NewPostActivity extends AppCompatActivity {
             }
         }
         return passed;
-    }
-
-    public Post createNewPost() {
-        // Creates Post with activity fields
-        String eventTitle = mEventTitle.getText().toString();
-        String eventDesc = mEventDescription.getText().toString();
-        String userUID = mAuth.getCurrentUser().getUid();
-
-        Post post = new Post(userUID, eventTitle, eventDesc, mEventDate, (MeepleLocation) mLocation);
-        return post;
     }
 
     @Override

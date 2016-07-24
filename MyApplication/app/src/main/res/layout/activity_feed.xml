@@ -30,6 +30,16 @@
 
         </android.support.v4.view.ViewPager>
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/change_radius_button"
+        android:src="@drawable/ic_adjust_black_18dp"
+        android:alpha="0.8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="@dimen/small_between_padding"
+        android:layout_marginRight="@dimen/small_between_padding"/>
 </android.support.design.widget.CoordinatorLayout>
 
 

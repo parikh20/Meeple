@@ -1,23 +1,30 @@
 package com.example.jaineek.meeplemain.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.adapters_and_holders.FirebaseRecyclerAdapter;
+import com.example.jaineek.meeplemain.adapters_and_holders.GeoFireRecyclerAdapter;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostViewHolder;
 import com.example.jaineek.meeplemain.model.Post;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -38,14 +45,21 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
     public static int drawable_icon_id = R.drawable.ic_home_white_48dp;
 
     private RecyclerView mLocalFeedRecyclerView;
-    private FirebaseRecyclerAdapter<Post, PostViewHolder> mAdapter;
     private FloatingActionButton mNewPostFAB;
+    private ImageButton mRadiusButton;
     private List<Post> mLocalPosts = new ArrayList<>();
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private DatabaseReference mDatabaseReference;
+    private DatabaseReference mPostsReference;
+
+    // GeoFire variables
+    private GeoFireRecyclerAdapter<Post, PostViewHolder> mAdapter;
+    private static int DEFAULT_RADIUS = 100; // Default query radius in km
+    private GeoFire mGeoFire;
+    private int queryRadius;
 
 
     @Override
@@ -61,7 +75,13 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
 
         View v = inflater.inflate(R.layout.fragment_local_feed, container, false);
 
+        // Setup Firebase and GeoFire
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mGeoFire = new GeoFire(mDatabaseReference.child(FeedActivity.PATH_TO_GEOFIRE));
+        mPostsReference = mDatabaseReference.child(FeedActivity.PATH_TO_POSTS);
+        queryRadius = DEFAULT_RADIUS;
+
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mLocalFeedRecyclerView = (RecyclerView) v.findViewById(R.id.local_feed_recyclerView);
@@ -72,6 +92,40 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         mNewPostFAB = (FloatingActionButton) v.findViewById(R.id.fab_new_post);
         setUpFloatingActionButton();
 
+
+        // Setup change radius button
+        mRadiusButton = (ImageButton) v.findViewById(R.id.change_radius_button);
+        mRadiusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: create an alert dialog to change the radius
+
+
+//                AlertDialog.Builder changeRadiusBuilder = new
+//                        AlertDialog.Builder(getActivity());
+//
+//                changeRadiusBuilder.setTitle(getString(
+//                        R.string.change_radius_alert_title))
+//                        .setMessage(change_radius_alert_message)
+//                        .setView(R.id.editText)
+//                        .setPositiveButton(android.R.string.yes,
+//                                new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        // Confirm: correct. Set event's date.
+//                                        mEventDate = tempDate;
+//                                        mEventDateField.setText(mSimpleDateFormat.format(mEventDate));
+//                                    }
+//                                })
+//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                // Confirm: not correct. Restart picking process
+//                                mEventDateField.performClick();
+//                            }
+//                        }).show();
+            }
+        });
         return v;
     }
 
@@ -82,20 +136,34 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mLocalFeedRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(
-                Post.class, R.layout.custom_view_post, PostViewHolder.class,
-                mDatabaseReference.child("posts")) {
+        // Setup GeoQuery with last known user GeoLocation
+        Location lastLocation = ((FeedActivity) getActivity()).getmLastLocation();
+        GeoLocation center;
+
+        if (lastLocation != null) {
+            center = new GeoLocation(lastLocation.getLatitude(),
+                    lastLocation.getLongitude());
+        } else {
+            // Use a default location
+            center = new GeoLocation(33, -111);
+        }
+
+        GeoQuery geoQuery = mGeoFire.queryAtLocation(center, queryRadius);
+
+        // Create a new Adapter for this geoQuery
+        mAdapter = new GeoFireRecyclerAdapter<Post, PostViewHolder>(
+                Post.class, R.layout.custom_view_post, PostViewHolder.class, mPostsReference,
+                geoQuery) {
+
             @Override
             protected void populateViewHolder(PostViewHolder postViewHolder, Post post,
                                               int position) {
-                // Populate views from custom views
-                postViewHolder.bindViewsWithPost(post);
+                if (post != null) {
+                    // Populate views from custom views
+                    postViewHolder.bindViewsWithPost(post);
+                }
             }
         };
-
-//        // Creates adapter w/ data. Sets up w/ RecyclerView
-//        PostRecyclerAdapter localFeedAdapter = new PostRecyclerAdapter(mLocalPosts, getActivity());
-//        mLocalFeedRecyclerView.setAdapter(localFeedAdapter);
 
         mLocalFeedRecyclerView.setAdapter(mAdapter);
     }
