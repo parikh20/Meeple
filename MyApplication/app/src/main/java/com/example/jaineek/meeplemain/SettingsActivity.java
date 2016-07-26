@@ -8,6 +8,9 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,10 +25,11 @@ public class SettingsActivity extends PreferenceActivity {
     private EditTextPreference editTextEmail;
     private EditTextPreference editTextPassword;
     private EditTextPreference editTextUsername;
+    private EditTextPreference editTextRadius;
     private CheckBoxPreference checkboxPreferenceTheme;
     private SharedPreferences mSharedPreferences;
 
-
+    private double radius;
     private String email;
     private String password;
     private String username;
@@ -50,6 +54,44 @@ public class SettingsActivity extends PreferenceActivity {
         //Firebase references
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+
+        //On Change listener for changing radius
+        editTextRadius = (EditTextPreference) findPreference("key_change_radius");
+        editTextRadius.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, final Object newValue) {
+
+                //Setting Alert Dialogue for confirmation
+                new AlertDialog.Builder(SettingsActivity.this)
+                        .setTitle(R.string.change_radius_alert_title)
+                        .setMessage(R.string.change_radius_alert_message)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Change radius if ok is clicked
+                                radius = (double) newValue;
+
+                                // Check bounds
+                                if (radius > 500) {
+                                    radius = 500;
+                                } else if (radius < 1 ) {
+                                    radius = 1;
+                                }
+
+                                // Store the entered value
+                                editor.putFloat("key_change_radius", (float) radius);
+                                editor.apply();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                return true;
+            }
+        });
 
         //On Change listener for changing email
         editTextEmail = (EditTextPreference) findPreference("key_change_email");

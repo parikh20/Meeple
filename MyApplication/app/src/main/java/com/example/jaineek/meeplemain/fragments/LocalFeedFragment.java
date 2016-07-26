@@ -2,17 +2,22 @@ package com.example.jaineek.meeplemain.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
@@ -34,6 +39,8 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Krishnak97 on 7/5/2016.
  */
@@ -44,6 +51,7 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
     public static String title_local_feed_fragment = "My Feed";
     public static int drawable_icon_id = R.drawable.ic_home_white_48dp;
 
+    private SharedPreferences mSharedPreferences;
     private RecyclerView mLocalFeedRecyclerView;
     private FloatingActionButton mNewPostFAB;
     private ImageButton mRadiusButton;
@@ -57,14 +65,18 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
 
     // GeoFire variables
     private GeoFireRecyclerAdapter<Post, PostViewHolder> mAdapter;
-    private static int DEFAULT_RADIUS = 100; // Default query radius in km
+    private static double DEFAULT_RADIUS = 100; // Default query radius in km
     private GeoFire mGeoFire;
-    private int queryRadius;
+    private double queryRadius;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Save radius
+        mSharedPreferences = getActivity().getSharedPreferences("preferences", MODE_PRIVATE);
+        queryRadius = mSharedPreferences.getFloat("key_change_radius", (float) DEFAULT_RADIUS);
 
         // Save all instance information
     }
@@ -79,8 +91,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mGeoFire = new GeoFire(mDatabaseReference.child(FeedActivity.PATH_TO_GEOFIRE));
         mPostsReference = mDatabaseReference.child(FeedActivity.PATH_TO_POSTS);
-        queryRadius = DEFAULT_RADIUS;
-
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -92,40 +102,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         mNewPostFAB = (FloatingActionButton) v.findViewById(R.id.fab_new_post);
         setUpFloatingActionButton();
 
-
-        // Setup change radius button
-        mRadiusButton = (ImageButton) v.findViewById(R.id.change_radius_button);
-        mRadiusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: create an alert dialog to change the radius
-
-
-//                AlertDialog.Builder changeRadiusBuilder = new
-//                        AlertDialog.Builder(getActivity());
-//
-//                changeRadiusBuilder.setTitle(getString(
-//                        R.string.change_radius_alert_title))
-//                        .setMessage(change_radius_alert_message)
-//                        .setView(R.id.editText)
-//                        .setPositiveButton(android.R.string.yes,
-//                                new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        // Confirm: correct. Set event's date.
-//                                        mEventDate = tempDate;
-//                                        mEventDateField.setText(mSimpleDateFormat.format(mEventDate));
-//                                    }
-//                                })
-//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                // Confirm: not correct. Restart picking process
-//                                mEventDateField.performClick();
-//                            }
-//                        }).show();
-            }
-        });
         return v;
     }
 

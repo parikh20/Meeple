@@ -38,6 +38,8 @@
     <!-- Local Feed Fragment -->
     <string name="title_local_feed_fragment">Local Feed</string>
     <string name="title_map_fragment">My Location</string>
+    <string name="change_radius_alert_title">Change Your Radius</string>
+    <string name="change_radius_alert_message">Enter a New Radius</string>
 
     <!-- New Post stuff -->
     <string name="new_post_going">Going</string>
@@ -62,6 +64,7 @@
     <string name="change_email_desc">Change your email address</string>
     <string name="change_username_desc">Change your username</string>
     <string name="change_password_desc">Change your password</string>
+    <string name="change_radius_desc">Change your local posts radius</string>
 
 
     <!-- Errors -->

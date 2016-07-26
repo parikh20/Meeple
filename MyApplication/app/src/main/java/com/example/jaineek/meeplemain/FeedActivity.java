@@ -58,11 +58,12 @@ public class FeedActivity extends AppCompatActivity implements
     private boolean isDarkTheme = false;
 
 
-
     // Tags for all Intent extras
-    public static final String KEY_EXTRA_LOCATION = "com.example.jaineek.meeple.extra_tag_location";
+    public static final String KEY_EXTRA_LOCATION = "com.example.jaineek.meeplemain.extra_tag_location";
     public static final String PATH_TO_POSTS = "posts";
     public static final String PATH_TO_GEOFIRE = "geoFire";
+    public static final String KEY_EXTRA_RADIUS = "com.example.jaineek.meeplemain.extra_tag_location";
+
     // Firebase variables
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference mDatabaseReference;

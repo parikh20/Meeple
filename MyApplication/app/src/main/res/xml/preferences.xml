@@ -5,6 +5,12 @@
         android:title="@string/account_settings">
 
         <EditTextPreference
+            android:title="@string/change_radius_alert_title"
+            android:key="key_change_radius"
+            android:inputType="numberDecimal"
+            android:summary="@string/change_radius_desc" />
+
+        <EditTextPreference
             android:title="@string/option_change_email"
             android:key="key_change_email"
             android:summary="@string/change_email_desc" />
