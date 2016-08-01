@@ -57,8 +57,6 @@ public class FeedActivity extends AppCompatActivity implements
     public static final String TAG = "FeedActivity";
     private boolean isDarkTheme = false;
 
-
-
     // Tags for all Intent extras
     public static final String KEY_EXTRA_LOCATION = "com.example.jaineek.meeplemain.extra_tag_location";
     public static final String PATH_TO_POSTS = "posts";
@@ -70,7 +68,7 @@ public class FeedActivity extends AppCompatActivity implements
     private DatabaseReference mDatabaseReference;
 
     // GeoFire variables
-    private static int DEFAULT_RADIUS = 1000; // Default query radius in km
+    public static int DEFAULT_RADIUS = 1000; // Default query radius in km
     private GeoFire geoFire;
     private int queryRadius;
 

@@ -1,5 +1,6 @@
 package com.example.jaineek.meeplemain.fragments;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+import com.google.android.gms.fitness.data.Value;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,12 +31,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.jaineek.meeplemain.FeedActivity.PATH_TO_GEOFIRE;
+import static com.example.jaineek.meeplemain.FeedActivity.PATH_TO_POSTS;
+
 /**
  * Created by Krishnak97 on 7/5/2016.
  */
 
 public class MyMapFragment extends Fragment implements MeepleFragment,
-        OnMapReadyCallback{
+        OnMapReadyCallback, ValueEventListener {
     // Container fragment and handler for GoogleMap SupportMapFragment
 
     public static final String TAG = "FRAGMENT_MAP";
@@ -45,9 +51,11 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
     private MapView mMapView;
     private GoogleMap mMap;
     private Location mLastLocation;
+    private SharedPreferences mSharedPreferences;
 
-    private DatabaseReference mDatabaseReference;
-    private int queryRadius;
+    private DatabaseReference mPostsReference;
+    private DatabaseReference mGeoFireReference;
+    private double queryRadius;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,11 +73,69 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
         mMapView = (MapView) v.findViewById(R.id.google_mapView);
         mMapView.onCreate(savedInstanceState);  // Must be forwarded
 
+        mPostsReference = FirebaseDatabase.getInstance().getReference().child(PATH_TO_POSTS);
+        mGeoFireReference = FirebaseDatabase.getInstance().getReference().child(PATH_TO_GEOFIRE);
+
+        // Save radius
+        mSharedPreferences = getActivity().getSharedPreferences("preferences", MODE_PRIVATE);
+        queryRadius = mSharedPreferences.getFloat("key_change_radius", (float) FeedActivity.DEFAULT_RADIUS);
+
+        // Create geoQuery for user location
         mLastLocation = ((FeedActivity) getActivity()).getmLastLocation();
 
         // Set onMapCallBack
         mMapView.getMapAsync(this);
+
         return v;
+    }
+
+    private void setupGeoQueryWithMarkers(GeoQuery geoQuery) {
+        // Adds event listeners for drawing markers
+        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                mPostsReference.child(key).addValueEventListener(MyMapFragment.this);
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+                mPostsReference.child(key).removeEventListener(MyMapFragment.this);
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                onKeyExited(key);
+                onKeyEntered(key, location);
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
+    }
+
+    /* FIREBASE VALUE EVENT LISTENER METHODS */
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // Draw map marker
+        // TODO: create custom info window for each marker
+        Post post = dataSnapshot.getValue(Post.class);
+        double lat = post.eventLocation.getLatitude();
+        double lon = post.eventLocation.getLongitude();
+        mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lon))
+                .title(post.eventTitle).snippet(post.eventDesc));
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
     }
 
 
@@ -105,6 +171,13 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
             // Check if Lcoation services are enabled
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+            GeoLocation geoCenter = new GeoLocation(mLastLocation.getLatitude(),
+                    mLastLocation.getLongitude());
+            GeoFire geoFire = new GeoFire(mGeoFireReference);
+            GeoQuery geoQuery = geoFire.queryAtLocation(geoCenter, queryRadius);
+
+            setupGeoQueryWithMarkers(geoQuery);
 
         } else {
              // Notify the user that ACCESS LOCATION permission is disabled
