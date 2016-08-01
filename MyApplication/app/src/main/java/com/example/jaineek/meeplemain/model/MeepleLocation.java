@@ -1,6 +1,8 @@
 package com.example.jaineek.meeplemain.model;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
@@ -9,7 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by Krishnak97 on 7/19/2016.
  */
 
-public class MeepleLocation extends Location {
+public class MeepleLocation extends Location implements Parcelable {
     // Merely for Firebase purposes
 
     public double latitude;
@@ -100,4 +102,40 @@ public class MeepleLocation extends Location {
             return name + ":  " + address;
         }
     }
+
+    /* PARCELABLE METHODS */
+
+    protected MeepleLocation(Parcel in) {
+        this("");
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        address = in.readString();
+        name = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(address);
+        dest.writeString(name);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<MeepleLocation> CREATOR = new Parcelable.Creator<MeepleLocation>() {
+        @Override
+        public MeepleLocation createFromParcel(Parcel in) {
+            return new MeepleLocation(in);
+        }
+
+        @Override
+        public MeepleLocation[] newArray(int size) {
+            return new MeepleLocation[size];
+        }
+    };
 }

@@ -19,7 +19,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -50,18 +50,15 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:configChanges="orientation|screenLayout"
- />
+            android:configChanges="orientation|screenLayout" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:configChanges="orientation|screenLayout"
-            android:label="@string/recover_your_password"
-/>
-        <activity
-            android:name=".FeedActivity" />
+            android:label="@string/recover_your_password" />
+        <activity android:name=".FeedActivity" />
         <activity
             android:name=".NewPostActivity"
-            android:label="@string/new_post_title"/>
+            android:label="@string/new_post_title" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -73,5 +70,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <activity android:name=".ViewPostActivity"
+            android:label="@string/view_post_title">
+        </activity>
     </application>
+
 </manifest>

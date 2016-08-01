@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,8 +52,9 @@ public class LoginActivity extends AppCompatActivity implements
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
-    // TODO: DELETE THIS
+    //TODO: remove test button once done
     private Button mTestButton;
 
     //Final static variables
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
         // Check for dark theme
         if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
@@ -156,15 +159,17 @@ public class LoginActivity extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        mTestButton = (Button) findViewById(R.id.test_button);
+        //Test button to login. Remove once done
+        mTestButton = (Button) findViewById(R.id.login_test_button);
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                mAuth.signInWithEmailAndPassword("jaineekparikh@yahoo.com", "password");
+                loginToFeedActivity();
             }
         });
     }
+
 
     public void authenticateUser() {
         // Attempts to login user with entered Email Address and Password
@@ -294,4 +299,40 @@ public class LoginActivity extends AppCompatActivity implements
         recreate();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+        String savedEmail = mEmailAddress.getText().toString();
+        outState.putString("savedEmail", savedEmail);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+        String savedEmail = savedInstanceState.getString("savedEmail", null);
+        if (savedEmail != null) {
+            mEmailAddress.setText(savedEmail);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+        String savedEmail = mEmailAddress.getText().toString();
+        mEditor.putString("savedEmail", savedEmail);
+        mEditor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+        String savedEmail = mSharedPreferences.getString("savedEmail", null);
+        if (savedEmail != null) {
+            mEmailAddress.setText(savedEmail);
+        }
+    }
 }

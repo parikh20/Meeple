@@ -20,19 +20,20 @@
         android:orientation="vertical"
         xmlns:tools="http://schemas.android.com.tools">
 
-        <TextView
-            android:id="@+id/post_message_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_normal"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:text="hi"/>
 
         <LinearLayout
+            android:id="@+id/clickable_block_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/small_between_padding">
+            android:orientation="vertical" >
+
+            <!--<TextView-->
+            <!--android:id="@+id/post_message_textView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="@dimen/text_size_normal"-->
+            <!--xmlns:tools="http://schemas.android.com/tools"-->
+            <!--tools:text="hi"/>-->
 
             <TextView
                 android:id="@+id/new_post_title_textView"
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"
+                android:layout_marginTop="@dimen/small_between_padding"
                 android:layout_marginBottom="@dimen/very_small_between_padding"
                 xmlns:tools="http://schemas.android.com/tools"
                 tools:text="@string/new_post_title"/>
@@ -68,7 +70,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/small_between_padding">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -84,17 +87,14 @@
                     android:textStyle="italic" />
             </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/new_post_description_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_post_message"
+                android:layout_marginBottom="@dimen/very_small_between_padding"/>
 
         </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/new_post_description_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_post_message"
-            android:layout_marginBottom="@dimen/small_between_padding"/>
 
         <CheckBox
             android:layout_width="wrap_content"

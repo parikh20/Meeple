@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="1"
-    tools:context="com.example.jaineek.meeplemain.LoginActivity" >
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/login_email_editText"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="@string/new_email_address" />
-
-     <EditText
-         android:id="@+id/login_password_editText"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:inputType="textPassword"
-         android:hint="@string/new_password" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="@dimen/between_padding" >
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="1"
+        tools:context="com.example.jaineek.meeplemain.LoginActivity" >
+
+        <EditText
+            android:id="@+id/login_email_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="@string/new_email_address" />
+
+        <EditText
+            android:id="@+id/login_password_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/new_password" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center" >
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="@dimen/between_padding" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/login_button"
+                    android:layout_width="wrap_content"
+                    android:text="@string/login_title"
+                    android:ems="7"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/between_padding"/>
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/login_google_signin_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/login_forgot_password_clickable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/forgot_password"
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginTop="@dimen/between_padding"
+                android:onClick="OnClick"
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/login_dont_have_account_clickable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dont_have_account_message"
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginTop="@dimen/small_between_padding"
+                android:onClick="onClick"
+                android:clickable="true" />
 
             <Button
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:text="@string/login_title"
-                android:ems="7"
+                android:text="login test button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/between_padding"/>
+                android:id="@+id/login_test_button" />
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/login_google_signin_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/login_forgot_password_clickable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/forgot_password"
-            android:textSize="@dimen/text_size_normal"
-            android:layout_marginTop="@dimen/between_padding"
-            android:onClick="OnClick"
-            android:clickable="true"/>
-
-        <TextView
-            android:id="@+id/login_dont_have_account_clickable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/dont_have_account_message"
-            android:textSize="@dimen/text_size_normal"
-            android:layout_marginTop="@dimen/small_between_padding"
-            android:onClick="onClick"
-            android:clickable="true" />
-
-        <Button
-            android:id="@+id/test_button"
-            android:layout_width="wrap_content"
-            android:text="@string/test_swiping"
-            android:ems="7"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/between_padding"/>
-
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

@@ -2,6 +2,7 @@ package com.example.jaineek.meeplemain;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Context mContext;
     private static final String TAG = "ForgotPasswordActivity";
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     // Firebase variables
     private FirebaseAuth mAuth;
@@ -30,6 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
         // Check for dark theme
         if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
@@ -89,5 +92,42 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         recreate();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        mEmailAddress = (EditText) findViewById(R.id.forgot_password_email_editText);
+        String savedEmail = mEmailAddress.getText().toString();
+        outState.putString("savedEmail", savedEmail);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        mEmailAddress = (EditText) findViewById(R.id.forgot_password_email_editText);
+        String savedEmail = savedInstanceState.getString("savedEmail", null);
+        if (savedEmail != null) {
+            mEmailAddress.setText(savedEmail);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEmailAddress = (EditText) findViewById(R.id.forgot_password_email_editText);
+        String savedEmail = mEmailAddress.getText().toString();
+        mEditor.putString("savedEmailFPA", savedEmail);
+        mEditor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEmailAddress = (EditText) findViewById(R.id.forgot_password_email_editText);
+        String savedEmail = mSharedPreferences.getString("savedEmailFPA", null);
+        if (savedEmail != null) {
+            mEmailAddress.setText(savedEmail);
+        }
     }
 }

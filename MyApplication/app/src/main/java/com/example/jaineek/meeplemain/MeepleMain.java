@@ -1,6 +1,7 @@
 package com.example.jaineek.meeplemain;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class MeepleMain extends AppCompatActivity {
     private EditText mUsername;
     private android.content.Context mContext;
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
@@ -48,7 +50,7 @@ public class MeepleMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mSharedPreferences = getApplicationContext().getSharedPreferences("preferences", MODE_PRIVATE);
-
+        mEditor = mSharedPreferences.edit();
         // Check for dark theme
         if (mSharedPreferences.getBoolean("key_change_theme", false)) {
             setTheme(R.style.DarkAppTheme);
@@ -197,5 +199,74 @@ public class MeepleMain extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         recreate();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+        mPassword = (EditText) findViewById(R.id.register_password_editText);
+        mUsername = (EditText) findViewById(R.id.register_username_editText);
+        String savedEmail = mEmailAddress.getText().toString();
+        String savedPassword = mPassword.getText().toString();
+        String savedUsername = mUsername.getText().toString();
+        outState.putString("savedEmail", savedEmail);
+        outState.putString("savedPassword", savedPassword);
+        outState.putString("savedUsername", savedUsername);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+        mPassword = (EditText) findViewById(R.id.register_password_editText);
+        mUsername = (EditText) findViewById(R.id.register_username_editText);
+        String savedEmail = savedInstanceState.getString("savedEmail", null);
+        String savedPassword = savedInstanceState.getString("savedPassword", null);
+        String savedUsername = savedInstanceState.getString("savedUsername", null);
+        if (savedEmail != null) {
+            mEmailAddress.setText(savedEmail);
+        }
+        if (savedPassword != null) {
+            mPassword.setText(savedPassword);
+        }
+        if (savedUsername != null) {
+            mUsername.setText(savedUsername);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+        mPassword = (EditText) findViewById(R.id.register_password_editText);
+        mUsername = (EditText) findViewById(R.id.register_username_editText);
+        String savedEmail = mEmailAddress.getText().toString();
+        String savedPassword = mPassword.getText().toString();
+        String savedUsername = mUsername.getText().toString();
+        mEditor.putString("savedEmailMM", savedEmail);
+        mEditor.putString("savedPasswordMM", savedPassword);
+        mEditor.putString("savedUsernameMM", savedUsername);
+        mEditor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+        mPassword = (EditText) findViewById(R.id.register_password_editText);
+        mUsername = (EditText) findViewById(R.id.register_username_editText);
+        String savedEmail = mSharedPreferences.getString("savedEmailMM", null);
+        String savedPassword = mSharedPreferences.getString("savedPasswordMM", null);
+        String savedUsername = mSharedPreferences.getString("savedUsernameMM", null);
+        if (savedEmail != null) {
+            mEmailAddress.setText(savedEmail);
+        }
+        if (savedPassword != null) {
+            mPassword.setText(savedPassword);
+        }
+        if (savedUsername != null) {
+            mUsername.setText(savedUsername);
+        }
     }
 }

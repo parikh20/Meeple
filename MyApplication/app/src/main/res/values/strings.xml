@@ -41,7 +41,7 @@
     <string name="change_radius_alert_title">Change Your Radius</string>
     <string name="change_radius_alert_message">Enter a New Radius</string>
 
-    <!-- New Post stuff -->
+    <!-- New Post Activity -->
     <string name="new_post_going">Going</string>
     <string name="post">Post</string>
     <string name="new_post_header">Write a new post here!</string>
@@ -53,6 +53,9 @@
     <string name="date_picker_title">Select the Date:</string>
     <string name="time_picker_title">Select the Time:</string>
     <string name="confirm_date_and_time_title">Is this correct?</string>
+
+    <!-- View Post Activity -->
+    <string name="view_post_title">View Post</string>
 
     <!-- Settings activity -->
     <string name="settings_title">Settings</string>
@@ -74,8 +77,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_login_unsuccessful">Username or password is incorrect</string>
     <string name="error_password_too_short">The password must be at least 6 characters long!</string>
-    <string name="error_location_not_supported"
-        >Your device does not support location services at this time.</string>
+    <string name="error_location_not_supported">Your device does not support location services at this time.</string>
 
     <!-- Other -->
     <string name="login_id_token">785497003186-vmck9mce8a77qju1ilq1sci0cjeg9guu.apps.googleusercontent.com</string>

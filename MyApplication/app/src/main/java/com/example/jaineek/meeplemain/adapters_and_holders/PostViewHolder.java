@@ -1,10 +1,13 @@
 package com.example.jaineek.meeplemain.adapters_and_holders;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.jaineek.meeplemain.R;
+import com.example.jaineek.meeplemain.ViewPostActivity;
 import com.example.jaineek.meeplemain.model.Post;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +27,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private TextView mPostDescription;
 
     private SimpleDateFormat mSimpleDateFormat;
+    private View mClickableBlock;
 
     public PostViewHolder(View itemView) {
         super(itemView);
@@ -38,6 +42,19 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         mPostDate = (TextView) itemView.findViewById(R.id.new_post_date_textView);
 
         mSimpleDateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy  hh:mm aaa");
+
+        // Clickable portion that takes you to ViewPostActivity
+        mClickableBlock = itemView.findViewById(R.id.clickable_block_view);
+        mClickableBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Send this post to ViewPostActivity
+                Context viewContext = view.getContext();
+                Intent toViewPostActivity = new Intent(viewContext, ViewPostActivity.class);
+                toViewPostActivity.putExtra(ViewPostActivity.KEY_EXTRA_POST, mPost);
+                viewContext.startActivity(toViewPostActivity);
+            }
+        });
     }
 
     public void bindViewsWithPost(Post post) {

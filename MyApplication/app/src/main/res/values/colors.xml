@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">@color/colorPrimary</color>
     <color name="colorPrimaryLight">#b59ad7</color>
+    <color name="white">#FFFFFF</color>
 
     <color name="tabColor">@color/colorPrimary</color>
     <color name="tabDividerColor">@color/colorPrimary</color>
-    <color name="tabIndicatorColor">@color/colorAccent</color>
+    <color name="tabIndicatorColor">@color/white</color>
     <color name="tabTextColor">@color/colorAccent</color>
 
     <color name="black">#000000</color>

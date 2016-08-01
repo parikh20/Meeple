@@ -73,13 +73,11 @@
              android:onClick="onClick"
              android:clickable="true" />
 
-         <Button
-             android:id="@+id/test_button"
-             android:layout_width="wrap_content"
-             android:text="@string/test_swiping"
-             android:ems="7"
-             android:layout_height="wrap_content"
-             android:layout_marginEnd="@dimen/between_padding"/>
-
      </LinearLayout>
+
+    <Button
+        android:text="login test button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_test_button" />
 </LinearLayout>

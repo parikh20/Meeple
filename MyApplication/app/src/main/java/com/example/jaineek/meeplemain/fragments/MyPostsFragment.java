@@ -14,10 +14,15 @@ import android.view.ViewGroup;
 import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
+import com.example.jaineek.meeplemain.adapters_and_holders.FirebaseRecyclerAdapter;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
+import com.example.jaineek.meeplemain.adapters_and_holders.PostViewHolder;
 import com.example.jaineek.meeplemain.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +42,7 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
     private List<Post> mMyPosts = new ArrayList<>();
 
     // Declaring Firebase variables
-    private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
+    private DatabaseReference mPostsReference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +57,10 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
 
         View v = inflater.inflate(R.layout.fragment_my_posts, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        mPostsReference = FirebaseDatabase.getInstance()
+                .getReference(FeedActivity.PATH_TO_POSTS);
         mMyPostsRecyclerView = (RecyclerView) v.findViewById(R.id.my_posts_recyclerView);
         mMyPosts = findMyPosts();
 
@@ -67,14 +73,26 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
     }
 
     private void setUpRecyclerViewAndAdapter() {
-        // Sets up RecyclerView, LocalPostAdapter with data and LayoutManager
+        // Sets up RecyclerView, FirebaseRecyclerAdapter with data and LayoutManager
 
         // Sets linearLayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mMyPostsRecyclerView.setLayoutManager(layoutManager);
 
+        // Get only posts for this userUID
+        Query postsForThisUser =  mPostsReference.orderByChild(Post.userUID_KEY)
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         // Creates adapter w/ data. Sets up w/ RecyclerView
-        PostRecyclerAdapter localFeedAdapter = new PostRecyclerAdapter(mMyPosts, getActivity());
+        FirebaseRecyclerAdapter<Post, PostViewHolder> localFeedAdapter =
+                new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.custom_view_post,
+                        PostViewHolder.class, postsForThisUser) {
+                    @Override
+                    protected void populateViewHolder(PostViewHolder viewHolder, Post model, int position) {
+                        // Populate viewHolder with Post info
+                        viewHolder.bindViewsWithPost(model);
+                    }
+                };
         mMyPostsRecyclerView.setAdapter(localFeedAdapter);
     }
 
