@@ -200,73 +200,73 @@ public class MeepleMain extends AppCompatActivity {
         super.onRestart();
         recreate();
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
-        mPassword = (EditText) findViewById(R.id.register_password_editText);
-        mUsername = (EditText) findViewById(R.id.register_username_editText);
-        String savedEmail = mEmailAddress.getText().toString();
-        String savedPassword = mPassword.getText().toString();
-        String savedUsername = mUsername.getText().toString();
-        outState.putString("savedEmail", savedEmail);
-        outState.putString("savedPassword", savedPassword);
-        outState.putString("savedUsername", savedUsername);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
-        mPassword = (EditText) findViewById(R.id.register_password_editText);
-        mUsername = (EditText) findViewById(R.id.register_username_editText);
-        String savedEmail = savedInstanceState.getString("savedEmail", null);
-        String savedPassword = savedInstanceState.getString("savedPassword", null);
-        String savedUsername = savedInstanceState.getString("savedUsername", null);
-        if (savedEmail != null) {
-            mEmailAddress.setText(savedEmail);
-        }
-        if (savedPassword != null) {
-            mPassword.setText(savedPassword);
-        }
-        if (savedUsername != null) {
-            mUsername.setText(savedUsername);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
-        mPassword = (EditText) findViewById(R.id.register_password_editText);
-        mUsername = (EditText) findViewById(R.id.register_username_editText);
-        String savedEmail = mEmailAddress.getText().toString();
-        String savedPassword = mPassword.getText().toString();
-        String savedUsername = mUsername.getText().toString();
-        mEditor.putString("savedEmailMM", savedEmail);
-        mEditor.putString("savedPasswordMM", savedPassword);
-        mEditor.putString("savedUsernameMM", savedUsername);
-        mEditor.apply();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
-        mPassword = (EditText) findViewById(R.id.register_password_editText);
-        mUsername = (EditText) findViewById(R.id.register_username_editText);
-        String savedEmail = mSharedPreferences.getString("savedEmailMM", null);
-        String savedPassword = mSharedPreferences.getString("savedPasswordMM", null);
-        String savedUsername = mSharedPreferences.getString("savedUsernameMM", null);
-        if (savedEmail != null) {
-            mEmailAddress.setText(savedEmail);
-        }
-        if (savedPassword != null) {
-            mPassword.setText(savedPassword);
-        }
-        if (savedUsername != null) {
-            mUsername.setText(savedUsername);
-        }
-    }
+//
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+//        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+//        mPassword = (EditText) findViewById(R.id.register_password_editText);
+//        mUsername = (EditText) findViewById(R.id.register_username_editText);
+//        String savedEmail = mEmailAddress.getText().toString();
+//        String savedPassword = mPassword.getText().toString();
+//        String savedUsername = mUsername.getText().toString();
+//        outState.putString("savedEmail", savedEmail);
+//        outState.putString("savedPassword", savedPassword);
+//        outState.putString("savedUsername", savedUsername);
+//    }
+//
+//    @Override
+//    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+//        super.onRestoreInstanceState(savedInstanceState, persistentState);
+//        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+//        mPassword = (EditText) findViewById(R.id.register_password_editText);
+//        mUsername = (EditText) findViewById(R.id.register_username_editText);
+//        String savedEmail = savedInstanceState.getString("savedEmail", null);
+//        String savedPassword = savedInstanceState.getString("savedPassword", null);
+//        String savedUsername = savedInstanceState.getString("savedUsername", null);
+//        if (savedEmail != null) {
+//            mEmailAddress.setText(savedEmail);
+//        }
+//        if (savedPassword != null) {
+//            mPassword.setText(savedPassword);
+//        }
+//        if (savedUsername != null) {
+//            mUsername.setText(savedUsername);
+//        }
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+//        mPassword = (EditText) findViewById(R.id.register_password_editText);
+//        mUsername = (EditText) findViewById(R.id.register_username_editText);
+//        String savedEmail = mEmailAddress.getText().toString();
+//        String savedPassword = mPassword.getText().toString();
+//        String savedUsername = mUsername.getText().toString();
+//        mEditor.putString("savedEmailMM", savedEmail);
+//        mEditor.putString("savedPasswordMM", savedPassword);
+//        mEditor.putString("savedUsernameMM", savedUsername);
+//        mEditor.apply();
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mEmailAddress = (EditText) findViewById(R.id.register_email_editText);
+//        mPassword = (EditText) findViewById(R.id.register_password_editText);
+//        mUsername = (EditText) findViewById(R.id.register_username_editText);
+//        String savedEmail = mSharedPreferences.getString("savedEmailMM", null);
+//        String savedPassword = mSharedPreferences.getString("savedPasswordMM", null);
+//        String savedUsername = mSharedPreferences.getString("savedUsernameMM", null);
+//        if (savedEmail != null) {
+//            mEmailAddress.setText(savedEmail);
+//        }
+//        if (savedPassword != null) {
+//            mPassword.setText(savedPassword);
+//        }
+//        if (savedUsername != null) {
+//            mUsername.setText(savedUsername);
+//        }
+//    }
 }

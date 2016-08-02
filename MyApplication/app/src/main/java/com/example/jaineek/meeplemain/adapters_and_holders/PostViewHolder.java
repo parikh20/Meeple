@@ -34,8 +34,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         // ViewHolder now holds custom Post view (itemView)
 
         // Find Views within itemView
-        // TODO: actually assign member variables
-
         mPostDescription =(TextView) itemView.findViewById(R.id.new_post_description_textView);
         mPostTitle =(TextView) itemView.findViewById(R.id.new_post_title_textView);
         mPostLocation = (TextView) itemView.findViewById(R.id.new_post_location_textView);

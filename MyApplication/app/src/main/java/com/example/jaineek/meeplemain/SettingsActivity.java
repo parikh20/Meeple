@@ -60,38 +60,24 @@ public class SettingsActivity extends PreferenceActivity {
         editTextRadius.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, final Object newValue) {
+                // Change radius if ok is clicked
+                ;
+                radius = Double.parseDouble((String) newValue);
+                System.out.println(radius);
+                // Check bounds
+                if (radius > 500) {
+                    radius = 500;
+                } else if (radius < 1 ) {
+                    radius = 1;
+                }
+                // Store the entered value
+                editor.putFloat("key_change_radius", (float) radius);
+                editor.apply();
 
-                //Setting Alert Dialogue for confirmation
-                new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle(R.string.change_radius_alert_title)
-                        .setMessage(R.string.change_radius_alert_message)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Change radius if ok is clicked
-                                radius = (double) newValue;
-
-                                // Check bounds
-                                if (radius > 500) {
-                                    radius = 500;
-                                } else if (radius < 1 ) {
-                                    radius = 1;
-                                }
-
-                                // Store the entered value
-                                editor.putFloat("key_change_radius", (float) radius);
-                                editor.apply();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
                 return true;
             }
         });
+
 
         //On Change listener for changing email
         editTextEmail = (EditTextPreference) findPreference("key_change_email");

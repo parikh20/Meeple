@@ -299,40 +299,40 @@ public class LoginActivity extends AppCompatActivity implements
         recreate();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
-        String savedEmail = mEmailAddress.getText().toString();
-        outState.putString("savedEmail", savedEmail);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
-        String savedEmail = savedInstanceState.getString("savedEmail", null);
-        if (savedEmail != null) {
-            mEmailAddress.setText(savedEmail);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
-        String savedEmail = mEmailAddress.getText().toString();
-        mEditor.putString("savedEmail", savedEmail);
-        mEditor.apply();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
-        String savedEmail = mSharedPreferences.getString("savedEmail", null);
-        if (savedEmail != null) {
-            mEmailAddress.setText(savedEmail);
-        }
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+//        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+//        String savedEmail = mEmailAddress.getText().toString();
+//        outState.putString("savedEmail", savedEmail);
+//    }
+//
+//    @Override
+//    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
+//        super.onRestoreInstanceState(savedInstanceState, persistentState);
+//        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+//        String savedEmail = savedInstanceState.getString("savedEmail", null);
+//        if (savedEmail != null) {
+//            mEmailAddress.setText(savedEmail);
+//        }
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+//        String savedEmail = mEmailAddress.getText().toString();
+//        mEditor.putString("savedEmail", savedEmail);
+//        mEditor.apply();
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mEmailAddress = (EditText) findViewById(R.id.login_email_editText);
+//        String savedEmail = mSharedPreferences.getString("savedEmail", null);
+//        if (savedEmail != null) {
+//            mEmailAddress.setText(savedEmail);
+//        }
+//    }
 }

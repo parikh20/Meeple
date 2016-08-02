@@ -19,6 +19,7 @@ public class ViewPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_post);
 
+        // Needs to be started with an Extra ALWAYS
         Intent intent = getIntent();
         mPost = intent.getParcelableExtra(KEY_EXTRA_POST);
 
