@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This class implements an array-like collection on top of a Firebase location, using the developer's
@@ -126,16 +128,25 @@ class GeoFireArray<T> implements GeoQueryEventListener, ValueEventListener {
 
     // Start of ValueEventListener methods
 
+    // TODO: make this generic
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         // Get Model object from the dataSnapshot
         T model = (T) dataSnapshot.getValue(mModelClass);
+        Post post = (Post) model;
 
-        if (model != null) {
+        // Get current date at midnight
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0); //Set to midnight
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        Date currentDate = c.getTime();
+
+        // Check if time has not passed
+        if (model != null && post.eventDate.compareTo(currentDate) >= 0)  {
             mSnapshots.add(dataSnapshot);
             notifyChangedListeners(OnChangedListener.EventType.Added, mSnapshots.size() - 1);
         }
-
     }
 
     public void onCancelled(DatabaseError firebaseError) {

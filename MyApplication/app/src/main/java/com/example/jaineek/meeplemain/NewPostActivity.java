@@ -264,6 +264,20 @@ public class NewPostActivity extends AppCompatActivity {
                 passed = false;
             }
         }
+
+        // Get current date at midnight
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0); //Set to midnight
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        Date currentDate = c.getTime();
+
+        // Check that date is not in the past
+        if (mEventDate.compareTo(currentDate) <= 0) {
+            passed = false;
+            mEventDateField.setError(getString(R.string.error_date_not_valid));
+        }
+
         return passed;
     }
 
