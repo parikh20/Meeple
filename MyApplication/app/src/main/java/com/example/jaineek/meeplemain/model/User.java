@@ -5,12 +5,12 @@ package com.example.jaineek.meeplemain.model;
  */
 
 public class User {
-
     String username;
     String email;
-
-    public User(String username, String email) {
+    String uid;
+    public User(String username, String email, String uid) {
         this.username = username;
         this.email = email;
+        this.uid = uid;
     }
 }

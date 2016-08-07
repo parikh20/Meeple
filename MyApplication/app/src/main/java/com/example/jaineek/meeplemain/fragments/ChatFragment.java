@@ -37,7 +37,7 @@ public class ChatFragment extends Fragment implements MeepleFragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NewChatActivity.class);
+                Intent intent = new Intent(getContext(), ChatActivity.class);
                 startActivity(intent);
             }
         });
