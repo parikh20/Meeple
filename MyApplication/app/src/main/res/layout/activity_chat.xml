@@ -27,19 +27,19 @@
         android:id="@+id/linearLayout">
 
         <EditText
+            android:id="@+id/messageEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/messageEditText"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:hint="Send a message" />
+            android:hint="@string/send_a_message" />
 
         <Button
+            android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SEND"
+            android:text="@string/send_button_title"
             android:enabled="false"
-            android:id="@+id/sendButton"
             android:layout_gravity="bottom"/>
 
     </LinearLayout>

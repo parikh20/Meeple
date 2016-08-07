@@ -24,6 +24,7 @@ public class Post implements Parcelable {
     public Date eventDate;
     public String comments;
     public Long timestamp;
+    public int going;
 
     public static final String userUID_KEY = "userUID";
 
@@ -39,6 +40,7 @@ public class Post implements Parcelable {
         this.eventLocation = eventLocation;
         this.comments = "DUMMY VALUE";
         this.timestamp = eventDate.getTime();
+        this.going = 0;
     }
 
     /* PARCELABLE METHODS */
@@ -52,6 +54,7 @@ public class Post implements Parcelable {
         eventDate = tmpEventDate != -1 ? new Date(tmpEventDate) : null;
         comments = in.readString();
         timestamp = in.readLong();
+        going = in.readInt();
     }
 
     @Override
@@ -68,6 +71,7 @@ public class Post implements Parcelable {
         dest.writeLong(eventDate != null ? eventDate.getTime() : -1L);
         dest.writeString(comments);
         dest.writeLong(timestamp);
+        dest.writeInt(going);
     }
 
     @SuppressWarnings("unused")

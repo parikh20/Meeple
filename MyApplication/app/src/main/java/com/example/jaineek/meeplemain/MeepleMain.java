@@ -127,11 +127,14 @@ public class MeepleMain extends AppCompatActivity {
                                 // Get new user, set Username, signOut
                                 FirebaseUser user = mAuth.getCurrentUser();
 
+                                // Write User to Firebase Database
                                 User userObject = new User(user.getDisplayName(), user.getEmail());
-                                mDatabaseReference.child("users").child(user.getUid()).setValue(userObject);
+                                mDatabaseReference.child("users").child(user.getUid())
+                                        .setValue(userObject);
+
                                 mAuth.signOut();
+
                                 // Change to Login screen
-                                // TODO: create a private intent function to change activities
                                 Intent toLoginActivity = new Intent(mContext, LoginActivity.class);
                                 startActivity(toLoginActivity);
                                 finish();

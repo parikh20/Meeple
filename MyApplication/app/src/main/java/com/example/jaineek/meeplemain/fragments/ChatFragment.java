@@ -15,7 +15,12 @@ import com.example.jaineek.meeplemain.NewChatActivity;
 import com.example.jaineek.meeplemain.R;
 
 public class ChatFragment extends Fragment implements MeepleFragment{
-    Button button;
+
+    public static final String TAG = "FRAGMENT_CHAT";
+    public static String title_chat_fragment = "Chats";
+    public static int drawable_icon_id = R.drawable.ic_people_white_48dp;
+
+    private Button button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,16 +47,16 @@ public class ChatFragment extends Fragment implements MeepleFragment{
 
     @Override
     public String getTitle() {
-        return "Chats";
+        return title_chat_fragment;
     }
 
     @Override
     public String getFragmentTag() {
-        return "CHAT_FRAGMENT";
+        return TAG;
     }
 
     @Override
     public int getDrawableIconId() {
-        return R.drawable.ic_play_dark;
+        return drawable_icon_id;
     }
 }

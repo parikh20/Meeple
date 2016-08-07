@@ -57,7 +57,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     public void bindViewsWithPost(Post post) {
         // Update member variables with info from Post
-        // TODO: actually do this
         mPost = post;
 
         mPostTitle.setText(mPost.eventTitle);

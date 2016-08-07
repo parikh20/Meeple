@@ -21,8 +21,6 @@ public class NewChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_chat);
 
-        // TEST PUS
-
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mAutoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.new_chat_autocomplete);
         //Creating an ArrayAdapter that uses android simple list item 1

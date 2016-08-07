@@ -35,5 +35,6 @@
 
     <!-- Info Windows -->
     <dimen name="info_window_width">200dp</dimen>
+    <dimen name="lite_mode_map_size">200dp</dimen>
 
 </resources>
