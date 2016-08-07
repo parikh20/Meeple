@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -30,13 +31,19 @@ import com.example.jaineek.meeplemain.model.Post;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -54,8 +61,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
     private SharedPreferences mSharedPreferences;
     private RecyclerView mLocalFeedRecyclerView;
     private FloatingActionButton mNewPostFAB;
-    private ImageButton mRadiusButton;
-    private List<Post> mLocalPosts = new ArrayList<>();
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
@@ -95,7 +100,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mLocalFeedRecyclerView = (RecyclerView) v.findViewById(R.id.local_feed_recyclerView);
-        mLocalPosts = findLocalPosts();
 
         setUpRecyclerViewAndAdapter();
 
@@ -160,18 +164,18 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         });
     }
 
-    private List<Post> findLocalPosts() {
-        // Returns List<Post> close to user locaton
-        // TODO: implement actual GPS tracking
-        List<Post> testPosts = new ArrayList<>();
-        for(int i = 0; i < 30; i++) {
-            Post post = new Post();
-            post.eventDesc = "Local Post " + i;
-            testPosts.add(post);
-        }
-
-        return testPosts;
-    }
+//    private List<Post> findLocalPosts() {
+//        // Returns List<Post> close to user locaton
+//        // TODO: implement actual GPS tracking
+//        List<Post> testPosts = new ArrayList<>();
+//        for(int i = 0; i < 30; i++) {
+//            Post post = new Post();
+//            post.eventDesc = "Local Post " + i;
+//            testPosts.add(post);
+//        }
+//
+//        return testPosts;
+//    }
 
     /* MEEPLE FRAGMENT METHODS */
 

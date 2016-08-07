@@ -28,6 +28,7 @@ import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
 import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
+import com.example.jaineek.meeplemain.model.Post;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
@@ -37,11 +38,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements
@@ -96,7 +101,6 @@ public class FeedActivity extends AppCompatActivity implements
         /* LOCATIONS AND GEOFIRE*/
 
         setupGoogleLocationServices();
-//        setupGeoFireAndQuery();
 
         /* FRAGMENTS AND TABS */
 
@@ -110,7 +114,7 @@ public class FeedActivity extends AppCompatActivity implements
 
         setupViewPagerListener();
 
-        setupTabsAndTitles(isDarkTheme);
+        setupTabsAndTitles();
     }
 
     private void setupViewPagerListener() {
@@ -138,7 +142,7 @@ public class FeedActivity extends AppCompatActivity implements
         setActionBarTitle(mFragmentList.get(0).getTitle());
     }
 
-    private void setupTabsAndTitles(final boolean isDarkTheme) {
+    private void setupTabsAndTitles() {
         // Sets up Tabs with Custom Pages and ViewPager
 
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tab_layout);
@@ -269,56 +273,6 @@ public class FeedActivity extends AppCompatActivity implements
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    /* GEOFIRE METHODS */
-    private void setupGeoFireAndQuery() {
-        // Declares GeoFire variables and sets up GeoQuery
-        queryRadius = DEFAULT_RADIUS;
-        // Get reference to Posts node, GeoFire object
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        GeoFire geoFire = new GeoFire(mDatabaseReference);
-
-        // GeoLocation from regular location
-        GeoLocation queryCenter = new GeoLocation(mLastLocation.getLatitude(),
-                mLastLocation.getLongitude());
-
-        GeoQuery geoQuery = geoFire.queryAtLocation(queryCenter, queryRadius);
-        setupGeoQueryListener(geoQuery);
-    }
-
-    private void setupGeoQueryListener(GeoQuery geoQuery) {
-        // Add event listener to manage Map
-        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
-            @Override
-            public void onKeyEntered(String key, GeoLocation location) {
-                // Draw on map
-                System.out.println("found post: " + key);
-            }
-
-            @Override
-            public void onKeyExited(String key) {
-                // Remove from map
-
-            }
-
-            @Override
-            public void onKeyMoved(String key, GeoLocation location) {
-                // Move on map
-
-            }
-
-            @Override
-            public void onGeoQueryReady() {
-
-            }
-
-            @Override
-            public void onGeoQueryError(DatabaseError error) {
-
-            }
-        });
-    }
-
 
     /* GOOGLE MAPS METHODS */
 

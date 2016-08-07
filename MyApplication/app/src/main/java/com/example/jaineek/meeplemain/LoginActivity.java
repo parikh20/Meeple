@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.PersistableBundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jaineek.meeplemain.model.Post;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -35,7 +37,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -64,6 +73,8 @@ public class LoginActivity extends AppCompatActivity implements
     // Declaring Firebase Variables
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabaseReference;
+    private DatabaseReference mPostsReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +179,61 @@ public class LoginActivity extends AppCompatActivity implements
                 loginToFeedActivity();
             }
         });
+
+        purgeDatabaseOfOldPosts();
+
+    }
+
+    public void purgeDatabaseOfOldPosts() {
+        // Deletes old Posts from Firebase Database
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mPostsReference = mDatabaseReference.child(FeedActivity.PATH_TO_POSTS);
+
+        mPostsReference.orderByChild("timestamp").addChildEventListener(
+                new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                        Post post = dataSnapshot.getValue(Post.class);
+                        String postKey = dataSnapshot.getKey();
+
+                        // Get current date at midnight
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY, 0);
+                        c.set(Calendar.MINUTE, 0);
+                        c.set(Calendar.SECOND, 0);
+                        Date currentDate = c.getTime();
+
+                        if (post.eventDate.compareTo(currentDate) < 0) {
+                            // If post is in the past, delete it from Posts and GeoFire
+                            mPostsReference.child(postKey).setValue(null);
+                            mDatabaseReference.child(FeedActivity.PATH_TO_GEOFIRE).child(postKey)
+                                    .setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
     }
 
 
