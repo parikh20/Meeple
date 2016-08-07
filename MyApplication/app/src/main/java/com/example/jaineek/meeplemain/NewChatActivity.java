@@ -21,11 +21,13 @@ public class NewChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_chat);
 
+        // TEST PUSH
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mAutoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.new_chat_autocomplete);
         //Creating an ArrayAdapter that uses android simple list item 1
-        final ArrayAdapter<String> autoCompleteSuggestions = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        final ArrayAdapter<String> autoCompleteSuggestions = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1);
 
         //Added ValueEventListener for child users
         mDatabaseReference.child("users").addValueEventListener(new ValueEventListener() {
