@@ -2,6 +2,7 @@ package com.example.jaineek.meeplemain;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PersistableBundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +16,15 @@ import android.widget.Toast;
 
 //import com.firebase.client.Firebase;
 //import com.firebase.client.core.Context;
+import com.example.jaineek.meeplemain.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -46,6 +50,7 @@ public class MeepleMain extends AppCompatActivity {
 
     // Declaring Firebase variables
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,7 @@ public class MeepleMain extends AppCompatActivity {
 
         // Getting Firebase Authentication Instance
         mAuth = FirebaseAuth.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         mHaveAccountClickable = (TextView) findViewById(R.id.register_have_account_clickable);
         //setting onClickListener for have account clickable
@@ -120,9 +126,10 @@ public class MeepleMain extends AppCompatActivity {
 
                                 // Get new user, set Username, signOut
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                updateUsername(user, username);
-                                mAuth.signOut();
 
+                                User userObject = new User(user.getDisplayName(), user.getEmail());
+                                mDatabaseReference.child("users").child(user.getUid()).setValue(userObject);
+                                mAuth.signOut();
                                 // Change to Login screen
                                 // TODO: create a private intent function to change activities
                                 Intent toLoginActivity = new Intent(mContext, LoginActivity.class);

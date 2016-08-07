@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jaineek.meeplemain.fragments.ChatFragment;
 import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
 import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
@@ -186,6 +187,7 @@ public class FeedActivity extends AppCompatActivity implements
         mFragmentList.add(new LocalFeedFragment());
         mFragmentList.add(new MyPostsFragment());
         mFragmentList.add(new MyMapFragment());
+        mFragmentList.add(new ChatFragment());
 
         // Add to FragmentManager
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

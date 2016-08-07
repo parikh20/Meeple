@@ -71,9 +71,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ViewPostActivity"
-            android:label="@string/view_post_title">
-        </activity>
+        <activity
+            android:name=".ViewPostActivity"
+            android:label="@string/view_post_title" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".NewChatActivity"></activity>
     </application>
 
 </manifest>
