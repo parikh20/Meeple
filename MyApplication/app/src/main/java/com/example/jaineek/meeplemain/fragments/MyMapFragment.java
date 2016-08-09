@@ -224,18 +224,21 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
     *       fragment
     */
 
+    @Override
     public void onResume() {
         // Must be forwarded
         super.onResume();
         mMapView.onResume();
     }
 
+    @Override
     public void onDestroy() {
         // Must be forwarded
         super.onDestroy();
         mMapView.onDestroy();
     }
 
+    @Override
     public void onLowMemory() {
         // Must be forwarded
         super.onLowMemory();
