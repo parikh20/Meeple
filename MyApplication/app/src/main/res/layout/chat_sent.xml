@@ -4,9 +4,10 @@
     android:layout_height="wrap_content" >
 
     <LinearLayout
-        android:id="@+id/singleMessageContainer"
+        android:id="@+id/chat_message_container"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:gravity="right">
 
         <TextView
             android:id="@+id/chat_message_textView"
@@ -14,8 +15,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dip"
-            android:background="@drawable/patch"
-            android:paddingLeft="10dip"
+            android:background="@drawable/ic_message_sender"
+            android:paddingLeft="@dimen/chat_message_padding"
+            android:paddingRight="@dimen/chat_message_padding"
+            android:textSize="@dimen/text_size_chat_message"
             android:text="Hello bubbles!"
             android:textColor="@android:color/white" />
     </LinearLayout>

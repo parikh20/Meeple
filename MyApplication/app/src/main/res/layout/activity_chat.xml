@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/very_small_between_padding"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:paddingRight="@dimen/activity_horizontal_margin" >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/chat_recyclerView_padding">
     </android.support.v7.widget.RecyclerView>
 
     <LinearLayout

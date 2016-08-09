@@ -89,6 +89,10 @@ public class ChatActivity extends AppCompatActivity {
 
                 //Clearing the 'Send a Message' edit text
                 mEditTextMessage.setText("");
+                // Scroll to last Position
+                mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount());
+
+
             }
         });
 
