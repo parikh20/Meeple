@@ -29,25 +29,16 @@ import com.example.jaineek.meeplemain.fragments.LocalFeedFragment;
 import com.example.jaineek.meeplemain.fragments.MyMapFragment;
 import com.example.jaineek.meeplemain.fragments.MeepleFragment;
 import com.example.jaineek.meeplemain.fragments.MyPostsFragment;
-import com.example.jaineek.meeplemain.model.Post;
+
 import com.firebase.geofire.GeoFire;
-import com.firebase.geofire.GeoLocation;
-import com.firebase.geofire.GeoQuery;
-import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity implements

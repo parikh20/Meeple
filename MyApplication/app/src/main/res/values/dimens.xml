@@ -40,7 +40,7 @@
 
     <!-- Chats -->
     <dimen name="chat_message_padding">10dp</dimen>
-    <dimen name="chat_recyclerView_padding">50dp</dimen>
+    <dimen name="chat_recyclerView_padding">67dp</dimen>
 
 
 </resources>

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.jaineek.meeplemain.FeedActivity;
-import com.example.jaineek.meeplemain.Manifest;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.ViewPostActivity;
 import com.example.jaineek.meeplemain.adapters_and_holders.MeepleInfoWindowAdapter;
@@ -22,7 +21,6 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
-import com.google.android.gms.fitness.data.Value;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;

@@ -10,13 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.adapters_and_holders.FirebaseRecyclerAdapter;
-import com.example.jaineek.meeplemain.adapters_and_holders.PostRecyclerAdapter;
 import com.example.jaineek.meeplemain.adapters_and_holders.PostViewHolder;
 import com.example.jaineek.meeplemain.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +38,6 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
 
     private RecyclerView mMyPostsRecyclerView;
     private FloatingActionButton mNewPostFAB;
-    private List<Post> mMyPosts = new ArrayList<>();
 
     // Declaring Firebase variables
     private DatabaseReference mPostsReference;
@@ -63,7 +60,6 @@ public class MyPostsFragment extends Fragment implements MeepleFragment {
         mPostsReference = FirebaseDatabase.getInstance()
                 .getReference(FeedActivity.PATH_TO_POSTS);
         mMyPostsRecyclerView = (RecyclerView) v.findViewById(R.id.my_posts_recyclerView);
-        mMyPosts = findMyPosts();
 
         setUpRecyclerViewAndAdapter();
 

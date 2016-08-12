@@ -7,7 +7,9 @@
         android:id="@+id/chat_message_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="right">
+        android:gravity="right"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/chat_message_textView"

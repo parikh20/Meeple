@@ -16,7 +16,6 @@ package com.example.jaineek.meeplemain.adapters_and_holders;
 
 import android.util.Log;
 
-import com.example.jaineek.meeplemain.FeedActivity;
 import com.example.jaineek.meeplemain.model.Post;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;

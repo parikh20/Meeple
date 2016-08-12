@@ -1,17 +1,11 @@
 package com.example.jaineek.meeplemain.adapters_and_holders;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.jaineek.meeplemain.R;
-import com.example.jaineek.meeplemain.ViewPostActivity;
 import com.example.jaineek.meeplemain.model.Chat;
-import com.example.jaineek.meeplemain.model.Post;
-
-import java.text.SimpleDateFormat;
 
 /**
  * Created by Krishnak97 on 8/8/2016.

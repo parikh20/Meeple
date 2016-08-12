@@ -60,14 +60,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         mPost = post;
 
         mPostTitle.setText(mPost.eventTitle);
-        if (mPost.eventDate != null) {
-            mPostDate.setText(mSimpleDateFormat.format(mPost.eventDate));
-        }
-        if (mPost.eventLocation != null) {
-            mPostLocation.setText(mPost.eventLocation.toString());
-        }
-        if (mPost.eventDesc != null) {
-            mPostDescription.setText(mPost.eventDesc);
-        }
+        mPostDate.setText(mSimpleDateFormat.format(mPost.eventDate));
+        mPostLocation.setText(mPost.eventLocation.toString());
+        mPostDescription.setText(mPost.eventDesc);
     }
 }
