@@ -43,6 +43,7 @@ public class NewChatActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
         mAutoCompleteTextView.setAdapter(autoCompleteSuggestions);
     }
 }

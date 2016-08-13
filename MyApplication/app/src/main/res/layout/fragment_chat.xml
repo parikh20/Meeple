@@ -1,9 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.jaineek.meeplemain.fragments.ChatFragment">
+
+<android.support.design.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chats_recyclerView"
@@ -12,4 +13,16 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_chats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_layout_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white_48dp"
+        app:rippleColor="@color/colorPrimaryLight"
+        app:fabSize="normal"
+        app:layout_anchor="@id/chats_recyclerView"
+        app:layout_anchorGravity="bottom|right" />
+
+</android.support.design.widget.CoordinatorLayout>

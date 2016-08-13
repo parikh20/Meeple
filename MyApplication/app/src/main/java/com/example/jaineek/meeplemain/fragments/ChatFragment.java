@@ -1,6 +1,8 @@
 package com.example.jaineek.meeplemain.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.jaineek.meeplemain.ChatActivity;
+import com.example.jaineek.meeplemain.NewChatActivity;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.adapters_and_holders.ChatInfoViewHolder;
 import com.example.jaineek.meeplemain.adapters_and_holders.FirebaseRecyclerAdapter;
@@ -30,7 +33,7 @@ public class ChatFragment extends Fragment implements MeepleFragment{
     private RecyclerView mChatsRecyclerView;
 
     private String mUserUID;
-    private Button button;
+    private FloatingActionButton chatFAB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,18 @@ public class ChatFragment extends Fragment implements MeepleFragment{
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
 
         mChatsRecyclerView = (RecyclerView) v.findViewById(R.id.chats_recyclerView);
-
         setUpRecyclerViewAndAdapter();
+
+        chatFAB = (FloatingActionButton) v.findViewById(R.id.fab_chats);
+        // OnClickListener to launch NewChatActivity
+        chatFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start NewChatActivity
+                Intent intent = new Intent(view.getContext(), NewChatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return v;
     }
