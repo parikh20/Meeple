@@ -42,11 +42,7 @@
             android:name=".LoginActivity"
             android:configChanges="orientation|screenLayout"
             android:label="@string/login_title">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -75,7 +71,16 @@
             android:name=".ViewPostActivity"
             android:label="@string/view_post_title" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".NewChatActivity"></activity>
+        <activity android:name=".NewChatActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
