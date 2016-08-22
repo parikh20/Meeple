@@ -144,18 +144,6 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
         });
     }
 
-//    private List<Post> findLocalPosts() {
-//        // Returns List<Post> close to user locaton
-//        // TODO: implement actual GPS tracking
-//        List<Post> testPosts = new ArrayList<>();
-//        for(int i = 0; i < 30; i++) {
-//            Post post = new Post();
-//            post.eventDesc = "Local Post " + i;
-//            testPosts.add(post);
-//        }
-//
-//        return testPosts;
-//    }
 
     /* MEEPLE FRAGMENT METHODS */
 

@@ -25,26 +25,21 @@ public class SplashActivity extends AppCompatActivity {
             setContentView(R.layout.activity_splash);
         }
 
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//                startActivity(intent);
-//            }
-//        },3000);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-
+        //Execute Async Task
         new BackgroundSplash().execute();
     }
 
     private class BackgroundSplash extends AsyncTask<Void, Void, Void> {
         Intent intent;
+
+        //Creates an Intent for Login Activity on the UI thread before Async Task is executed
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             intent = new Intent(SplashActivity.this, LoginActivity.class);
         }
 
+        //Putting thread to sleep for 3 seconds in the background thread
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -56,6 +51,7 @@ public class SplashActivity extends AppCompatActivity {
             return null;
         }
 
+        //Go to LoginActivity once everything has finished
         @Override
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
