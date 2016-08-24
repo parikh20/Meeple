@@ -227,6 +227,21 @@ public class MyMapFragment extends Fragment implements MeepleFragment,
         // Must be forwarded
         super.onResume();
         mMapView.onResume();
+
+        //New runnable for faster loading of the map
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapView mapView = new MapView(getContext());
+                    mapView.onCreate(null);
+                    mapView.onPause();
+                    mapView.onDestroy();
+                }catch (Exception ignored){
+
+                }
+            }
+        }).start();
     }
 
     @Override

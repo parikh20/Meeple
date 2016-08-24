@@ -20,17 +20,15 @@
             android:key="key_change_username"
             android:summary="@string/change_username_desc" />
 
-        <EditTextPreference
+        <Preference
             android:title="@string/option_change_password"
             android:key="key_change_password"
             android:summary="@string/change_password_desc" />
 
         <CheckBoxPreference
-            android:title="Thame"
+            android:title="@string/theme_title"
             android:key="key_change_theme"
-            android:summary="Swatch ur thame"
-            android:defaultValue="false"/>
+            android:summary="@string/settings_theme_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
-
-
 </PreferenceScreen>

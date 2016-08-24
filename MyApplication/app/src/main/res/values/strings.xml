@@ -91,5 +91,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="send_a_message">Send a message</string>
     <string name="send_button_title">SEND</string>
+    <string name="theme_title">Theme</string>
+    <string name="settings_theme_summary">Change Your Theme</string>
 
 </resources>
