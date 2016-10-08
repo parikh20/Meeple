@@ -80,4 +80,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/login_test_button" />
+
+    <ProgressBar
+        android:id="@+id/login_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_between_padding"
+        android:visibility="gone" />
 </LinearLayout>
