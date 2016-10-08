@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.firebase.client.Firebase;
-//import com.firebase.client.core.Context;
 import com.example.jaineek.meeplemain.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

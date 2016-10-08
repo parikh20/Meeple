@@ -20,7 +20,7 @@ public class SettingsActivity extends PreferenceActivity {
     private FirebaseUser mUser;
 
     private EditTextPreference editTextEmail;
-    private EditTextPreference editTextPassword;
+    private Preference preferencePassword;
     private EditTextPreference editTextUsername;
     private EditTextPreference editTextRadius;
     private CheckBoxPreference checkboxPreferenceTheme;
@@ -28,7 +28,6 @@ public class SettingsActivity extends PreferenceActivity {
 
     private double radius;
     private String email;
-    private String password;
     private String username;
     private String theme = "key_change_theme";
 
@@ -105,30 +104,15 @@ public class SettingsActivity extends PreferenceActivity {
 
         //On Change listener for changing password EditText
         // TODO: Setup password authentication and pop up confirmation window
-        editTextPassword = (EditTextPreference) findPreference("key_change_password");
-        editTextPassword.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        preferencePassword = findPreference("key_change_password");
+        preferencePassword.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, final Object newValue) {
-                //Set alert dialogue for confirmation
-                new AlertDialog.Builder(SettingsActivity.this)
-                        .setTitle("Confirm password change")
-                        .setMessage("Are you sure you want to change your password?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Change password if user clicks ok
-                                password = newValue.toString();
-                                mUser.updatePassword(password);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+            public boolean onPreferenceClick(Preference preference) {
+                mAuth.sendPasswordResetEmail(mAuth.getCurrentUser().getEmail());
+                Toast.makeText(SettingsActivity.this, "Password recovery email sent", Toast.LENGTH_SHORT).show();
                 return true;
             }
+
         });
 
         // On change Listener for changing username EditText
