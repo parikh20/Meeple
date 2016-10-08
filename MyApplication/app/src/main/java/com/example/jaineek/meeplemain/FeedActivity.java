@@ -87,11 +87,11 @@ public class FeedActivity extends AppCompatActivity implements
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
         mContext = FeedActivity.this;
 
-        /* LOCATIONS AND GEOFIRE*/
-
+        /* LOCATION SERVICES */
+        Intent fromLoginActivity = getIntent();
+        mLastLocation = fromLoginActivity.getParcelableExtra(LoginActivity.KEY_EXTRA_LOCATION_LOGIN);
         setupGoogleLocationServices();
 
         /* FRAGMENTS AND TABS */
@@ -103,9 +103,9 @@ public class FeedActivity extends AppCompatActivity implements
         mViewPager = (ViewPager) findViewById(R.id.viewPager_activity_feed);
         MeepleFragmentPagerAdapter pagerAdapter = new MeepleFragmentPagerAdapter(fm);
         mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setOffscreenPageLimit(5);
 
         setupViewPagerListener();
-
         setupTabsAndTitles();
     }
 
@@ -281,10 +281,10 @@ public class FeedActivity extends AppCompatActivity implements
             // Set the last location
             try {
                 Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-//                if (lastLocation != null) {
-//                    // Use the last location in some way
+                if (lastLocation != null) {
+                    // Use the last location in some way
                     mLastLocation = lastLocation;
-//                }
+                }
             } catch (SecurityException e) {
                 // Indicate that location services are not allowed at this time
                 Toast.makeText(FeedActivity.this, getString(R.string.error_location_not_supported),

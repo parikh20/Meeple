@@ -76,6 +76,7 @@
     <string name="error_login_unsuccessful">Username or password is incorrect</string>
     <string name="error_password_too_short">The password must be at least 6 characters long!</string>
     <string name="error_location_not_supported">Your device does not support location services at this time.</string>
+    <string name="error_please_enable_locations">Please enable location services on your device</string>
     <string name="error_date_not_valid">Please enter a valid date</string>
 
     <!-- Other -->
@@ -93,5 +94,6 @@
     <string name="send_button_title">SEND</string>
     <string name="theme_title">Theme</string>
     <string name="settings_theme_summary">Change Your Theme</string>
+
 
 </resources>

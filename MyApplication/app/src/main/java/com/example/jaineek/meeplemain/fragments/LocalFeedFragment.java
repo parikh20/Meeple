@@ -11,8 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jaineek.meeplemain.FeedActivity;
+import com.example.jaineek.meeplemain.LoginActivity;
 import com.example.jaineek.meeplemain.NewPostActivity;
 import com.example.jaineek.meeplemain.R;
 import com.example.jaineek.meeplemain.adapters_and_holders.GeoFireRecyclerAdapter;
@@ -104,8 +106,12 @@ public class LocalFeedFragment extends Fragment implements MeepleFragment {
             center = new GeoLocation(lastLocation.getLatitude(),
                     lastLocation.getLongitude());
         } else {
-            // Use a default location
-            center = new GeoLocation(33, -111);
+//            // Use a default location: Antarctica
+            center = new GeoLocation(-90, 0);
+
+            // Notify the user to enable location settings
+            Toast.makeText(this.getContext(), getString(R.string.error_please_enable_locations),
+                    Toast.LENGTH_LONG).show();
         }
 
         GeoQuery geoQuery = mGeoFire.queryAtLocation(center, queryRadius);

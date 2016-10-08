@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,10 +44,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class LoginActivity extends AppCompatActivity implements
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     public static final String TAG = "LoginActivity";
+    public static final String KEY_EXTRA_LOCATION_LOGIN
+            = "com.example.jaineek.meeplemain.extra_tag_location_login";
 
     private TextView mDontHaveAccountClickable;
     private TextView mForgotPasswordClickable;
@@ -58,6 +62,12 @@ public class LoginActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+
+
+    // Location variables
+    Location mLastLocation;
+    private GoogleApiClient mGoogleApiClientLocation;
+
 
     //TODO: remove test button once done
     private Button mTestButton;
@@ -178,6 +188,10 @@ public class LoginActivity extends AppCompatActivity implements
             }
         });
 
+        // Setup User location services
+        setupGoogleLocationServices();
+
+        // Constantly update the database with each login
         purgeDatabaseOfOldPosts();
 
     }
@@ -280,15 +294,6 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void loginToFeedActivity() {
-        // If successful login, go to FeedActivity
-        Intent changeToFeedActivity = new Intent(LoginActivity.this,
-                FeedActivity.class);
-        startActivity(changeToFeedActivity);
-        finish();
-
-    }
-
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -337,6 +342,17 @@ public class LoginActivity extends AppCompatActivity implements
                     }
                 });
     }
+
+    private void loginToFeedActivity() {
+        // If successful login, go to FeedActivity
+        Intent changeToFeedActivity = new Intent(LoginActivity.this,
+                FeedActivity.class);
+        // Send the user location to FeedActivity
+        changeToFeedActivity.putExtra(KEY_EXTRA_LOCATION_LOGIN, mLastLocation);
+        startActivity(changeToFeedActivity);
+        finish();
+
+    }
     private void setUsernameAlertDialog() {
         if (mAuth.getCurrentUser().getDisplayName() == null) {
             new AlertDialog.Builder(LoginActivity.this)
@@ -361,6 +377,65 @@ public class LoginActivity extends AppCompatActivity implements
     protected void onRestart() {
         super.onRestart();
         recreate();
+    }
+
+    // Location Services
+    private void setupGoogleLocationServices() {
+        if (mGoogleApiClientLocation == null) {
+            mGoogleApiClientLocation = new GoogleApiClient.Builder(LoginActivity.this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
+        // Set the last location
+        try {
+            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClientLocation);
+                if (lastLocation != null) {
+                    // Use the last location in some way
+                    mLastLocation = lastLocation;
+                }
+        } catch (SecurityException e) {
+            // Indicate that location services are not allowed at this time
+            Toast.makeText(LoginActivity.this, getString(R.string.error_location_not_supported),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        try {
+            Location lastLocation = LocationServices.FusedLocationApi
+                    .getLastLocation(mGoogleApiClientLocation);
+            if (lastLocation != null) {
+                // Use the last location in some way
+                mLastLocation = lastLocation;
+            }
+        } catch (SecurityException e) {
+            // Indicate that location services are not allowed at this time
+            Toast.makeText(LoginActivity.this, getString(R.string.error_location_not_supported),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int connectionStuff) {
+        // Left blank
+    }
+
+    @Override
+    protected void onStart() {
+        // Connect to location services
+        super.onStart();
+        mGoogleApiClientLocation.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        // Disconnect to location services
+        super.onStop();
+        mGoogleApiClientLocation.disconnect();
     }
 
 //    @Override
