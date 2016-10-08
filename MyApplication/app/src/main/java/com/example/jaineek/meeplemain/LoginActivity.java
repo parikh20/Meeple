@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements
     private SignInButton mGoogleSignInButton;
     private EditText mEmailAddress;
     private EditText mPassword;
+    private ProgressBar mProgressBar;
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
     private SharedPreferences mSharedPreferences;
@@ -99,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements
         };
         mAuth.addAuthStateListener(mAuthListener);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.login_progress_bar);
         mDontHaveAccountClickable = (TextView) findViewById(R.id.login_dont_have_account_clickable);
 
         // Setting onClickListener for create new account clickable
@@ -169,7 +172,8 @@ public class LoginActivity extends AppCompatActivity implements
         mTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signInWithEmailAndPassword("jaineekparikh@yahoo.com", "password");
+                mAuth.signInWithEmailAndPassword("test1@yahoo.com", "test1234");
+                mProgressBar.setVisibility(View.VISIBLE);
                 loginToFeedActivity();
             }
         });
