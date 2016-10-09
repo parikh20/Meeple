@@ -22,6 +22,8 @@ Meeple scrapes your geographic location and lists all the events (posted by othe
 Selecting the map markers pulls up a summary of each post, and clicking on each summary will bring users to the event's page. On the event page, eventgoers will see more information (the date, time, location, etc.), can RSVP, and can easily find directions from their current location!
 
   ![Alt text](screenshots/resized/map2.png?raw=true) ![Alt text](screenshots/resized/viewPost1.png?raw=true)
+  
+Lastly, Meeple users can access a Settings menu to change their event-scraping radius and account information.
 
 ## Upcoming Features
 
