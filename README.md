@@ -1,8 +1,6 @@
 # Meeple
 Contributors: Ananth Kuchibhotla, Jaineek Parikh
 
-NOTE: This project is still in progress. Keep checking for updates!
-
 ## About
 Meeple is an Android application about connecting to and interacting with your local community. Users can freely post events or meet-ups, which can be seen by all other users within a certain geographic range. We created Meeple initially to provide an efficient and interesting user interface to our friend group's activities. 
 
