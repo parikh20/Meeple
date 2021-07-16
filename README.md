@@ -25,16 +25,6 @@ Selecting the map markers pulls up a summary of each post, and clicking on each 
   
 Lastly, Meeple users can access a Settings menu to change their event-scraping radius and account information.
 
-## Upcoming Features
-
-1. **Groups** - Each post will now be associated with a group: Public or a named Private group. Users will be able to create groups, add  other user's to it, and request to join groups. When finding events for a particular user, Meeple will display posts only of that user's groups and Public posts. This will make event hosting more personal and efficient for each user, eliminating the hassle of looking through all the local posts for interesting events.
-
-2. **Comments** - Users will be able to leave comments on event pages, allowing for discussion between eventgoers. This will make it easier to connect with other attendees and allow event-hosters to make mass anouncements.
-
-3. **Autologin** - We are working on saving encrypted user information to prevent the user from having to login each time he/she opens Meeple.
-
-4. **Chat** - We are implementing a chatting interface between users using Google Firebase's cloud-based notification system. Users will be able to private message other users and eventgoers.  However, this feature is still tentative and in development. 
-
 
 
 
