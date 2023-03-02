@@ -1,0 +1,60 @@
+{
+  "name": "jb2a_patreon",
+  "id": "jb2a_patreon",
+  "title": "JB2A - Patreon Complete Collection",
+  "description": "<p>Animated Assets for spells, tiles, tokens, melee and ranged attacks</p><p>Troubleshooting and FAQ section on our <a href=\"https://jb2a.com\">website</a> </p><p>Join our <a href=\"https://discord.gg/gmd8MAPX4m\">Discord server</a> for any further questions</p><p> <a href=\"https://www.jb2a.com/Library_Preview/\">Preview</a> our assets<br /></p><p>Thank you for the support ! ❤️</p>",
+  "author": "Gazkhan#8192 and Wassily#8035",
+  "authors": [
+    {
+      "name": "Jules",
+      "url": "https://www.patreon.com/JB2A",
+      "discord": "Gazkhan#8192"
+    },
+    {
+      "name": "Ben",
+      "url": "https://www.patreon.com/JB2A",
+      "discord": "Wassily#8035"
+    }
+  ],
+  "url": "https://www.patreon.com/JB2A",
+  "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "flags": {},
+  "version": "0.5.5",
+  "minimumCoreVersion": "0.8.0",
+  "compatibleCoreVersion": "10",
+  "compatibility": {
+    "minimum": 8,
+    "verified": 10.291
+  },
+  "esmodules": [
+    "./scripts/jb2a.js"
+  ],
+  "styles": [],
+  "languages": [],
+  "packs": [
+    {
+      "type": "Macro",
+      "label": "JB2A Sequencer Macros",
+      "name": "jb2a-sequencer",
+      "path": "./packs/jb2a-sequencer.db",
+      "module": "jb2a_patreon",
+      "private": false
+    },
+    {
+      "type": "Actor",
+      "label": "JB2A DnD5e Actors",
+      "name": "jb2a-actors",
+      "system": "dnd5e",
+      "path": "./packs/jb2a-actors.db",
+      "module": "jb2a_patreon",
+      "private": false
+    }
+  ],
+  "relationships": {},
+  "socket": false,
+  "manifest": "https://www.dropbox.com/s/yccu2q8pr3gjvgx/module.json?dl=1",
+  "download": "https://www.dropbox.com/s/qg1ezahdbhoxyve/jb2a_patreon_0.5.5_yeza.zip?dl=1",
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
+}
